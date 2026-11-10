@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Logging;
 using QuestPDF.Fluent;
-using QuestPDF.Infrastructure;
 using ResumeBuilder.Core.Abstractions;
 using ResumeBuilder.Core.Localization;
 using ResumeBuilder.Core.Models;
@@ -14,12 +13,6 @@ namespace ResumeBuilder.Infrastructure.Pdf;
 /// </summary>
 public sealed class PdfResumeExporter(IQrCodeGenerator qr, ILocalizer localizer, ILogger<PdfResumeExporter> logger) : IResumeExporter
 {
-    static PdfResumeExporter()
-    {
-        // QuestPDF требует явно указать лицензию. Community — бесплатна для учебных проектов.
-        QuestPDF.Settings.License = LicenseType.Community;
-    }
-
     /// <inheritdoc />
     public string FormatName => "PDF";
 
@@ -32,6 +25,7 @@ public sealed class PdfResumeExporter(IQrCodeGenerator qr, ILocalizer localizer,
         using var op = OperationTimer.Start(logger, "ExportPdf");
         try
         {
+            QuestPdfSetup.EnsureConfigured();
             byte[]? qrPng = null;
             if (options.IncludeQrCode)
             {

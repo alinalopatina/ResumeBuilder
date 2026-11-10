@@ -172,13 +172,12 @@ public sealed class WordReportRenderer : IReportRenderer
 /// <summary>Сводный отчёт → PDF (QuestPDF). Готов к печати.</summary>
 public sealed class PdfReportRenderer : IReportRenderer
 {
-    static PdfReportRenderer() => QuestPDF.Settings.License = LicenseType.Community;
-
     public string FormatName => "PDF";
     public string FileExtension => ".pdf";
 
     public void Render(ReportDocument report, Stream output)
     {
+        QuestPdfSetup.EnsureConfigured();
         var culture = CultureInfo.GetCultureInfo(report.CultureName);
         QuestPDF.Fluent.Document.Create(container => container.Page(page =>
         {

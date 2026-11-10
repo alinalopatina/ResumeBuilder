@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="clr-namespace:ResumeBuilder.Wpf.Services"
         xmlns:vm="clr-namespace:ResumeBuilder.Wpf.ViewModels"
-        xmlns:val="clr-namespace:ResumeBuilder.Core.Validation;assembly=ResumeBuilder.Core"
         Title="{Binding WindowTitle}"
         Icon="Resources/app.ico"
         Width="1200" Height="780" MinWidth="900" MinHeight="600"
@@ -318,7 +317,7 @@
                             <Button Style="{StaticResource ToolButton}" HorizontalAlignment="Left" Content="{loc:Tr Menu_Validate}" Command="{Binding ValidateCommand}" />
                             <ItemsControl ItemsSource="{Binding ValidationIssues}" Margin="0,6,0,0">
                                 <ItemsControl.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type val:ValidationIssue}">
+                                    <DataTemplate>
                                         <Border Margin="0,2" Padding="6,4" CornerRadius="3" Background="#FFF3F3">
                                             <StackPanel>
                                                 <TextBlock x:Name="Msg" Text="{Binding Message}" TextWrapping="Wrap" Foreground="{StaticResource ErrorBrush}" />
@@ -326,7 +325,7 @@
                                             </StackPanel>
                                         </Border>
                                         <DataTemplate.Triggers>
-                                            <DataTrigger Binding="{Binding Severity}" Value="{x:Static val:ValidationSeverity.Warning}">
+                                            <DataTrigger Binding="{Binding Severity}" Value="Warning">
                                                 <Setter TargetName="Msg" Property="Foreground" Value="{StaticResource WarningBrush}" />
                                             </DataTrigger>
                                         </DataTemplate.Triggers>

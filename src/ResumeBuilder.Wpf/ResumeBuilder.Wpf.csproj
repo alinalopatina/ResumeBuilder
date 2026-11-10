@@ -25,4 +25,16 @@
     <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <!--
+    QuestPDF не поддерживает Windows ARM64 (нет нативной библиотеки win-arm64).
+    Если сборка идёт на ARM64 (например, Windows в UTM/Parallels на Mac с Apple Silicon),
+    приложение собирается как x64 — Windows 11 на ARM запускает его через эмуляцию.
+    На обычных x64-компьютерах, в CI и в Docker это условие не срабатывает.
+  -->
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT' And '$(PROCESSOR_ARCHITECTURE)' == 'ARM64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+
 </Project>
