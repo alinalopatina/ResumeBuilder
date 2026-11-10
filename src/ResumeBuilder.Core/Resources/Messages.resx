@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Column_Company" xml:space="preserve">
+    <value>Компания</value>
+  </data>
+  <data name="Column_Description" xml:space="preserve">
+    <value>Обязанности</value>
+  </data>
+  <data name="Column_End" xml:space="preserve">
+    <value>Окончание</value>
+  </data>
+  <data name="Column_Months" xml:space="preserve">
+    <value>Месяцев</value>
+  </data>
+  <data name="Column_Position" xml:space="preserve">
+    <value>Должность</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Error_Age" xml:space="preserve">
+    <value>Возраст должен быть от 14 до 100 лет</value>
+  </data>
+  <data name="Error_CompanyRequired" xml:space="preserve">
+    <value>Не указано название компании</value>
+  </data>
+  <data name="Error_EmailFormat" xml:space="preserve">
+    <value>Неверный формат e-mail</value>
+  </data>
+  <data name="Error_EmailRequired" xml:space="preserve">
+    <value>Укажите e-mail</value>
+  </data>
+  <data name="Error_EndBeforeStart" xml:space="preserve">
+    <value>«{0}»: дата окончания раньше даты начала</value>
+  </data>
+  <data name="Error_FullNameLength" xml:space="preserve">
+    <value>ФИО должно быть от 2 до 100 символов</value>
+  </data>
+  <data name="Error_FullNameRequired" xml:space="preserve">
+    <value>Укажите ФИО</value>
+  </data>
+  <data name="Error_InstitutionRequired" xml:space="preserve">
+    <value>Не указано учебное заведение</value>
+  </data>
+  <data name="Error_NoExperience" xml:space="preserve">
+    <value>Добавьте хотя бы одно место работы или учёбы</value>
+  </data>
+  <data name="Error_PhoneFormat" xml:space="preserve">
+    <value>Телефон должен быть в формате +375 (29) 123-45-67</value>
+  </data>
+  <data name="Error_PositionRequired" xml:space="preserve">
+    <value>Укажите желаемую должность</value>
+  </data>
+  <data name="Error_SkillLevel" xml:space="preserve">
+    <value>Уровень навыка — от 1 до 5</value>
+  </data>
+  <data name="Error_SkillNameRequired" xml:space="preserve">
+    <value>Не указано название навыка</value>
+  </data>
+  <data name="Error_StartInFuture" xml:space="preserve">
+    <value>«{0}»: дата начала в будущем</value>
+  </data>
+  <data name="Error_UrlFormat" xml:space="preserve">
+    <value>Ссылка должна начинаться с http:// или https://</value>
+  </data>
+  <data name="Field_City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="Field_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Field_Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Field_Website" xml:space="preserve">
+    <value>Сайт</value>
+  </data>
+  <data name="Import_BadDate" xml:space="preserve">
+    <value>Строка {0}: неверная дата «{1}»</value>
+  </data>
+  <data name="Import_BadRow" xml:space="preserve">
+    <value>Строка {0}: не заполнена</value>
+  </data>
+  <data name="Import_TableNotFound" xml:space="preserve">
+    <value>В документе не найдена таблица опыта работы</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>н.в.</value>
+  </data>
+  <data name="QrCaption" xml:space="preserve">
+    <value>Отсканируйте QR-код, чтобы сохранить контакт</value>
+  </data>
+  <data name="Report_AverageMonths" xml:space="preserve">
+    <value>Средняя длительность работы, мес.</value>
+  </data>
+  <data name="Report_AverageSkill" xml:space="preserve">
+    <value>Средний уровень навыков</value>
+  </data>
+  <data name="Report_BestSkill" xml:space="preserve">
+    <value>Лучший навык</value>
+  </data>
+  <data name="Report_JobsCount" xml:space="preserve">
+    <value>Количество мест работы</value>
+  </data>
+  <data name="Report_Sheet" xml:space="preserve">
+    <value>Отчёт</value>
+  </data>
+  <data name="Report_SkillsCount" xml:space="preserve">
+    <value>Количество навыков</value>
+  </data>
+  <data name="Report_Title" xml:space="preserve">
+    <value>Сводный отчёт по резюме</value>
+  </data>
+  <data name="Report_TotalMonths" xml:space="preserve">
+    <value>Общий стаж, мес.</value>
+  </data>
+  <data name="Section_About" xml:space="preserve">
+    <value>О себе</value>
+  </data>
+  <data name="Section_Education" xml:space="preserve">
+    <value>Образование</value>
+  </data>
+  <data name="Section_Experience" xml:space="preserve">
+    <value>Опыт работы</value>
+  </data>
+  <data name="Section_Skills" xml:space="preserve">
+    <value>Навыки</value>
+  </data>
+</root>

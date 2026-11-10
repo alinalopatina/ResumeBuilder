@@ -1,123 +1,66 @@
 using System.Globalization;
-using ResumeBuilder.Core.Builder;
-using ResumeBuilder.Core.Localization;
 using ResumeBuilder.Core.Models;
+using ResumeBuilder.Core.Resources;
 using ResumeBuilder.Core.Validation;
+using Xunit;
 
 namespace ResumeBuilder.Tests;
 
-/// <summary>Валидация: ручные проверки (модуль 1), DataAnnotations (модуль 2), отчёт (модуль 4.3).</summary>
 public class ValidationTests
 {
-    private static readonly DateTime Today = new(2026, 11, 10);
-    private readonly ILocalizer _loc = new ResxLocalizer(CultureInfo.GetCultureInfo("ru-RU"));
-
-    private ManualResumeValidator Manual => new(_loc, () => Today);
-    private AnnotationResumeValidator Annotations => new(_loc);
-
-    [Fact]
-    public void SampleResume_HasNoErrors()
+    public ValidationTests()
     {
-        var resume = SampleData.CreateSampleResume();
-        var report = new CompositeResumeValidator(Annotations, Manual).Validate(resume);
-        Assert.False(report.HasErrors, report.ToString());
+        Messages.Culture = new CultureInfo("ru-RU");
     }
 
     [Fact]
-    public void Manual_EmptyResume_ReportsRequiredFields()
+    public void SampleResume_IsValid()
     {
-        var report = Manual.Validate(new Resume());
-        Assert.Contains(report.Errors, i => i.Field == "Personal.FullName");
-        Assert.Contains(report.Errors, i => i.Field == "Personal.Email");
-        Assert.Contains(report.Errors, i => i.Field == "Experience");
+        Assert.Empty(ResumeValidator.Validate(Resume.CreateSample()));
     }
 
     [Fact]
-    public void Manual_EndBeforeStart_IsError()
+    public void EmptyResume_HasErrors()
     {
-        var resume = SampleData.CreateSampleResume();
-        resume.Experience[0].EndDate = resume.Experience[0].StartDate.AddMonths(-2);
-
-        var report = Manual.Validate(resume);
-
-        Assert.Contains(report.Errors, i => i.Field == "Experience[0].EndDate" && i.Message == _loc["Validation_EndBeforeStart"]);
+        List<string> errors = ResumeValidator.ValidateManual(new Resume());
+        Assert.Contains(Messages.Error_FullNameRequired, errors);
+        Assert.Contains(Messages.Error_EmailRequired, errors);
+        Assert.Contains(Messages.Error_NoExperience, errors);
     }
 
     [Fact]
-    public void Manual_DuplicateSkills_IsWarning()
+    public void EndDateBeforeStart_IsError()
     {
-        var resume = SampleData.CreateSampleResume();
-        resume.Skills.Add(new Skill { Name = "c#", Level = 2 });
-
-        var report = Manual.Validate(resume);
-
-        Assert.Contains(report.Warnings, i => i.Field == "Skills" && i.Message.Contains("c#", StringComparison.OrdinalIgnoreCase));
-        Assert.False(report.HasErrors);
+        Resume resume = Resume.CreateSample();
+        resume.Experience[0].EndDate = resume.Experience[0].StartDate.AddMonths(-1);
+        Assert.Contains(ResumeValidator.ValidateManual(resume), e => e.Contains("EPAM"));
     }
 
     [Fact]
-    public void Manual_EnsureValid_ThrowsWithReadableMessage()
+    public void Attributes_FindWrongEmailAndPhone()
     {
-        var ex = Assert.Throws<ResumeValidationException>(() => Manual.EnsureValid(new Resume()));
-        Assert.Contains(_loc["Validation_FullNameRequired"], ex.Message);
-    }
-
-    [Theory]
-    [InlineData("not-an-email", "Validation_EmailFormat")]
-    [InlineData("a@b", "Validation_EmailFormat")]
-    public void Annotations_InvalidEmail_LocalizedMessage(string email, string key)
-    {
-        var resume = SampleData.CreateSampleResume();
-        resume.Personal.Email = email;
-        var report = Annotations.Validate(resume);
-        Assert.Contains(report.Issues, i => i.Field == "Personal.Email" && i.Message == _loc[key]);
-    }
-
-    [Theory]
-    [InlineData("12-34")]
-    [InlineData("phone: abc")]
-    public void Annotations_InvalidPhone(string phone)
-    {
-        var resume = SampleData.CreateSampleResume();
-        resume.Personal.Phone = phone;
-        Assert.Contains(Annotations.Validate(resume).Issues, i => i.Field == "Personal.Phone");
+        Resume resume = Resume.CreateSample();
+        resume.Personal.Email = "not-email";
+        resume.Personal.Phone = "123";
+        List<string> errors = ResumeValidator.ValidateByAttributes(resume);
+        Assert.Contains(Messages.Error_EmailFormat, errors);
+        Assert.Contains(Messages.Error_PhoneFormat, errors);
     }
 
     [Fact]
-    public void Annotations_CustomAttributes_BirthDateAndName()
+    public void Attributes_SkillLevelOutOfRange()
     {
-        var resume = SampleData.CreateSampleResume();
-        resume.Personal.BirthDate = DateTime.Today.AddDays(1);
-        resume.Personal.FullName = "R2-D2 <script>";
-
-        var issues = Annotations.Validate(resume).Issues;
-
-        Assert.Contains(issues, i => i.Field == "Personal.BirthDate" && i.Message == _loc["Validation_BirthDateFuture"]);
-        Assert.Contains(issues, i => i.Field == "Personal.FullName" && i.Message == _loc["Validation_FullNameFormat"]);
+        Resume resume = Resume.CreateSample();
+        resume.Skills[0].Level = 10;
+        Assert.Contains(Messages.Error_SkillLevel, ResumeValidator.ValidateByAttributes(resume));
     }
 
     [Fact]
-    public void Annotations_SkillLevelOutOfRange()
+    public void Messages_AreTranslated()
     {
-        var resume = SampleData.CreateSampleResume();
-        resume.Skills[0].Level = 9;
-        Assert.Contains(Annotations.Validate(resume).Issues, i => i.Field == "Skills[0].Level");
-    }
-
-    [Fact]
-    public void Report_GroupsByField()
-    {
-        var report = Manual.Validate(new Resume());
-        var byField = report.ByField();
-        Assert.True(byField.ContainsKey("Personal.Email"));
-        Assert.All(byField, kv => Assert.All(kv.Value, i => Assert.Equal(kv.Key, i.Field)));
-    }
-
-    [Fact]
-    public void Messages_AreLocalized_ToEnglish()
-    {
-        var en = new ResxLocalizer(CultureInfo.GetCultureInfo("en-US"));
-        var report = new ManualResumeValidator(en, () => Today).Validate(new Resume());
-        Assert.Contains(report.Errors, i => i.Message == "Full name is required");
+        Messages.Culture = new CultureInfo("en-US");
+        Assert.Equal("Full name is required", Messages.Error_FullNameRequired);
+        Messages.Culture = new CultureInfo("ru-RU");
+        Assert.Equal("Укажите ФИО", Messages.Error_FullNameRequired);
     }
 }

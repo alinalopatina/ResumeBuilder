@@ -1,72 +1,52 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
-using System.Windows.Threading;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using ResumeBuilder.Core.Localization;
-using ResumeBuilder.Infrastructure;
-using ResumeBuilder.Infrastructure.Settings;
-using ResumeBuilder.Wpf.Services;
+using ResumeBuilder.Core.Resources;
+using ResumeBuilder.Core.Services;
 using ResumeBuilder.Wpf.ViewModels;
+using Serilog;
 
 namespace ResumeBuilder.Wpf;
 
-/// <summary>
-/// Точка входа WPF-приложения: собирает DI-контейнер, настраивает журнал и язык, показывает главное окно.
-/// </summary>
 public partial class App : Application
 {
-    private ServiceProvider? _services;
-    private ILogger<App>? _logger;
-
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+        LoggingSetup.Init();
 
-        var configuration = ServiceRegistration.BuildConfiguration();
-        var services = new ServiceCollection()
-            .AddResumeBuilder(configuration)
-            .AddSingleton<IDialogService, DialogService>()
-            .AddSingleton<PrintService>()
-            .AddSingleton<MainViewModel>()
-            .AddSingleton<MainWindow>();
-        _services = services.BuildServiceProvider();
-
-        _logger = _services.GetRequiredService<ILogger<App>>();
-        _logger.LogInformation("Приложение запущено. Версия {Version}", typeof(App).Assembly.GetName().Version);
-
-        // Глобальный перехват необработанных исключений — пишем в журнал вместо «тихого» падения
-        DispatcherUnhandledException += OnUnhandledException;
-
-        // Язык интерфейса: из сохранённых настроек пользователя
-        var settings = _services.GetRequiredService<AppSettingsStore>().Load();
-        var culture = CultureInfo.GetCultureInfo(settings.UiCulture);
+        // Язык интерфейса берём из сохранённых настроек
+        AppSettings settings = AppSettings.Load();
+        var culture = new CultureInfo(settings.Language);
         CultureInfo.DefaultThreadCurrentCulture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
-        LocalizationManager.Instance.Attach(_services.GetRequiredService<ILocalizer>());
-        LocalizationManager.Instance.SetCulture(culture);
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
+        ResumeBuilder.Wpf.Properties.Resources.Culture = culture;
+        Messages.Culture = culture;
 
-        // WPF по умолчанию форматирует числа/даты в привязках как en-US — переключаем на культуру пользователя
+        // Чтобы даты в DatePicker отображались в формате выбранного языка
         FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
             new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
 
-        var window = _services.GetRequiredService<MainWindow>();
+        var window = new MainWindow { DataContext = new MainViewModel(settings) };
+        window.Width = settings.WindowWidth;
+        window.Height = settings.WindowHeight;
         window.Show();
+
+        // Ошибки, которые никто не поймал, пишем в журнал, чтобы программа не падала молча
+        DispatcherUnhandledException += (_, args) =>
+        {
+            Log.Error(args.Exception, "Необработанная ошибка");
+            MessageBox.Show(args.Exception.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            args.Handled = true;
+        };
     }
 
     protected override void OnExit(ExitEventArgs e)
     {
-        _logger?.LogInformation("Приложение завершено с кодом {Code}", e.ApplicationExitCode);
-        _services?.Dispose(); // сбрасывает буферы Serilog на диск
+        Log.Information("Программа закрыта");
+        Log.CloseAndFlush();
         base.OnExit(e);
-    }
-
-    private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-    {
-        _logger?.LogCritical(e.Exception, "Необработанное исключение");
-        MessageBox.Show(LocalizationManager.Instance.Localizer.Format("Error_Generic", e.Exception.Message),
-            LocalizationManager.Instance["App_Title"], MessageBoxButton.OK, MessageBoxImage.Error);
-        e.Handled = true;
     }
 }

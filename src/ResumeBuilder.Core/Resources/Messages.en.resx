@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Column_Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Column_Description" xml:space="preserve">
+    <value>Responsibilities</value>
+  </data>
+  <data name="Column_End" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="Column_Months" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="Column_Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Error_Age" xml:space="preserve">
+    <value>Age must be between 14 and 100</value>
+  </data>
+  <data name="Error_CompanyRequired" xml:space="preserve">
+    <value>Company name is empty</value>
+  </data>
+  <data name="Error_EmailFormat" xml:space="preserve">
+    <value>Invalid e-mail format</value>
+  </data>
+  <data name="Error_EmailRequired" xml:space="preserve">
+    <value>E-mail is required</value>
+  </data>
+  <data name="Error_EndBeforeStart" xml:space="preserve">
+    <value>"{0}": end date is before start date</value>
+  </data>
+  <data name="Error_FullNameLength" xml:space="preserve">
+    <value>Full name must be 2 to 100 characters</value>
+  </data>
+  <data name="Error_FullNameRequired" xml:space="preserve">
+    <value>Full name is required</value>
+  </data>
+  <data name="Error_InstitutionRequired" xml:space="preserve">
+    <value>Institution is empty</value>
+  </data>
+  <data name="Error_NoExperience" xml:space="preserve">
+    <value>Add at least one job or education entry</value>
+  </data>
+  <data name="Error_PhoneFormat" xml:space="preserve">
+    <value>Phone must look like +375 (29) 123-45-67</value>
+  </data>
+  <data name="Error_PositionRequired" xml:space="preserve">
+    <value>Desired position is required</value>
+  </data>
+  <data name="Error_SkillLevel" xml:space="preserve">
+    <value>Skill level must be from 1 to 5</value>
+  </data>
+  <data name="Error_SkillNameRequired" xml:space="preserve">
+    <value>Skill name is empty</value>
+  </data>
+  <data name="Error_StartInFuture" xml:space="preserve">
+    <value>"{0}": start date is in the future</value>
+  </data>
+  <data name="Error_UrlFormat" xml:space="preserve">
+    <value>Link must start with http:// or https://</value>
+  </data>
+  <data name="Field_City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Field_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Field_Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Field_Website" xml:space="preserve">
+    <value>Website</value>
+  </data>
+  <data name="Import_BadDate" xml:space="preserve">
+    <value>Row {0}: invalid date "{1}"</value>
+  </data>
+  <data name="Import_BadRow" xml:space="preserve">
+    <value>Row {0}: empty</value>
+  </data>
+  <data name="Import_TableNotFound" xml:space="preserve">
+    <value>Work experience table not found in the document</value>
+  </data>
+  <data name="Present" xml:space="preserve">
+    <value>present</value>
+  </data>
+  <data name="QrCaption" xml:space="preserve">
+    <value>Scan the QR code to save the contact</value>
+  </data>
+  <data name="Report_AverageMonths" xml:space="preserve">
+    <value>Average job duration, months</value>
+  </data>
+  <data name="Report_AverageSkill" xml:space="preserve">
+    <value>Average skill level</value>
+  </data>
+  <data name="Report_BestSkill" xml:space="preserve">
+    <value>Best skill</value>
+  </data>
+  <data name="Report_JobsCount" xml:space="preserve">
+    <value>Number of jobs</value>
+  </data>
+  <data name="Report_Sheet" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="Report_SkillsCount" xml:space="preserve">
+    <value>Number of skills</value>
+  </data>
+  <data name="Report_Title" xml:space="preserve">
+    <value>Resume summary report</value>
+  </data>
+  <data name="Report_TotalMonths" xml:space="preserve">
+    <value>Total experience, months</value>
+  </data>
+  <data name="Section_About" xml:space="preserve">
+    <value>About me</value>
+  </data>
+  <data name="Section_Education" xml:space="preserve">
+    <value>Education</value>
+  </data>
+  <data name="Section_Experience" xml:space="preserve">
+    <value>Work experience</value>
+  </data>
+  <data name="Section_Skills" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+</root>

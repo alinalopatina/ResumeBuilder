@@ -1,9 +1,0 @@
-ФИО: Петров   Иван Сергеевич
-Город: Минск
-Должность: QA Engineer
-Телефон: 8 (029) 765-43-21, e-mail: ivan.petrov@mail.ru
-Telegram: @ivan_petrov_qa
-Профиль: https://github.com/ivan-petrov
-Дата рождения: 12.05.2003
-Опыт: 09.2022 – 06.2024 — тестировщик в «СофтЛаб»; 07.2024 - н.в. — QA Engineer в «ТестКо»
-Навыки: Selenium, Postman, SQL, Jira; Git

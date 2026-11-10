@@ -1,40 +1,44 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- Настольное приложение WPF (Windows). Вся логика — в ResumeBuilder.Core / Infrastructure. -->
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <RootNamespace>ResumeBuilder.Wpf</RootNamespace>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>ResumeBuilder</AssemblyName>
     <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+    <NeutralLanguage>ru</NeutralLanguage>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ResumeBuilder.Infrastructure\ResumeBuilder.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Ресурсы приложения: иконка встраивается в сборку (Build Action = Resource) -->
-    <Resource Include="Resources\app.png" />
-    <Resource Include="Resources\app.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Внешняя конфигурация (журналирование, язык по умолчанию) копируется рядом с .exe -->
-    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
-
-  <!--
-    QuestPDF не поддерживает Windows ARM64 (нет нативной библиотеки win-arm64).
-    Если сборка идёт на ARM64 (например, Windows в UTM/Parallels на Mac с Apple Silicon),
-    приложение собирается как x64 — Windows 11 на ARM запускает его через эмуляцию.
-    На обычных x64-компьютерах, в CI и в Docker это условие не срабатывает.
-  -->
-  <PropertyGroup Condition="'$(OS)' == 'Windows_NT' And '$(PROCESSOR_ARCHITECTURE)' == 'ARM64'">
+  <!-- QuestPDF не работает на Windows ARM (например, Windows в UTM на Mac M1–M4),
+       поэтому на таком компьютере программа собирается как x64 и запускается через эмуляцию -->
+  <PropertyGroup Condition="'$(PROCESSOR_ARCHITECTURE)' == 'ARM64'">
     <PlatformTarget>x64</PlatformTarget>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResumeBuilder.Core\ResumeBuilder.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\app.ico" />
+    <Resource Include="Resources\app.png" />
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>

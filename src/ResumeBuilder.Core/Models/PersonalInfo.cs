@@ -1,58 +1,35 @@
 using System.ComponentModel.DataAnnotations;
-using ResumeBuilder.Core.Validation.Attributes;
+using ResumeBuilder.Core.Resources;
+using ResumeBuilder.Core.Validation;
 
 namespace ResumeBuilder.Core.Models;
 
 /// <summary>
-/// Личные данные кандидата.
+/// Личные данные. Атрибуты над свойствами — это валидация через DataAnnotations.
+/// Тексты ошибок берутся из файла ресурсов Messages.resx (поэтому они переводятся).
 /// </summary>
-/// <remarks>
-/// Свойства размечены атрибутами DataAnnotations — декларативный подход к валидации
-/// (лаба «Валидация», модуль 2). Текст <c>ErrorMessage</c> — это ключ ресурса,
-/// который <see cref="Validation.AnnotationResumeValidator"/> переводит на язык интерфейса.
-/// </remarks>
 public class PersonalInfo
 {
-    /// <summary>ФИО.</summary>
-    [Required(ErrorMessage = "Validation_FullNameRequired")]
-    [StringLength(100, MinimumLength = 2, ErrorMessage = "Validation_FullNameLength")]
-    [PersonName(ErrorMessage = "Validation_FullNameFormat")]
-    public string FullName { get; set; } = string.Empty;
+    [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_FullNameRequired))]
+    [StringLength(100, MinimumLength = 2, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_FullNameLength))]
+    public string FullName { get; set; } = "";
 
-    /// <summary>Желаемая должность (заголовок резюме).</summary>
-    [Required(ErrorMessage = "Validation_DesiredPositionRequired")]
-    [StringLength(100, ErrorMessage = "Validation_TooLong")]
-    public string DesiredPosition { get; set; } = string.Empty;
+    [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_PositionRequired))]
+    public string Position { get; set; } = "";
 
-    /// <summary>E-mail.</summary>
-    [Required(ErrorMessage = "Validation_EmailRequired")]
-    [EmailFormat(ErrorMessage = "Validation_EmailFormat")]
-    public string Email { get; set; } = string.Empty;
+    [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_EmailRequired))]
+    [EmailAddress(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_EmailFormat))]
+    public string Email { get; set; } = "";
 
-    /// <summary>Телефон (любой разумный формат, при сохранении нормализуется).</summary>
-    [PhoneFormat(ErrorMessage = "Validation_PhoneFormat")]
-    public string? Phone { get; set; }
+    // Свой атрибут валидации (см. Validation/BelarusPhoneAttribute.cs)
+    [BelarusPhone]
+    public string Phone { get; set; } = "";
 
-    /// <summary>Город проживания.</summary>
-    public string? City { get; set; }
+    public string City { get; set; } = "";
 
-    /// <summary>Дата рождения.</summary>
-    [NotInFuture(ErrorMessage = "Validation_BirthDateFuture")]
-    [MinAge(14, ErrorMessage = "Validation_MinAge")]
     public DateTime? BirthDate { get; set; }
 
-    /// <summary>Ссылка на сайт, GitHub, LinkedIn или портфолио (кодируется в QR).</summary>
-    [UrlFormat(ErrorMessage = "Validation_UrlFormat")]
+    /// <summary>Ссылка на GitHub или портфолио — её можно закодировать в QR-код.</summary>
+    [Url(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_UrlFormat))]
     public string? Website { get; set; }
-
-    /// <summary>Желаемая зарплата (форматируется по правилам культуры).</summary>
-    [Range(typeof(decimal), "0", "1000000", ErrorMessage = "Validation_SalaryRange")]
-    public decimal? DesiredSalary { get; set; }
-
-    /// <summary>Код валюты ISO 4217 (BYN, USD, EUR...).</summary>
-    [RegularExpression("^[A-Z]{3}$", ErrorMessage = "Validation_CurrencyFormat")]
-    public string SalaryCurrency { get; set; } = "BYN";
-
-    /// <summary>Путь к фотографии (необязательно).</summary>
-    public string? PhotoPath { get; set; }
 }
