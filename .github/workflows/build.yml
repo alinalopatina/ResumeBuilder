@@ -1,0 +1,36 @@
+# Непрерывная интеграция: при каждом push и pull request GitHub собирает решение
+# и прогоняет unit-тесты. Результат виден на вкладке Actions и значком в README.
+name: build
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    # windows — потому что WPF-проект собирается только под Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore ResumeBuilder.sln
+
+      - name: Build
+        run: dotnet build ResumeBuilder.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test ResumeBuilder.sln --configuration Release --no-build --logger "trx;LogFileName=results.trx" --collect:"XPlat Code Coverage"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/TestResults/**'

@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- Файл сгенерирован из единого словаря (docs/tools/gen_resx.py), чтобы наборы ключей ru/en совпадали. -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Greeting" xml:space="preserve">
+    <value>Добро пожаловать в конструктор резюме!</value>
+  </data>
+  <data name="App_Title" xml:space="preserve">
+    <value>Конструктор резюме</value>
+  </data>
+  <data name="App_Untitled" xml:space="preserve">
+    <value>Новое резюме</value>
+  </data>
+  <data name="Column_AvgLevel" xml:space="preserve">
+    <value>Средний уровень</value>
+  </data>
+  <data name="Column_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Column_City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="Column_Company" xml:space="preserve">
+    <value>Компания</value>
+  </data>
+  <data name="Column_Count" xml:space="preserve">
+    <value>Количество</value>
+  </data>
+  <data name="Column_Degree" xml:space="preserve">
+    <value>Степень</value>
+  </data>
+  <data name="Column_Description" xml:space="preserve">
+    <value>Обязанности и достижения</value>
+  </data>
+  <data name="Column_End" xml:space="preserve">
+    <value>Окончание</value>
+  </data>
+  <data name="Column_EndYear" xml:space="preserve">
+    <value>Год окончания</value>
+  </data>
+  <data name="Column_Institution" xml:space="preserve">
+    <value>Учебное заведение</value>
+  </data>
+  <data name="Column_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Column_Level" xml:space="preserve">
+    <value>Уровень</value>
+  </data>
+  <data name="Column_MaxLevel" xml:space="preserve">
+    <value>Максимальный уровень</value>
+  </data>
+  <data name="Column_Months" xml:space="preserve">
+    <value>Месяцев</value>
+  </data>
+  <data name="Column_Position" xml:space="preserve">
+    <value>Должность</value>
+  </data>
+  <data name="Column_Share" xml:space="preserve">
+    <value>Доля стажа, %</value>
+  </data>
+  <data name="Column_Skill" xml:space="preserve">
+    <value>Навык</value>
+  </data>
+  <data name="Column_Specialty" xml:space="preserve">
+    <value>Специальность</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="Column_StartYear" xml:space="preserve">
+    <value>Год начала</value>
+  </data>
+  <data name="Conclusion_Complete" xml:space="preserve">
+    <value>Резюме заполнено полностью.</value>
+  </data>
+  <data name="Conclusion_Experience_Junior" xml:space="preserve">
+    <value>Опыт работы меньше года — резюме подходит для стажировки или позиции Junior; стоит подробнее описать учебные проекты.</value>
+  </data>
+  <data name="Conclusion_Experience_Middle" xml:space="preserve">
+    <value>Стаж от одного до трёх лет — можно претендовать на позиции Junior+/Middle.</value>
+  </data>
+  <data name="Conclusion_Experience_Senior" xml:space="preserve">
+    <value>Стаж более трёх лет — стоит акцентировать достижения и лидерские навыки.</value>
+  </data>
+  <data name="Conclusion_Incomplete" xml:space="preserve">
+    <value>Резюме заполнено на {0}% — заполните недостающие разделы.</value>
+  </data>
+  <data name="Conclusion_Skills_Few" xml:space="preserve">
+    <value>Указано мало навыков — добавьте хотя бы 5 ключевых.</value>
+  </data>
+  <data name="Conclusion_Skills_Strong" xml:space="preserve">
+    <value>Средний уровень навыков высокий.</value>
+  </data>
+  <data name="Confirm_ExportWithErrors" xml:space="preserve">
+    <value>В резюме есть ошибки (см. панель «Проверка»). Всё равно экспортировать?</value>
+  </data>
+  <data name="Confirm_OpenFile" xml:space="preserve">
+    <value>Файл сохранён. Открыть его?</value>
+  </data>
+  <data name="Confirm_OpenFolder" xml:space="preserve">
+    <value>Отчёт сохранён. Открыть папку?</value>
+  </data>
+  <data name="Error_Generic" xml:space="preserve">
+    <value>Произошла ошибка: {0}</value>
+  </data>
+  <data name="Field_Age" xml:space="preserve">
+    <value>Возраст</value>
+  </data>
+  <data name="Field_BirthDate" xml:space="preserve">
+    <value>Дата рождения</value>
+  </data>
+  <data name="Field_City" xml:space="preserve">
+    <value>Город</value>
+  </data>
+  <data name="Field_DesiredPosition" xml:space="preserve">
+    <value>Желаемая должность</value>
+  </data>
+  <data name="Field_DocumentLanguage" xml:space="preserve">
+    <value>Язык документа</value>
+  </data>
+  <data name="Field_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Field_FullName" xml:space="preserve">
+    <value>ФИО</value>
+  </data>
+  <data name="Field_IncludeQr" xml:space="preserve">
+    <value>Добавить QR-код</value>
+  </data>
+  <data name="Field_MaskContacts" xml:space="preserve">
+    <value>Скрыть часть контактов (публичная версия)</value>
+  </data>
+  <data name="Field_Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Field_Photo" xml:space="preserve">
+    <value>Фото (путь к файлу)</value>
+  </data>
+  <data name="Field_QrMode" xml:space="preserve">
+    <value>Содержимое QR-кода</value>
+  </data>
+  <data name="Field_Salary" xml:space="preserve">
+    <value>Желаемая зарплата</value>
+  </data>
+  <data name="Field_Template" xml:space="preserve">
+    <value>Шаблон PDF</value>
+  </data>
+  <data name="Field_Website" xml:space="preserve">
+    <value>Сайт / GitHub</value>
+  </data>
+  <data name="Hint_Grid" xml:space="preserve">
+    <value>Добавляйте строки в конце таблицы, удаляйте — клавишей Delete.</value>
+  </data>
+  <data name="Hint_SmartPaste" xml:space="preserve">
+    <value>Вставьте текст старого резюме или подписи из письма — программа найдёт e-mail, телефоны, ссылки, даты и навыки с помощью регулярных выражений.</value>
+  </data>
+  <data name="Hint_Summary" xml:space="preserve">
+    <value>Кратко о себе: 3–5 предложений о профессиональных интересах и сильных сторонах.</value>
+  </data>
+  <data name="Import_NoBody" xml:space="preserve">
+    <value>Документ пуст или повреждён</value>
+  </data>
+  <data name="Import_Result" xml:space="preserve">
+    <value>Импортировано записей: {0}. Ошибок: {1}.</value>
+  </data>
+  <data name="Import_RowBadDate" xml:space="preserve">
+    <value>Строка {0}: не удалось распознать дату «{1}» (ожидается ММ.ГГГГ)</value>
+  </data>
+  <data name="Import_RowMissingFields" xml:space="preserve">
+    <value>Строка {0}: не заполнены компания или должность</value>
+  </data>
+  <data name="Import_TableNotFound" xml:space="preserve">
+    <value>В документе не найдена таблица опыта работы (нужны столбцы «Компания», «Должность», «Начало»)</value>
+  </data>
+  <data name="LanguageLevel_A1" xml:space="preserve">
+    <value>A1 — начальный</value>
+  </data>
+  <data name="LanguageLevel_A2" xml:space="preserve">
+    <value>A2 — элементарный</value>
+  </data>
+  <data name="LanguageLevel_B1" xml:space="preserve">
+    <value>B1 — средний</value>
+  </data>
+  <data name="LanguageLevel_B2" xml:space="preserve">
+    <value>B2 — выше среднего</value>
+  </data>
+  <data name="LanguageLevel_C1" xml:space="preserve">
+    <value>C1 — продвинутый</value>
+  </data>
+  <data name="LanguageLevel_C2" xml:space="preserve">
+    <value>C2 — в совершенстве</value>
+  </data>
+  <data name="LanguageLevel_Native" xml:space="preserve">
+    <value>родной</value>
+  </data>
+  <data name="Menu_Edit" xml:space="preserve">
+    <value>_Правка</value>
+  </data>
+  <data name="Menu_Exit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Menu_Export" xml:space="preserve">
+    <value>_Экспорт</value>
+  </data>
+  <data name="Menu_ExportExcel" xml:space="preserve">
+    <value>Экспорт в Excel…</value>
+  </data>
+  <data name="Menu_ExportPdf" xml:space="preserve">
+    <value>Экспорт в PDF с QR-кодом…</value>
+  </data>
+  <data name="Menu_ExportReport" xml:space="preserve">
+    <value>Сводный отчёт…</value>
+  </data>
+  <data name="Menu_ExportWord" xml:space="preserve">
+    <value>Экспорт в Word…</value>
+  </data>
+  <data name="Menu_File" xml:space="preserve">
+    <value>_Файл</value>
+  </data>
+  <data name="Menu_ImportWord" xml:space="preserve">
+    <value>Импорт опыта из Word…</value>
+  </data>
+  <data name="Menu_Language" xml:space="preserve">
+    <value>_Язык</value>
+  </data>
+  <data name="Menu_New" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Menu_Normalize" xml:space="preserve">
+    <value>Привести контакты к единому виду</value>
+  </data>
+  <data name="Menu_Open" xml:space="preserve">
+    <value>Открыть…</value>
+  </data>
+  <data name="Menu_Print" xml:space="preserve">
+    <value>Печать…</value>
+  </data>
+  <data name="Menu_Sample" xml:space="preserve">
+    <value>Загрузить пример</value>
+  </data>
+  <data name="Menu_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Menu_SaveAs" xml:space="preserve">
+    <value>Сохранить как…</value>
+  </data>
+  <data name="Menu_Undo" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Menu_Validate" xml:space="preserve">
+    <value>Проверить резюме</value>
+  </data>
+  <data name="Panel_Export" xml:space="preserve">
+    <value>Параметры экспорта</value>
+  </data>
+  <data name="Panel_Qr" xml:space="preserve">
+    <value>QR-код</value>
+  </data>
+  <data name="Panel_Validation" xml:space="preserve">
+    <value>Проверка</value>
+  </data>
+  <data name="Pdf_QrVCard" xml:space="preserve">
+    <value>Отсканируйте, чтобы сохранить контакт</value>
+  </data>
+  <data name="Pdf_QrWebsite" xml:space="preserve">
+    <value>Отсканируйте, чтобы открыть портфолио</value>
+  </data>
+  <data name="Pdf_Resume" xml:space="preserve">
+    <value>Резюме</value>
+  </data>
+  <data name="Period_Present" xml:space="preserve">
+    <value>н. в.</value>
+  </data>
+  <data name="Plural_Month_Few" xml:space="preserve">
+    <value>месяца</value>
+  </data>
+  <data name="Plural_Month_Many" xml:space="preserve">
+    <value>месяцев</value>
+  </data>
+  <data name="Plural_Month_One" xml:space="preserve">
+    <value>месяц</value>
+  </data>
+  <data name="Plural_Year_Few" xml:space="preserve">
+    <value>года</value>
+  </data>
+  <data name="Plural_Year_Many" xml:space="preserve">
+    <value>лет</value>
+  </data>
+  <data name="Plural_Year_One" xml:space="preserve">
+    <value>год</value>
+  </data>
+  <data name="Qr_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Regex_DatesIso" xml:space="preserve">
+    <value>Даты в формате ISO</value>
+  </data>
+  <data name="Regex_Masked" xml:space="preserve">
+    <value>Публичная версия (маскирование)</value>
+  </data>
+  <data name="Regex_PhonesNormalized" xml:space="preserve">
+    <value>Телефоны в едином формате</value>
+  </data>
+  <data name="Report_AverageJob" xml:space="preserve">
+    <value>Средняя длительность работы</value>
+  </data>
+  <data name="Report_AverageSkill" xml:space="preserve">
+    <value>Средний уровень навыков (из 5)</value>
+  </data>
+  <data name="Report_B2Plus" xml:space="preserve">
+    <value>из них B2 и выше</value>
+  </data>
+  <data name="Report_Completeness" xml:space="preserve">
+    <value>Заполненность резюме</value>
+  </data>
+  <data name="Report_Conclusion" xml:space="preserve">
+    <value>Вывод</value>
+  </data>
+  <data name="Report_General" xml:space="preserve">
+    <value>Общие показатели</value>
+  </data>
+  <data name="Report_Generated" xml:space="preserve">
+    <value>Сформировано</value>
+  </data>
+  <data name="Report_JobsCount" xml:space="preserve">
+    <value>Мест работы</value>
+  </data>
+  <data name="Report_Languages" xml:space="preserve">
+    <value>Иностранных языков</value>
+  </data>
+  <data name="Report_LongestJob" xml:space="preserve">
+    <value>Самое долгое место работы</value>
+  </data>
+  <data name="Report_SkillsCount" xml:space="preserve">
+    <value>Навыков</value>
+  </data>
+  <data name="Report_Title" xml:space="preserve">
+    <value>Сводный отчёт по резюме</value>
+  </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Report_TotalExperience" xml:space="preserve">
+    <value>Общий стаж</value>
+  </data>
+  <data name="Section_Contacts" xml:space="preserve">
+    <value>Контакты</value>
+  </data>
+  <data name="Section_Education" xml:space="preserve">
+    <value>Образование</value>
+  </data>
+  <data name="Section_Experience" xml:space="preserve">
+    <value>Опыт работы</value>
+  </data>
+  <data name="Section_Languages" xml:space="preserve">
+    <value>Языки</value>
+  </data>
+  <data name="Section_Skills" xml:space="preserve">
+    <value>Навыки</value>
+  </data>
+  <data name="Section_Summary" xml:space="preserve">
+    <value>О себе</value>
+  </data>
+  <data name="SkillCategory_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="SkillCategory_Programming" xml:space="preserve">
+    <value>Программирование</value>
+  </data>
+  <data name="SkillCategory_SoftSkills" xml:space="preserve">
+    <value>Личные качества</value>
+  </data>
+  <data name="SkillCategory_Tools" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="SmartPaste_Analyze" xml:space="preserve">
+    <value>Распознать</value>
+  </data>
+  <data name="SmartPaste_Apply" xml:space="preserve">
+    <value>Применить к резюме</value>
+  </data>
+  <data name="SmartPaste_Found" xml:space="preserve">
+    <value>Найдено:</value>
+  </data>
+  <data name="SmartPaste_NothingFound" xml:space="preserve">
+    <value>Ничего не найдено</value>
+  </data>
+  <data name="SmartPaste_RegexPreview" xml:space="preserve">
+    <value>Замены регулярными выражениями (предпросмотр):</value>
+  </data>
+  <data name="Status_Analyzed" xml:space="preserve">
+    <value>Распознано элементов: {0}</value>
+  </data>
+  <data name="Status_Applied" xml:space="preserve">
+    <value>Заполнено полей: {0}</value>
+  </data>
+  <data name="Status_AutosaveRestored" xml:space="preserve">
+    <value>Восстановлен черновик из автосохранения</value>
+  </data>
+  <data name="Status_Exported" xml:space="preserve">
+    <value>Экспортировано: {0}</value>
+  </data>
+  <data name="Status_New" xml:space="preserve">
+    <value>Создано новое резюме</value>
+  </data>
+  <data name="Status_Normalized" xml:space="preserve">
+    <value>Контакты приведены к единому виду</value>
+  </data>
+  <data name="Status_Opened" xml:space="preserve">
+    <value>Открыт файл {0}</value>
+  </data>
+  <data name="Status_Printed" xml:space="preserve">
+    <value>Резюме отправлено на печать</value>
+  </data>
+  <data name="Status_ReportSaved" xml:space="preserve">
+    <value>Отчёт сохранён в {0} форматах: {1}</value>
+  </data>
+  <data name="Status_SampleLoaded" xml:space="preserve">
+    <value>Загружен пример резюме</value>
+  </data>
+  <data name="Status_Saved" xml:space="preserve">
+    <value>Сохранено: {0}</value>
+  </data>
+  <data name="Status_Undone" xml:space="preserve">
+    <value>Действие отменено</value>
+  </data>
+  <data name="Status_ValidIssues" xml:space="preserve">
+    <value>Ошибок: {0}, предупреждений: {1}</value>
+  </data>
+  <data name="Status_ValidOk" xml:space="preserve">
+    <value>Проверка пройдена: ошибок нет</value>
+  </data>
+  <data name="Tab_Personal" xml:space="preserve">
+    <value>Личные данные</value>
+  </data>
+  <data name="Tab_SmartPaste" xml:space="preserve">
+    <value>Умная вставка</value>
+  </data>
+  <data name="Undo_Import" xml:space="preserve">
+    <value>импорт из Word</value>
+  </data>
+  <data name="Undo_New" xml:space="preserve">
+    <value>создание нового резюме</value>
+  </data>
+  <data name="Undo_Normalize" xml:space="preserve">
+    <value>нормализация контактов</value>
+  </data>
+  <data name="Undo_Sample" xml:space="preserve">
+    <value>загрузка примера</value>
+  </data>
+  <data name="Undo_SmartPaste" xml:space="preserve">
+    <value>умная вставка</value>
+  </data>
+  <data name="Validation_BirthDateFuture" xml:space="preserve">
+    <value>Дата рождения не может быть в будущем</value>
+  </data>
+  <data name="Validation_CompanyRequired" xml:space="preserve">
+    <value>Укажите название компании</value>
+  </data>
+  <data name="Validation_CurrencyFormat" xml:space="preserve">
+    <value>Код валюты — три латинские заглавные буквы (BYN, USD, EUR)</value>
+  </data>
+  <data name="Validation_DescriptionEmpty" xml:space="preserve">
+    <value>Опишите обязанности и достижения</value>
+  </data>
+  <data name="Validation_DesiredPositionRequired" xml:space="preserve">
+    <value>Укажите желаемую должность</value>
+  </data>
+  <data name="Validation_DuplicateSkill" xml:space="preserve">
+    <value>Навык «{0}» указан несколько раз</value>
+  </data>
+  <data name="Validation_EmailFormat" xml:space="preserve">
+    <value>E-mail указан в неверном формате (пример: name@mail.by)</value>
+  </data>
+  <data name="Validation_EmailRequired" xml:space="preserve">
+    <value>Укажите e-mail</value>
+  </data>
+  <data name="Validation_EndBeforeStart" xml:space="preserve">
+    <value>Дата окончания раньше даты начала</value>
+  </data>
+  <data name="Validation_EndInFuture" xml:space="preserve">
+    <value>Дата окончания в будущем — если работаете сейчас, оставьте поле пустым</value>
+  </data>
+  <data name="Validation_FullNameFormat" xml:space="preserve">
+    <value>ФИО может содержать только буквы, пробелы, дефис и апостроф</value>
+  </data>
+  <data name="Validation_FullNameLength" xml:space="preserve">
+    <value>ФИО должно содержать от 2 до 100 символов</value>
+  </data>
+  <data name="Validation_FullNameRequired" xml:space="preserve">
+    <value>Укажите ФИО</value>
+  </data>
+  <data name="Validation_InstitutionRequired" xml:space="preserve">
+    <value>Укажите учебное заведение</value>
+  </data>
+  <data name="Validation_LanguageRequired" xml:space="preserve">
+    <value>Укажите язык</value>
+  </data>
+  <data name="Validation_MinAge" xml:space="preserve">
+    <value>Возраст должен быть от 14 до 100 лет</value>
+  </data>
+  <data name="Validation_NoContactForQr" xml:space="preserve">
+    <value>Не указаны ни телефон, ни сайт — QR-код будет малоинформативным</value>
+  </data>
+  <data name="Validation_NoExperienceNoEducation" xml:space="preserve">
+    <value>Добавьте хотя бы одно место работы или учёбы</value>
+  </data>
+  <data name="Validation_NoSkills" xml:space="preserve">
+    <value>Не указано ни одного навыка</value>
+  </data>
+  <data name="Validation_OverlappingJobs" xml:space="preserve">
+    <value>Периоды работы в «{0}» и «{1}» пересекаются</value>
+  </data>
+  <data name="Validation_PhoneFormat" xml:space="preserve">
+    <value>Телефон указан в неверном формате (пример: +375 29 123-45-67)</value>
+  </data>
+  <data name="Validation_PositionRequired" xml:space="preserve">
+    <value>Укажите должность</value>
+  </data>
+  <data name="Validation_SalaryRange" xml:space="preserve">
+    <value>Зарплата должна быть от 0 до 1 000 000</value>
+  </data>
+  <data name="Validation_SkillLevelRange" xml:space="preserve">
+    <value>Уровень навыка — от 1 до 5</value>
+  </data>
+  <data name="Validation_SkillNameRequired" xml:space="preserve">
+    <value>Укажите название навыка</value>
+  </data>
+  <data name="Validation_StartInFuture" xml:space="preserve">
+    <value>Дата начала не может быть в будущем</value>
+  </data>
+  <data name="Validation_SummaryEmpty" xml:space="preserve">
+    <value>Раздел «О себе» не заполнен</value>
+  </data>
+  <data name="Validation_SummaryTooLong" xml:space="preserve">
+    <value>Раздел «О себе» слишком длинный (больше 1500 символов)</value>
+  </data>
+  <data name="Validation_TooLong" xml:space="preserve">
+    <value>Слишком длинное значение</value>
+  </data>
+  <data name="Validation_UrlFormat" xml:space="preserve">
+    <value>Ссылка указана в неверном формате (пример: https://github.com/user)</value>
+  </data>
+  <data name="Validation_YearRange" xml:space="preserve">
+    <value>Год должен быть в диапазоне 1950–2100</value>
+  </data>
+</root>

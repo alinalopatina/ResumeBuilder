@@ -1,0 +1,26 @@
+## Visual Studio / .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+*.rsuser
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ll]og/
+logs/
+TestResults/
+*.nupkg
+publish/
+artifacts/
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## Файлы, которые создаёт приложение при запуске
+output/
+*.rbin

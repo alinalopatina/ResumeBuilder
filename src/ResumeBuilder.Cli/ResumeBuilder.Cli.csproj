@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Консольная утилита: экспорт/отчёты/демонстрации без графического интерфейса.
+    Кроссплатформенная (Windows/Linux) — именно её позже упакуем в Docker-образ,
+    т.к. WPF работает только на Windows с рабочим столом.
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>ResumeBuilder.Cli</RootNamespace>
+    <AssemblyName>resumebuilder</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResumeBuilder.Infrastructure\ResumeBuilder.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="samples\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Настольное приложение WPF (Windows). Вся логика — в ResumeBuilder.Core / Infrastructure. -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>ResumeBuilder.Wpf</RootNamespace>
+    <AssemblyName>ResumeBuilder</AssemblyName>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResumeBuilder.Infrastructure\ResumeBuilder.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Ресурсы приложения: иконка встраивается в сборку (Build Action = Resource) -->
+    <Resource Include="Resources\app.png" />
+    <Resource Include="Resources\app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Внешняя конфигурация (журналирование, язык по умолчанию) копируется рядом с .exe -->
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

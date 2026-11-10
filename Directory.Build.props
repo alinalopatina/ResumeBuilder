@@ -1,0 +1,17 @@
+<Project>
+  <!-- Общие настройки для всех проектов решения -->
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Генерация XML-документации из /// комментариев (лаба «Ведение документации») -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Authors>Лопатина Алина Николаевна</Authors>
+    <Company>БНТУ, ФИТР, гр. 10701224</Company>
+    <Product>ResumeBuilder — конструктор резюме</Product>
+    <Version>0.5.0</Version>
+    <!-- Нейтральный язык ресурсов — русский (Strings.resx), английский — сателлит (Strings.en.resx) -->
+    <NeutralLanguage>ru</NeutralLanguage>
+  </PropertyGroup>
+</Project>
