@@ -14,8 +14,10 @@
                 <MenuItem Header="{x:Static p:Resources.Menu_Sample}" Command="{Binding SampleCommand}" />
                 <MenuItem Header="{x:Static p:Resources.Menu_Open}" Command="{Binding OpenCommand}" />
                 <MenuItem Header="{x:Static p:Resources.Menu_Save}" Command="{Binding SaveCommand}" />
+                <MenuItem Header="{x:Static p:Resources.Menu_CompareFormats}" Command="{Binding CompareFormatsCommand}" />
                 <Separator />
                 <MenuItem Header="{x:Static p:Resources.Menu_Print}" Command="{Binding PrintCommand}" />
+                <MenuItem Header="{x:Static p:Resources.Menu_ReportPreview}" Command="{Binding ReportPreviewCommand}" />
                 <Separator />
                 <MenuItem Header="{x:Static p:Resources.Menu_Exit}" Click="Exit_Click" />
             </MenuItem>
@@ -26,6 +28,7 @@
                 <MenuItem Header="{x:Static p:Resources.Menu_ExportReport}" Command="{Binding ExportReportCommand}" />
                 <Separator />
                 <MenuItem Header="{x:Static p:Resources.Menu_ImportWord}" Command="{Binding ImportWordCommand}" />
+                <MenuItem Header="{x:Static p:Resources.Menu_ImportText}" Command="{Binding ImportTextCommand}" />
             </MenuItem>
             <MenuItem Header="{x:Static p:Resources.Menu_Language}">
                 <MenuItem Header="Русский" Command="{Binding RussianCommand}" />

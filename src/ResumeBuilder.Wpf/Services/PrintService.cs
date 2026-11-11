@@ -31,6 +31,27 @@ public static class PrintService
         return true;
     }
 
+    /// <summary>Печать текстового отчёта моноширинным шрифтом (столбцы не «поедут»).</summary>
+    public static bool PrintText(string text, string title)
+    {
+        var dialog = new PrintDialog();
+        if (dialog.ShowDialog() != true)
+            return false;
+
+        var document = new FlowDocument(new Paragraph(new Run(text)))
+        {
+            FontFamily = new FontFamily("Consolas"),
+            FontSize = 10,
+            PageWidth = dialog.PrintableAreaWidth,
+            PageHeight = dialog.PrintableAreaHeight,
+            PagePadding = new Thickness(50),
+            ColumnWidth = double.PositiveInfinity
+        };
+        IDocumentPaginatorSource source = document;
+        dialog.PrintDocument(source.DocumentPaginator, title);
+        return true;
+    }
+
     private static FlowDocument CreateDocument(Resume resume)
     {
         var doc = new FlowDocument { FontFamily = new FontFamily("Segoe UI"), FontSize = 12 };

@@ -102,6 +102,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Сохранить в .txt.
+        /// </summary>
+        public static string Button_SaveTxt {
+            get {
+                return ResourceManager.GetString("Button_SaveTxt", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Обновить QR-код.
         /// </summary>
         public static string Button_UpdateQr {
@@ -300,6 +309,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Сравнить JSON и двоичный формат.
+        /// </summary>
+        public static string Menu_CompareFormats {
+            get {
+                return ResourceManager.GetString("Menu_CompareFormats", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Выход.
         /// </summary>
         public static string Menu_Exit {
@@ -363,6 +381,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Заполнить контакты из текста (.txt)....
+        /// </summary>
+        public static string Menu_ImportText {
+            get {
+                return ResourceManager.GetString("Menu_ImportText", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Импорт опыта из Word....
         /// </summary>
         public static string Menu_ImportWord {
@@ -404,6 +431,15 @@ namespace ResumeBuilder.Wpf.Properties {
         public static string Menu_Print {
             get {
                 return ResourceManager.GetString("Menu_Print", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Просмотр отчёта....
+        /// </summary>
+        public static string Menu_ReportPreview {
+            get {
+                return ResourceManager.GetString("Menu_ReportPreview", resourceCulture);
             }
         }
 
@@ -453,6 +489,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на В тексте не найдено новых контактов.
+        /// </summary>
+        public static string Msg_NothingFound {
+            get {
+                return ResourceManager.GetString("Msg_NothingFound", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Файл сохранён. Открыть его?.
         /// </summary>
         public static string Msg_OpenFile {
@@ -471,6 +516,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Файл сохранён.
+        /// </summary>
+        public static string Msg_Saved {
+            get {
+                return ResourceManager.GetString("Msg_Saved", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибки.
         /// </summary>
         public static string Panel_Errors {
@@ -485,6 +539,24 @@ namespace ResumeBuilder.Wpf.Properties {
         public static string Panel_Qr {
             get {
                 return ResourceManager.GetString("Panel_Qr", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сводный отчёт.
+        /// </summary>
+        public static string Report_WindowTitle {
+            get {
+                return ResourceManager.GetString("Report_WindowTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Восстановлен черновик с прошлого запуска.
+        /// </summary>
+        public static string Status_DraftRestored {
+            get {
+                return ResourceManager.GetString("Status_DraftRestored", resourceCulture);
             }
         }
 

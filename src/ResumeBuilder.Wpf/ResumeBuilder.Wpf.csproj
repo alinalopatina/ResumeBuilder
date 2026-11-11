@@ -21,6 +21,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ResumeBuilder.Core\ResumeBuilder.Core.csproj" />
+    <!-- Вывод журнала в окно «Вывод» Visual Studio (у WPF-приложения нет консоли) -->
+    <PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

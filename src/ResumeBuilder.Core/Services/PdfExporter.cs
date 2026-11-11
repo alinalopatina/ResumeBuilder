@@ -12,10 +12,18 @@ namespace ResumeBuilder.Core.Services;
 /// <summary>Экспорт резюме в PDF (библиотека QuestPDF) с QR-кодом.</summary>
 public static class PdfExporter
 {
+    private static ILogger Logger => Log.ForContext(typeof(PdfExporter));
+
     private const string Accent = "#1F4E79";
 
     public static void Export(Resume resume, string path, bool includeQr, bool hideContacts = false)
     {
+        // Проверка параметров метода (валидация, модуль 1)
+        ArgumentNullException.ThrowIfNull(resume);
+        if (string.IsNullOrWhiteSpace(path))
+            throw new ArgumentException("Не указан путь к файлу", nameof(path));
+        Logger.Debug("Экспорт в PDF: QR-код {IncludeQr}, скрыть контакты {HideContacts}", includeQr, hideContacts);
+
         var timer = Stopwatch.StartNew();
         // Бесплатная лицензия для учебных проектов
         QuestPDF.Settings.License = LicenseType.Community;
@@ -105,7 +113,7 @@ public static class PdfExporter
             });
         }).GeneratePdf(path);
 
-        Log.Information("PDF сохранён: {File}, время {Ms} мс", Path.GetFileName(path), timer.ElapsedMilliseconds);
+        Logger.Information("PDF сохранён: {File}, время {ExecutionTimeMs} мс", Path.GetFileName(path), timer.ElapsedMilliseconds);
     }
 
     private static void Section(ColumnDescriptor col, string title)

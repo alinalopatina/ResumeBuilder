@@ -15,6 +15,8 @@ namespace ResumeBuilder.Core.Services;
 /// </summary>
 public static class WordExporter
 {
+    private static ILogger Logger => Log.ForContext(typeof(WordExporter));
+
     /// <summary>Формат дат в таблице. Он фиксированный, чтобы таблицу можно было прочитать обратно (WordImporter).</summary>
     public const string DateFormat = "MM.yyyy";
 
@@ -97,7 +99,7 @@ public static class WordExporter
         body.Append(MakeImage(main, qr, 140, 140));
 
         main.Document.Save();
-        Log.Information("Word сохранён: {File}", Path.GetFileName(path));
+        Logger.Information("Word сохранён: {File}", Path.GetFileName(path));
     }
 
     /// <summary>Сводный отчёт: те же посчитанные данные, что и в Excel.</summary>
@@ -135,7 +137,7 @@ public static class WordExporter
         body.Append(MakeParagraph(report.Conclusion));
 
         main.Document.Save();
-        Log.Information("Отчёт Word сохранён: {File}", Path.GetFileName(path));
+        Logger.Information("Отчёт Word сохранён: {File}", Path.GetFileName(path));
     }
 
     // ---------- вспомогательные методы ----------

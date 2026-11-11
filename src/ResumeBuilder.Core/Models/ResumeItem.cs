@@ -4,6 +4,7 @@ namespace ResumeBuilder.Core.Models;
 /// Базовый класс для элементов резюме (опыт, образование, навык).
 /// Абстрактный метод GetDescription() каждый наследник реализует по-своему (полиморфизм).
 /// </summary>
+[Serializable]
 public abstract class ResumeItem
 {
     /// <summary>Краткое описание элемента одной строкой.</summary>

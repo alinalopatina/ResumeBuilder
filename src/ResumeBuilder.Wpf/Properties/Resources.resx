@@ -56,6 +56,9 @@
   <data name="Button_Remove" xml:space="preserve">
     <value>Удалить</value>
   </data>
+  <data name="Button_SaveTxt" xml:space="preserve">
+    <value>Сохранить в .txt</value>
+  </data>
   <data name="Button_UpdateQr" xml:space="preserve">
     <value>Обновить QR-код</value>
   </data>
@@ -122,6 +125,9 @@
   <data name="Field_Website" xml:space="preserve">
     <value>Сайт / GitHub</value>
   </data>
+  <data name="Menu_CompareFormats" xml:space="preserve">
+    <value>Сравнить JSON и двоичный формат</value>
+  </data>
   <data name="Menu_Exit" xml:space="preserve">
     <value>Выход</value>
   </data>
@@ -143,6 +149,9 @@
   <data name="Menu_File" xml:space="preserve">
     <value>_Файл</value>
   </data>
+  <data name="Menu_ImportText" xml:space="preserve">
+    <value>Заполнить контакты из текста (.txt)...</value>
+  </data>
   <data name="Menu_ImportWord" xml:space="preserve">
     <value>Импорт опыта из Word...</value>
   </data>
@@ -157,6 +166,9 @@
   </data>
   <data name="Menu_Print" xml:space="preserve">
     <value>Печать...</value>
+  </data>
+  <data name="Menu_ReportPreview" xml:space="preserve">
+    <value>Просмотр отчёта...</value>
   </data>
   <data name="Menu_Sample" xml:space="preserve">
     <value>Загрузить пример</value>
@@ -173,17 +185,29 @@
   <data name="Msg_Imported" xml:space="preserve">
     <value>Добавлено мест работы: {0}</value>
   </data>
+  <data name="Msg_NothingFound" xml:space="preserve">
+    <value>В тексте не найдено новых контактов</value>
+  </data>
   <data name="Msg_OpenFile" xml:space="preserve">
     <value>Файл сохранён. Открыть его?</value>
   </data>
   <data name="Msg_RestartForLanguage" xml:space="preserve">
     <value>Язык изменится после перезапуска программы</value>
   </data>
+  <data name="Msg_Saved" xml:space="preserve">
+    <value>Файл сохранён</value>
+  </data>
   <data name="Panel_Errors" xml:space="preserve">
     <value>Ошибки</value>
   </data>
   <data name="Panel_Qr" xml:space="preserve">
     <value>QR-код (визитка)</value>
+  </data>
+  <data name="Report_WindowTitle" xml:space="preserve">
+    <value>Сводный отчёт</value>
+  </data>
+  <data name="Status_DraftRestored" xml:space="preserve">
+    <value>Восстановлен черновик с прошлого запуска</value>
   </data>
   <data name="Status_Errors" xml:space="preserve">
     <value>Найдено ошибок: {0}</value>

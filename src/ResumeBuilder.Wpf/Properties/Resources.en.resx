@@ -56,6 +56,9 @@
   <data name="Button_Remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="Button_SaveTxt" xml:space="preserve">
+    <value>Save as .txt</value>
+  </data>
   <data name="Button_UpdateQr" xml:space="preserve">
     <value>Update QR code</value>
   </data>
@@ -122,6 +125,9 @@
   <data name="Field_Website" xml:space="preserve">
     <value>Website / GitHub</value>
   </data>
+  <data name="Menu_CompareFormats" xml:space="preserve">
+    <value>Compare JSON and binary format</value>
+  </data>
   <data name="Menu_Exit" xml:space="preserve">
     <value>Exit</value>
   </data>
@@ -143,6 +149,9 @@
   <data name="Menu_File" xml:space="preserve">
     <value>_File</value>
   </data>
+  <data name="Menu_ImportText" xml:space="preserve">
+    <value>Fill contacts from text (.txt)...</value>
+  </data>
   <data name="Menu_ImportWord" xml:space="preserve">
     <value>Import experience from Word...</value>
   </data>
@@ -157,6 +166,9 @@
   </data>
   <data name="Menu_Print" xml:space="preserve">
     <value>Print...</value>
+  </data>
+  <data name="Menu_ReportPreview" xml:space="preserve">
+    <value>Report preview...</value>
   </data>
   <data name="Menu_Sample" xml:space="preserve">
     <value>Load sample</value>
@@ -173,17 +185,29 @@
   <data name="Msg_Imported" xml:space="preserve">
     <value>Jobs imported: {0}</value>
   </data>
+  <data name="Msg_NothingFound" xml:space="preserve">
+    <value>No new contacts found in the text</value>
+  </data>
   <data name="Msg_OpenFile" xml:space="preserve">
     <value>File saved. Open it?</value>
   </data>
   <data name="Msg_RestartForLanguage" xml:space="preserve">
     <value>The language will change after restarting the program</value>
   </data>
+  <data name="Msg_Saved" xml:space="preserve">
+    <value>File saved</value>
+  </data>
   <data name="Panel_Errors" xml:space="preserve">
     <value>Errors</value>
   </data>
   <data name="Panel_Qr" xml:space="preserve">
     <value>QR code (contact card)</value>
+  </data>
+  <data name="Report_WindowTitle" xml:space="preserve">
+    <value>Summary report</value>
+  </data>
+  <data name="Status_DraftRestored" xml:space="preserve">
+    <value>Draft from the last session restored</value>
   </data>
   <data name="Status_Errors" xml:space="preserve">
     <value>Errors found: {0}</value>

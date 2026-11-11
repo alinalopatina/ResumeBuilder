@@ -4,6 +4,7 @@ using ResumeBuilder.Core.Resources;
 namespace ResumeBuilder.Core.Models;
 
 /// <summary>Навык с уровнем от 1 до 5.</summary>
+[Serializable]
 public class Skill : ResumeItem
 {
     [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_SkillNameRequired))]

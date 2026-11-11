@@ -3,6 +3,7 @@ using ResumeBuilder.Core.Resources;
 namespace ResumeBuilder.Core.Models;
 
 /// <summary>Учебное заведение.</summary>
+[Serializable]
 public class Education : ResumeItem
 {
     public string Institution { get; set; } = "";

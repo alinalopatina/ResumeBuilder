@@ -2,7 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace ResumeBuilder.Core.Models;
 
-/// <summary>Резюме целиком.</summary>
+/// <summary>
+/// Резюме целиком. Атрибут [Serializable] показывает, что объект можно сериализовать.
+/// </summary>
+[Serializable]
 public class Resume
 {
     /// <summary>Версия формата файла (на случай, если структура класса поменяется).</summary>
@@ -14,9 +17,17 @@ public class Resume
     public List<Education> Education { get; set; } = new();
     public List<Skill> Skills { get; set; } = new();
 
-    /// <summary>Путь к файлу нужен только пока программа работает, поэтому не сохраняется.</summary>
+    // Путь к файлу нужен только пока программа работает, поэтому он исключён из сериализации:
+    // [NonSerialized] — для поля, [JsonIgnore] — для JSON, а в двоичный файл мы его просто не пишем.
+    [NonSerialized]
+    private string? _filePath;
+
     [JsonIgnore]
-    public string? FilePath { get; set; }
+    public string? FilePath
+    {
+        get => _filePath;
+        set => _filePath = value;
+    }
 
     /// <summary>Общий стаж в месяцах (сумма по всем местам работы).</summary>
     public int GetTotalMonths(DateTime today) => Experience.Sum(e => e.GetMonths(today));

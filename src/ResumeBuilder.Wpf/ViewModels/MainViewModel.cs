@@ -20,6 +20,8 @@ namespace ResumeBuilder.Wpf.ViewModels;
 /// </summary>
 public class MainViewModel : ViewModelBase
 {
+    private static ILogger Logger => Log.ForContext(typeof(MainViewModel));
+
     private readonly AppSettings _settings;
     private Resume _resume = new();
     private string _status = "";
@@ -40,6 +42,9 @@ public class MainViewModel : ViewModelBase
         ExportExcelCommand = new RelayCommand(ExportExcel);
         ExportReportCommand = new RelayCommand(ExportReport);
         ImportWordCommand = new RelayCommand(ImportWord);
+        ImportTextCommand = new RelayCommand(ImportText);
+        ReportPreviewCommand = new RelayCommand(ShowReportPreview);
+        CompareFormatsCommand = new RelayCommand(CompareFormats);
         PrintCommand = new RelayCommand(Print);
         ValidateCommand = new RelayCommand(() => Validate());
         NormalizePhoneCommand = new RelayCommand(NormalizePhone);
@@ -47,9 +52,15 @@ public class MainViewModel : ViewModelBase
         RussianCommand = new RelayCommand(() => ChangeLanguage("ru-RU"));
         EnglishCommand = new RelayCommand(() => ChangeLanguage("en-US"));
 
-        // При запуске открываем последний файл, а если его нет — пример
+        // При запуске: последний файл → черновик из кэша → пример
+        Resume? draft = DraftCache.TryLoad();
         if (settings.LastFile != null && File.Exists(settings.LastFile))
             OpenFile(settings.LastFile);
+        else if (draft != null)
+        {
+            SetResume(draft);
+            Status = Res.Status_DraftRestored;
+        }
         else
             SetResume(Resume.CreateSample());
     }
@@ -107,6 +118,9 @@ public class MainViewModel : ViewModelBase
     public RelayCommand ExportExcelCommand { get; }
     public RelayCommand ExportReportCommand { get; }
     public RelayCommand ImportWordCommand { get; }
+    public RelayCommand ImportTextCommand { get; }
+    public RelayCommand ReportPreviewCommand { get; }
+    public RelayCommand CompareFormatsCommand { get; }
     public RelayCommand PrintCommand { get; }
     public RelayCommand ValidateCommand { get; }
     public RelayCommand NormalizePhoneCommand { get; }
@@ -133,14 +147,18 @@ public class MainViewModel : ViewModelBase
     {
         try
         {
-            Resume resume = ResumeFile.GetSerializer(path).Load(path);
-            SetResume(resume);
+            LoggedOperation.Run("Открытие файла", () =>
+            {
+                Resume resume = ResumeFile.GetSerializer(path).Load(path);
+                SetResume(resume);
+            });
             _settings.LastFile = path;
             Status = Res.Status_Opened + " " + Path.GetFileName(path);
-            Log.Information("Открыт файл {File}", Path.GetFileName(path));
+            AuditLog.Write("Открытие", Path.GetFileName(path), true);
         }
         catch (Exception ex)
         {
+            AuditLog.Write("Открытие", Path.GetFileName(path), false);
             ShowError(ex);
         }
     }
@@ -152,17 +170,19 @@ public class MainViewModel : ViewModelBase
         if (dialog.ShowDialog() != true)
             return;
 
+        string fileName = Path.GetFileName(dialog.FileName);
         try
         {
-            ResumeFile.GetSerializer(dialog.FileName).Save(_resume, dialog.FileName);
+            LoggedOperation.Run("Сохранение файла", () => ResumeFile.GetSerializer(dialog.FileName).Save(_resume, dialog.FileName));
             _resume.FilePath = dialog.FileName;
             _settings.LastFile = dialog.FileName;
             OnPropertyChanged(nameof(Title));
-            Status = Res.Status_Saved + " " + Path.GetFileName(dialog.FileName);
-            Log.Information("Сохранён файл {File}", Path.GetFileName(dialog.FileName));
+            Status = Res.Status_Saved + " " + fileName;
+            AuditLog.Write("Сохранение", fileName, true);
         }
         catch (Exception ex)
         {
+            AuditLog.Write("Сохранение", fileName, false);
             ShowError(ex);
         }
     }
@@ -176,7 +196,7 @@ public class MainViewModel : ViewModelBase
             return;
         string? path = AskSavePath("PDF (*.pdf)|*.pdf", "resume.pdf");
         if (path != null)
-            RunExport(() => PdfExporter.Export(_resume, path, IncludeQr, HideContacts), path);
+            RunExport("Экспорт в PDF", () => PdfExporter.Export(_resume, path, IncludeQr, HideContacts), path);
     }
 
     private void ExportWord()
@@ -184,7 +204,7 @@ public class MainViewModel : ViewModelBase
         CopyListsToResume();
         string? path = AskSavePath("Word (*.docx)|*.docx", "resume.docx");
         if (path != null)
-            RunExport(() => WordExporter.ExportResume(_resume, path), path);
+            RunExport("Экспорт в Word", () => WordExporter.ExportResume(_resume, path), path);
     }
 
     private void ExportExcel()
@@ -192,7 +212,7 @@ public class MainViewModel : ViewModelBase
         CopyListsToResume();
         string? path = AskSavePath("Excel (*.xlsx)|*.xlsx", "resume.xlsx");
         if (path != null)
-            RunExport(() => ExcelExporter.ExportResume(_resume, path), path);
+            RunExport("Экспорт в Excel", () => ExcelExporter.ExportResume(_resume, path), path);
     }
 
     /// <summary>Сводный отчёт: считаем один раз, сохраняем в Excel, Word и txt.</summary>
@@ -205,12 +225,17 @@ public class MainViewModel : ViewModelBase
 
         try
         {
-            ResumeReport report = ReportCalculator.Calculate(_resume, DateTime.Today);
             string folder = dialog.FolderName;
-            ExcelExporter.ExportReport(report, Path.Combine(folder, "report.xlsx"));
-            WordExporter.ExportReport(report, Path.Combine(folder, "report.docx"));
-            File.WriteAllText(Path.Combine(folder, "report.txt"), report.ToText());
+            LoggedOperation.Run("Сводный отчёт", () =>
+            {
+                // Данные считаются ОДИН раз, а выводятся в три формата
+                ResumeReport report = ReportCalculator.Calculate(_resume, DateTime.Today);
+                ExcelExporter.ExportReport(report, Path.Combine(folder, "report.xlsx"));
+                WordExporter.ExportReport(report, Path.Combine(folder, "report.docx"));
+                File.WriteAllText(Path.Combine(folder, "report.txt"), report.ToText());
+            });
             Status = Res.Status_ReportSaved + " " + folder;
+            AuditLog.Write("Сводный отчёт", folder, true);
             Process.Start(new ProcessStartInfo(folder) { UseShellExecute = true });
         }
         catch (Exception ex)
@@ -243,13 +268,55 @@ public class MainViewModel : ViewModelBase
         }
     }
 
+    /// <summary>Заполнить пустые контакты из текстового файла (регулярные выражения).</summary>
+    private void ImportText()
+    {
+        var dialog = new OpenFileDialog { Filter = "Текст (*.txt)|*.txt" };
+        if (dialog.ShowDialog() != true)
+            return;
+
+        try
+        {
+            string text = File.ReadAllText(dialog.FileName);
+            List<string> found = TextImporter.FillContacts(_resume, text);
+            OnPropertyChanged(nameof(Personal));
+            UpdateQr();
+            string message = found.Count == 0 ? Res.Msg_NothingFound : string.Join("\n", found);
+            MessageBox.Show(message, Res.App_Title);
+        }
+        catch (Exception ex)
+        {
+            ShowError(ex);
+        }
+    }
+
+    /// <summary>Окно с отчётом в виде текстовой таблицы (из него можно напечатать или сохранить txt).</summary>
+    private void ShowReportPreview()
+    {
+        CopyListsToResume();
+        ResumeReport report = ReportCalculator.Calculate(_resume, DateTime.Today);
+        var window = new Views.ReportWindow { DataContext = new ReportViewModel(report.ToText()) };
+        window.Owner = Application.Current.MainWindow;
+        window.ShowDialog();
+    }
+
+    /// <summary>Сравнение JSON и двоичного формата по размеру и скорости.</summary>
+    private void CompareFormats()
+    {
+        CopyListsToResume();
+        MessageBox.Show(SerializationComparison.Compare(_resume), Res.Menu_CompareFormats);
+    }
+
     private void Print()
     {
         CopyListsToResume();
         try
         {
             if (PrintService.Print(_resume))
+            {
                 Status = Res.Status_Printed;
+                AuditLog.Write("Печать", _resume.Personal.FullName, true);
+            }
         }
         catch (Exception ex)
         {
@@ -291,7 +358,7 @@ public class MainViewModel : ViewModelBase
         }
         catch (Exception ex)
         {
-            Log.Warning(ex, "Не удалось создать QR-код");
+            Logger.Warning(ex, "Не удалось создать QR-код");
         }
     }
 
@@ -305,6 +372,10 @@ public class MainViewModel : ViewModelBase
     /// <summary>Вызывается при закрытии окна.</summary>
     public void OnClosing(double width, double height)
     {
+        // Кэш черновика: при следующем запуске резюме восстановится, даже если его не сохранили
+        CopyListsToResume();
+        DraftCache.Save(_resume);
+
         _settings.WindowWidth = width;
         _settings.WindowHeight = height;
         _settings.Save();
@@ -339,24 +410,26 @@ public class MainViewModel : ViewModelBase
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 
-    private void RunExport(Action export, string path)
+    private void RunExport(string operationName, Action export, string path)
     {
         try
         {
-            export();
+            LoggedOperation.Run(operationName, export);
             Status = Res.Status_Exported + " " + Path.GetFileName(path);
+            AuditLog.Write(operationName, Path.GetFileName(path), true);
             if (MessageBox.Show(Res.Msg_OpenFile, Res.App_Title, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
         }
         catch (Exception ex)
         {
+            AuditLog.Write(operationName, Path.GetFileName(path), false);
             ShowError(ex);
         }
     }
 
     private static void ShowError(Exception ex)
     {
-        Log.Error(ex, "Ошибка");
+        Logger.Error(ex, "Ошибка");
         MessageBox.Show(Res.Msg_Error + "\n" + ex.Message, Res.App_Title, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }

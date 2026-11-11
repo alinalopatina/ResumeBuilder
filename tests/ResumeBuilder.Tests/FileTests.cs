@@ -31,6 +31,17 @@ public class FileTests
     }
 
     [Fact]
+    public void Json_DoesNotContainFilePath()
+    {
+        string path = TempFile(".json");
+        Resume resume = Resume.CreateSample();
+        resume.FilePath = @"C:\secret\resume.json";
+        new JsonResumeSerializer().Save(resume, path);
+        Assert.DoesNotContain("FilePath", File.ReadAllText(path));
+        File.Delete(path);
+    }
+
+    [Fact]
     public void Binary_WrongFile_Throws()
     {
         string path = TempFile(".rbin");

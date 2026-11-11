@@ -3,6 +3,7 @@ using ResumeBuilder.Core.Resources;
 namespace ResumeBuilder.Core.Models;
 
 /// <summary>Место работы.</summary>
+[Serializable]
 public class WorkExperience : ResumeItem
 {
     public string Company { get; set; } = "";

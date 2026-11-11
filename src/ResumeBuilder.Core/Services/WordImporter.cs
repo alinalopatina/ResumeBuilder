@@ -14,6 +14,8 @@ namespace ResumeBuilder.Core.Services;
 /// </summary>
 public static class WordImporter
 {
+    private static ILogger Logger => Log.ForContext(typeof(WordImporter));
+
     public static List<WorkExperience> ImportExperience(string path, List<string> errors)
     {
         var result = new List<WorkExperience>();
@@ -72,7 +74,7 @@ public static class WordImporter
             });
         }
 
-        Log.Information("Импорт из Word: {Count} записей, ошибок {Errors}", result.Count, errors.Count);
+        Logger.Information("Импорт из Word: {Count} записей, ошибок {Errors}", result.Count, errors.Count);
         return result;
     }
 

@@ -8,6 +8,7 @@ namespace ResumeBuilder.Core.Models;
 /// Личные данные. Атрибуты над свойствами — это валидация через DataAnnotations.
 /// Тексты ошибок берутся из файла ресурсов Messages.resx (поэтому они переводятся).
 /// </summary>
+[Serializable]
 public class PersonalInfo
 {
     [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_FullNameRequired))]

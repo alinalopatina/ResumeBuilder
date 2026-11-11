@@ -25,6 +25,7 @@ public class JsonResumeSerializer : IResumeSerializer
 
     public void Save(Resume resume, string path)
     {
+        ArgumentNullException.ThrowIfNull(resume);
         string json = JsonSerializer.Serialize(resume, Options);
         File.WriteAllText(path, json, Encoding.UTF8);
     }
@@ -52,6 +53,7 @@ public class BinaryResumeSerializer : IResumeSerializer
 
     public void Save(Resume resume, string path)
     {
+        ArgumentNullException.ThrowIfNull(resume);
         using var writer = new BinaryWriter(File.Create(path), Encoding.UTF8);
         writer.Write(Signature);
         writer.Write(FormatVersion);
@@ -166,4 +168,76 @@ public static class ResumeFile
         path.EndsWith(BinaryExtension, StringComparison.OrdinalIgnoreCase)
             ? new BinaryResumeSerializer()
             : new JsonResumeSerializer();
+}
+
+/// <summary>
+/// Сравнение форматов: один и тот же объект сохраняется в JSON и в двоичный файл,
+/// сравниваются размер и скорость (лабораторная по сериализации, вариант 1).
+/// </summary>
+public static class SerializationComparison
+{
+    public static string Compare(Resume resume, int repeats = 200)
+    {
+        string folder = Path.Combine(Path.GetTempPath(), "ResumeBuilderTest");
+        Directory.CreateDirectory(folder);
+        var lines = new List<string>();
+
+        foreach (string extension in new[] { ResumeFile.JsonExtension, ResumeFile.BinaryExtension })
+        {
+            string path = Path.Combine(folder, "test" + extension);
+            IResumeSerializer serializer = ResumeFile.GetSerializer(path);
+
+            var timer = System.Diagnostics.Stopwatch.StartNew();
+            for (int i = 0; i < repeats; i++)
+                serializer.Save(resume, path);
+            double saveMs = timer.Elapsed.TotalMilliseconds / repeats;
+
+            timer.Restart();
+            for (int i = 0; i < repeats; i++)
+                serializer.Load(path);
+            double loadMs = timer.Elapsed.TotalMilliseconds / repeats;
+
+            long size = new FileInfo(path).Length;
+            lines.Add($"{extension,-6}  {size,7} байт   запись {saveMs:0.00} мс   чтение {loadMs:0.00} мс");
+        }
+
+        lines.Add("");
+        lines.Add("JSON больше, но его можно прочитать в блокноте и открыть в другой программе.");
+        lines.Add("Двоичный файл меньше и быстрее, но читается только нашей программой.");
+        return string.Join(Environment.NewLine, lines);
+    }
+}
+
+/// <summary>
+/// Кэш черновика: при закрытии программы резюме сохраняется в двоичный файл,
+/// а при следующем запуске восстанавливается из него (лабораторная по сериализации, сценарий 2).
+/// </summary>
+public static class DraftCache
+{
+    public static string FilePath => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ResumeBuilder", "draft.rbin");
+
+    public static void Save(Resume resume)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(FilePath)!);
+        string? realPath = resume.FilePath;
+        new BinaryResumeSerializer().Save(resume, FilePath);
+        resume.FilePath = realPath;
+    }
+
+    public static Resume? TryLoad()
+    {
+        if (!File.Exists(FilePath))
+            return null;
+        try
+        {
+            Resume resume = new BinaryResumeSerializer().Load(FilePath);
+            resume.FilePath = null;   // черновик ещё не сохранён пользователем в свой файл
+            return resume;
+        }
+        catch (InvalidDataException)
+        {
+            return null;
+        }
+    }
 }

@@ -11,6 +11,8 @@ namespace ResumeBuilder.Core.Services;
 /// </summary>
 public static class ExcelExporter
 {
+    private static ILogger Logger => Log.ForContext(typeof(ExcelExporter));
+
     private static readonly XLColor HeaderColor = XLColor.FromHtml("#D9E2F3");
     private static readonly XLColor TitleColor = XLColor.FromHtml("#1F4E79");
 
@@ -30,7 +32,7 @@ public static class ExcelExporter
         AddSkillsSheet(workbook, resume);
 
         workbook.SaveAs(path);
-        Log.Information("Excel сохранён: {File}", Path.GetFileName(path));
+        Logger.Information("Excel сохранён: {File}", Path.GetFileName(path));
     }
 
     // ---------- Лист 1: личные данные и итоги ----------
@@ -317,7 +319,7 @@ public static class ExcelExporter
         sheet.Column(1).Width = 40;
         sheet.Columns(2, headers.Length).AdjustToContents();
         workbook.SaveAs(path);
-        Log.Information("Отчёт Excel сохранён: {File}", Path.GetFileName(path));
+        Logger.Information("Отчёт Excel сохранён: {File}", Path.GetFileName(path));
     }
 
     // ---------- вспомогательные методы ----------

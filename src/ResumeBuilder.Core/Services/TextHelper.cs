@@ -24,6 +24,12 @@ public static class TextHelper
     private static readonly Regex PhoneRegex = new("^" + PhonePattern + "$");
     private static readonly Regex PhoneSearchRegex = new(PhonePattern);
 
+    // Ссылка: http(s)://... или github.com/...
+    private static readonly Regex UrlRegex = new(@"https?://[^\s,;]+|github\.com/[^\s,;]+", RegexOptions.IgnoreCase);
+
+    // Lookbehind (?<=...): берём логин, который стоит ПОСЛЕ «github.com/», сам адрес в результат не попадает
+    private static readonly Regex GitHubLoginRegex = new(@"(?<=github\.com/)[A-Za-z0-9-]+", RegexOptions.IgnoreCase);
+
     // Дата ДД.ММ.ГГГГ с группами day, month, year
     private static readonly Regex DateRegex = new(@"\b(?<day>\d{2})\.(?<month>\d{2})\.(?<year>\d{4})\b");
 
@@ -49,6 +55,33 @@ public static class TextHelper
     /// <summary>Находит все телефоны в тексте и приводит их к одному виду.</summary>
     public static List<string> FindPhones(string text) =>
         PhoneSearchRegex.Matches(text).Select(m => NormalizePhone(m.Value)).Distinct().ToList();
+
+    /// <summary>Находит все ссылки в тексте.</summary>
+    public static List<string> FindUrls(string text) =>
+        UrlRegex.Matches(text).Select(m => m.Value.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? m.Value : "https://" + m.Value)
+            .Distinct().ToList();
+
+    /// <summary>Логин на GitHub из текста (lookbehind) или null.</summary>
+    public static string? FindGitHubLogin(string text)
+    {
+        Match match = GitHubLoginRegex.Match(text);
+        return match.Success ? match.Value : null;
+    }
+
+    /// <summary>Первая дата ДД.ММ.ГГГГ в тексте. Собирается из групп day, month, year.</summary>
+    public static DateTime? FindDate(string text)
+    {
+        foreach (Match m in DateRegex.Matches(text))
+        {
+            int day = int.Parse(m.Groups["day"].Value);
+            int month = int.Parse(m.Groups["month"].Value);
+            int year = int.Parse(m.Groups["year"].Value);
+            // RegEx проверяет только формат, а 31.02 — несуществующая дата, её пропускаем
+            if (month >= 1 && month <= 12 && day >= 1 && day <= DateTime.DaysInMonth(year, month))
+                return new DateTime(year, month, day);
+        }
+        return null;
+    }
 
     /// <summary>Меняет даты ДД.ММ.ГГГГ на ГГГГ-ММ-ДД (перестановка групп).</summary>
     public static string DatesToIso(string text) =>
