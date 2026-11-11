@@ -9,44 +9,76 @@ namespace ResumeBuilder.Core.Services;
 /// </summary>
 public static class TextImporter
 {
-    /// <summary>Возвращает список того, что удалось найти и заполнить.</summary>
-    public static List<string> FillContacts(Resume resume, string text)
+    /// <summary>
+    /// Заполняет пустые поля. В found — что заполнено, в skipped — что найдено,
+    /// но не записано, потому что поле уже было заполнено.
+    /// </summary>
+    public static List<string> FillContacts(Resume resume, string text) => FillContacts(resume, text, new List<string>());
+
+    public static List<string> FillContacts(Resume resume, string text, List<string> skipped)
     {
         ArgumentNullException.ThrowIfNull(resume);
         var found = new List<string>();
         PersonalInfo p = resume.Personal;
 
+        // Для каждого поля: нашли в тексте → если поле пустое, заполняем;
+        // если уже заполнено — не трогаем, но сообщаем пользователю
         List<string> emails = TextHelper.FindEmails(text);
-        if (emails.Count > 0 && p.Email == "")
+        if (emails.Count > 0)
         {
-            p.Email = emails[0];
-            found.Add("E-mail: " + p.Email);
+            if (string.IsNullOrWhiteSpace(p.Email))
+            {
+                p.Email = emails[0];
+                found.Add("E-mail: " + p.Email);
+            }
+            else
+                skipped.Add("E-mail: " + emails[0]);
         }
 
         List<string> phones = TextHelper.FindPhones(text);
-        if (phones.Count > 0 && p.Phone == "")
+        if (phones.Count > 0)
         {
-            p.Phone = phones[0];
-            found.Add("Телефон: " + p.Phone);
+            if (string.IsNullOrWhiteSpace(p.Phone))
+            {
+                p.Phone = phones[0];
+                found.Add("Телефон: " + p.Phone);
+            }
+            else
+                skipped.Add("Телефон: " + phones[0]);
         }
 
+        // Сначала ищем GitHub (lookbehind), если его нет — любую другую ссылку
+        string? website = null;
         string? login = TextHelper.FindGitHubLogin(text);
-        List<string> urls = TextHelper.FindUrls(text);
-        if (string.IsNullOrEmpty(p.Website))
+        if (login != null)
+            website = "https://github.com/" + login;
+        else
         {
-            if (login != null)
-                p.Website = "https://github.com/" + login;
-            else if (urls.Count > 0)
-                p.Website = urls[0];
-            if (!string.IsNullOrEmpty(p.Website))
-                found.Add("Сайт: " + p.Website);
+            List<string> urls = TextHelper.FindUrls(text);
+            if (urls.Count > 0)
+                website = urls[0];
+        }
+        if (website != null)
+        {
+            if (string.IsNullOrWhiteSpace(p.Website))
+            {
+                p.Website = website;
+                found.Add("Сайт: " + website);
+            }
+            else
+                skipped.Add("Сайт: " + website);
         }
 
         DateTime? date = TextHelper.FindDate(text);
-        if (date != null && p.BirthDate == null)
+        if (date != null)
         {
-            p.BirthDate = date;
-            found.Add("Дата рождения: " + date.Value.ToString("dd.MM.yyyy"));
+            if (p.BirthDate == null)
+            {
+                p.BirthDate = date;
+                found.Add("Дата рождения: " + date.Value.ToString("dd.MM.yyyy"));
+            }
+            else
+                skipped.Add("Дата рождения: " + date.Value.ToString("dd.MM.yyyy"));
         }
 
         Log.ForContext(typeof(TextImporter)).Information("Из текста заполнено полей: {Count}", found.Count);

@@ -24,8 +24,8 @@ public static class TextHelper
     private static readonly Regex PhoneRegex = new("^" + PhonePattern + "$");
     private static readonly Regex PhoneSearchRegex = new(PhonePattern);
 
-    // Ссылка: http(s)://... или github.com/...
-    private static readonly Regex UrlRegex = new(@"https?://[^\s,;]+|github\.com/[^\s,;]+", RegexOptions.IgnoreCase);
+    // Ссылка: http(s)://..., www.... или github.com/...
+    private static readonly Regex UrlRegex = new(@"https?://[^\s,;]+|www\.[^\s,;]+|github\.com/[^\s,;]+", RegexOptions.IgnoreCase);
 
     // Lookbehind (?<=...): берём логин, который стоит ПОСЛЕ «github.com/», сам адрес в результат не попадает
     private static readonly Regex GitHubLoginRegex = new(@"(?<=github\.com/)[A-Za-z0-9-]+", RegexOptions.IgnoreCase);

@@ -176,14 +176,20 @@
   <data name="Menu_Save" xml:space="preserve">
     <value>Сохранить как...</value>
   </data>
+  <data name="Msg_AlreadyFilled" xml:space="preserve">
+    <value>Найдено, но поле уже заполнено (не изменено):</value>
+  </data>
   <data name="Msg_Error" xml:space="preserve">
     <value>Произошла ошибка:</value>
   </data>
   <data name="Msg_ExportWithErrors" xml:space="preserve">
     <value>В резюме есть ошибки. Всё равно сохранить PDF?</value>
   </data>
+  <data name="Msg_Filled" xml:space="preserve">
+    <value>Заполнено:</value>
+  </data>
   <data name="Msg_Imported" xml:space="preserve">
-    <value>Добавлено мест работы: {0}</value>
+    <value>Добавлено мест работы: {0}. Пропущено, потому что уже есть: {1}</value>
   </data>
   <data name="Msg_NothingFound" xml:space="preserve">
     <value>В тексте не найдено новых контактов</value>

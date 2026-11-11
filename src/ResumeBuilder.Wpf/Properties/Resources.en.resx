@@ -176,14 +176,20 @@
   <data name="Menu_Save" xml:space="preserve">
     <value>Save as...</value>
   </data>
+  <data name="Msg_AlreadyFilled" xml:space="preserve">
+    <value>Found, but the field is already filled (not changed):</value>
+  </data>
   <data name="Msg_Error" xml:space="preserve">
     <value>An error occurred:</value>
   </data>
   <data name="Msg_ExportWithErrors" xml:space="preserve">
     <value>The resume has errors. Save PDF anyway?</value>
   </data>
+  <data name="Msg_Filled" xml:space="preserve">
+    <value>Filled in:</value>
+  </data>
   <data name="Msg_Imported" xml:space="preserve">
-    <value>Jobs imported: {0}</value>
+    <value>Jobs added: {0}. Skipped as already present: {1}</value>
   </data>
   <data name="Msg_NothingFound" xml:space="preserve">
     <value>No new contacts found in the text</value>

@@ -254,10 +254,21 @@ public class MainViewModel : ViewModelBase
         {
             var errors = new List<string>();
             List<WorkExperience> items = WordImporter.ImportExperience(dialog.FileName, errors);
+            int added = 0;
             foreach (WorkExperience item in items)
-                Experience.Items.Add(item);
+            {
+                // Такое место работы уже есть (та же компания, должность и дата начала) — пропускаем
+                bool exists = Experience.Items.Any(e => e.Company == item.Company && e.Position == item.Position
+                                                        && e.StartDate.Year == item.StartDate.Year && e.StartDate.Month == item.StartDate.Month);
+                if (!exists)
+                {
+                    Experience.Items.Add(item);
+                    added++;
+                }
+            }
+            AuditLog.Write("Импорт из Word", Path.GetFileName(dialog.FileName), errors.Count == 0);
 
-            string message = string.Format(Res.Msg_Imported, items.Count);
+            string message = string.Format(Res.Msg_Imported, added, items.Count - added);
             if (errors.Count > 0)
                 message += "\n\n" + string.Join("\n", errors);
             MessageBox.Show(message, Res.App_Title);
@@ -278,10 +289,14 @@ public class MainViewModel : ViewModelBase
         try
         {
             string text = File.ReadAllText(dialog.FileName);
-            List<string> found = TextImporter.FillContacts(_resume, text);
+            var skipped = new List<string>();
+            List<string> found = TextImporter.FillContacts(_resume, text, skipped);
             OnPropertyChanged(nameof(Personal));
             UpdateQr();
-            string message = found.Count == 0 ? Res.Msg_NothingFound : string.Join("\n", found);
+
+            string message = found.Count == 0 ? Res.Msg_NothingFound : Res.Msg_Filled + "\n" + string.Join("\n", found);
+            if (skipped.Count > 0)
+                message += "\n\n" + Res.Msg_AlreadyFilled + "\n" + string.Join("\n", skipped);
             MessageBox.Show(message, Res.App_Title);
         }
         catch (Exception ex)

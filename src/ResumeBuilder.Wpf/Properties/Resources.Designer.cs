@@ -462,6 +462,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Найдено, но поле уже заполнено (не изменено):.
+        /// </summary>
+        public static string Msg_AlreadyFilled {
+            get {
+                return ResourceManager.GetString("Msg_AlreadyFilled", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Произошла ошибка:.
         /// </summary>
         public static string Msg_Error {
@@ -480,7 +489,16 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Добавлено мест работы: {0}.
+        ///   Ищет локализованную строку, похожую на Заполнено:.
+        /// </summary>
+        public static string Msg_Filled {
+            get {
+                return ResourceManager.GetString("Msg_Filled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавлено мест работы: {0}. Пропущено, потому что уже есть: {1}.
         /// </summary>
         public static string Msg_Imported {
             get {
