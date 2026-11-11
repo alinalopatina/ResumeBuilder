@@ -30,12 +30,14 @@ public static class AuditLog
 /// </summary>
 public static class LoggedOperation
 {
+    private static ILogger Logger => Log.ForContext(typeof(LoggedOperation));
+
     public static void Run(string operationName, Action action)
     {
         string correlationId = Guid.NewGuid().ToString("N").Substring(0, 8);
         using (LogContext.PushProperty("CorrelationId", correlationId))
         {
-            Log.Debug("Начало операции {Operation}", operationName);
+            Logger.Debug("Начало операции {Operation}", operationName);
             var timer = Stopwatch.StartNew();
             try
             {
@@ -43,15 +45,15 @@ public static class LoggedOperation
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Операция {Operation} завершилась ошибкой", operationName);
+                Logger.Error(ex, "Операция {Operation} завершилась ошибкой", operationName);
                 throw;
             }
 
             long ms = timer.ElapsedMilliseconds;
             if (ms > LoggingSetup.SlowOperationMs)
-                Log.Warning("Медленная операция {Operation}: {ExecutionTimeMs} мс", operationName, ms);
+                Logger.Warning("Медленная операция {Operation}: {ExecutionTimeMs} мс", operationName, ms);
             else
-                Log.Information("Операция {Operation} выполнена за {ExecutionTimeMs} мс", operationName, ms);
+                Logger.Information("Операция {Operation} выполнена за {ExecutionTimeMs} мс", operationName, ms);
         }
     }
 }
