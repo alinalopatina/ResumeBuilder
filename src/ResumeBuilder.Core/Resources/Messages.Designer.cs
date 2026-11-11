@@ -66,6 +66,15 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Работаю сейчас.
+        /// </summary>
+        public static string Column_Current {
+            get {
+                return ResourceManager.GetString("Column_Current", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Обязанности.
         /// </summary>
         public static string Column_Description {
@@ -80,6 +89,42 @@ namespace ResumeBuilder.Core.Resources {
         public static string Column_End {
             get {
                 return ResourceManager.GetString("Column_End", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Год окончания.
+        /// </summary>
+        public static string Column_EndYear {
+            get {
+                return ResourceManager.GetString("Column_EndYear", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Показатель.
+        /// </summary>
+        public static string Column_Field {
+            get {
+                return ResourceManager.GetString("Column_Field", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Учебное заведение.
+        /// </summary>
+        public static string Column_Institution {
+            get {
+                return ResourceManager.GetString("Column_Institution", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Уровень.
+        /// </summary>
+        public static string Column_Level {
+            get {
+                return ResourceManager.GetString("Column_Level", resourceCulture);
             }
         }
 
@@ -102,11 +147,128 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Шкала.
+        /// </summary>
+        public static string Column_Scale {
+            get {
+                return ResourceManager.GetString("Column_Scale", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Доля стажа.
+        /// </summary>
+        public static string Column_Share {
+            get {
+                return ResourceManager.GetString("Column_Share", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Навык.
+        /// </summary>
+        public static string Column_Skill {
+            get {
+                return ResourceManager.GetString("Column_Skill", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Специальность.
+        /// </summary>
+        public static string Column_Specialty {
+            get {
+                return ResourceManager.GetString("Column_Specialty", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Начало.
         /// </summary>
         public static string Column_Start {
             get {
                 return ResourceManager.GetString("Column_Start", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Год начала.
+        /// </summary>
+        public static string Column_StartYear {
+            get {
+                return ResourceManager.GetString("Column_StartYear", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Статус.
+        /// </summary>
+        public static string Column_Status {
+            get {
+                return ResourceManager.GetString("Column_Status", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Значение.
+        /// </summary>
+        public static string Column_Value {
+            get {
+                return ResourceManager.GetString("Column_Value", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Лет.
+        /// </summary>
+        public static string Column_Years {
+            get {
+                return ResourceManager.GetString("Column_Years", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Резюме заполнено полностью..
+        /// </summary>
+        public static string Conclusion_Complete {
+            get {
+                return ResourceManager.GetString("Conclusion_Complete", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Резюме заполнено на {0} %, стоит дополнить пустые поля..
+        /// </summary>
+        public static string Conclusion_Incomplete {
+            get {
+                return ResourceManager.GetString("Conclusion_Incomplete", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Опыт меньше года — резюме подходит для стажировки или позиции Junior..
+        /// </summary>
+        public static string Conclusion_Junior {
+            get {
+                return ResourceManager.GetString("Conclusion_Junior", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Опыт от одного до трёх лет — можно претендовать на позицию Junior+/Middle..
+        /// </summary>
+        public static string Conclusion_Middle {
+            get {
+                return ResourceManager.GetString("Conclusion_Middle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Опыт больше трёх лет — стоит подробнее описать достижения..
+        /// </summary>
+        public static string Conclusion_Senior {
+            get {
+                return ResourceManager.GetString("Conclusion_Senior", resourceCulture);
             }
         }
 
@@ -246,6 +408,24 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Возраст.
+        /// </summary>
+        public static string Field_Age {
+            get {
+                return ResourceManager.GetString("Field_Age", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата рождения.
+        /// </summary>
+        public static string Field_BirthDate {
+            get {
+                return ResourceManager.GetString("Field_BirthDate", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Город.
         /// </summary>
         public static string Field_City {
@@ -282,6 +462,15 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на {0} г. {1} мес..
+        /// </summary>
+        public static string Format_YearsMonths {
+            get {
+                return ResourceManager.GetString("Format_YearsMonths", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Строка {0}: неверная дата «{1}».
         /// </summary>
         public static string Import_BadDate {
@@ -309,6 +498,15 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на нет.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на н.в..
         /// </summary>
         public static string Present {
@@ -323,6 +521,15 @@ namespace ResumeBuilder.Core.Resources {
         public static string QrCaption {
             get {
                 return ResourceManager.GetString("QrCaption", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Среднее.
+        /// </summary>
+        public static string Report_Average {
+            get {
+                return ResourceManager.GetString("Report_Average", resourceCulture);
             }
         }
 
@@ -354,11 +561,65 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Заполненность резюме.
+        /// </summary>
+        public static string Report_Completeness {
+            get {
+                return ResourceManager.GetString("Report_Completeness", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вывод.
+        /// </summary>
+        public static string Report_Conclusion {
+            get {
+                return ResourceManager.GetString("Report_Conclusion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сформирован.
+        /// </summary>
+        public static string Report_Created {
+            get {
+                return ResourceManager.GetString("Report_Created", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Учебных заведений.
+        /// </summary>
+        public static string Report_EducationCount {
+            get {
+                return ResourceManager.GetString("Report_EducationCount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Общие показатели.
+        /// </summary>
+        public static string Report_General {
+            get {
+                return ResourceManager.GetString("Report_General", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Количество мест работы.
         /// </summary>
         public static string Report_JobsCount {
             get {
                 return ResourceManager.GetString("Report_JobsCount", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Самое долгое место работы (мес.).
+        /// </summary>
+        public static string Report_LongestJob {
+            get {
+                return ResourceManager.GetString("Report_LongestJob", resourceCulture);
             }
         }
 
@@ -390,6 +651,24 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Итого.
+        /// </summary>
+        public static string Report_Total {
+            get {
+                return ResourceManager.GetString("Report_Total", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Общий стаж.
+        /// </summary>
+        public static string Report_TotalExperience {
+            get {
+                return ResourceManager.GetString("Report_TotalExperience", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Общий стаж, мес..
         /// </summary>
         public static string Report_TotalMonths {
@@ -404,6 +683,15 @@ namespace ResumeBuilder.Core.Resources {
         public static string Section_About {
             get {
                 return ResourceManager.GetString("Section_About", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Контакты.
+        /// </summary>
+        public static string Section_Contacts {
+            get {
+                return ResourceManager.GetString("Section_Contacts", resourceCulture);
             }
         }
 
@@ -426,11 +714,56 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Резюме.
+        /// </summary>
+        public static string Section_Resume {
+            get {
+                return ResourceManager.GetString("Section_Resume", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Навыки.
         /// </summary>
         public static string Section_Skills {
             get {
                 return ResourceManager.GetString("Section_Skills", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Резюме.
+        /// </summary>
+        public static string Sheet_Summary {
+            get {
+                return ResourceManager.GetString("Sheet_Summary", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Окончено.
+        /// </summary>
+        public static string Status_Finished {
+            get {
+                return ResourceManager.GetString("Status_Finished", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Учусь.
+        /// </summary>
+        public static string Status_Studying {
+            get {
+                return ResourceManager.GetString("Status_Studying", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на да.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

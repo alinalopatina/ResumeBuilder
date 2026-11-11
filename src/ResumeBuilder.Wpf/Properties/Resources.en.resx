@@ -129,7 +129,7 @@
     <value>E_xport</value>
   </data>
   <data name="Menu_ExportExcel" xml:space="preserve">
-    <value>Export experience to Excel</value>
+    <value>Export to Excel</value>
   </data>
   <data name="Menu_ExportPdf" xml:space="preserve">
     <value>Export to PDF</value>

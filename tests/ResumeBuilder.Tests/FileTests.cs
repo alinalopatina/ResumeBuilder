@@ -50,6 +50,9 @@ public class FileTests
         Assert.Equal(18, report.TotalMonths);
         Assert.Equal(9.0, report.AverageMonths);
         Assert.Equal(3.75, report.AverageSkillLevel);
+        Assert.Equal(88.9, report.Rows.Single(r => r.Company == "Фриланс").SharePercent);
+        Assert.Equal(3, report.SkillsByLevel[3]);   // три навыка на уровне 4
+        Assert.Equal(100, report.CompletenessPercent);
     }
 
     [Fact]
@@ -65,6 +68,8 @@ public class FileTests
         Assert.Empty(errors);
         Assert.Equal(resume.Experience.Count, imported.Count);
         Assert.Equal(resume.Experience[0].Company, imported[0].Company);
+        Assert.Equal(resume.Experience[0].Description, imported[0].Description);
+        Assert.Equal(resume.Experience[0].EndDate?.ToString("MM.yyyy"), imported[0].EndDate?.ToString("MM.yyyy"));
         File.Delete(path);
     }
 
@@ -75,11 +80,16 @@ public class FileTests
         string xlsx = TempFile(".xlsx");
         string pdf = TempFile(".pdf");
 
-        ExcelExporter.ExportExperience(resume, xlsx);
+        ExcelExporter.ExportResume(resume, xlsx);
         PdfExporter.Export(resume, pdf, includeQr: true);
 
         Assert.True(new FileInfo(xlsx).Length > 0);
         Assert.True(new FileInfo(pdf).Length > 0);
+
+        using (var workbook = new ClosedXML.Excel.XLWorkbook(xlsx))
+        {
+            Assert.Equal(4, workbook.Worksheets.Count);   // Резюме, Опыт, Образование, Навыки
+        }
         File.Delete(xlsx);
         File.Delete(pdf);
     }

@@ -18,6 +18,13 @@ public class Resume
     [JsonIgnore]
     public string? FilePath { get; set; }
 
+    /// <summary>Общий стаж в месяцах (сумма по всем местам работы).</summary>
+    public int GetTotalMonths(DateTime today) => Experience.Sum(e => e.GetMonths(today));
+
+    /// <summary>Стаж в виде текста: «1 г. 6 мес.» / «1 y. 6 mo.».</summary>
+    public static string FormatMonths(int months) =>
+        string.Format(Resources.Messages.Format_YearsMonths, months / 12, months % 12);
+
     /// <summary>Все элементы резюме через базовый класс.</summary>
     public List<ResumeItem> GetAllItems()
     {

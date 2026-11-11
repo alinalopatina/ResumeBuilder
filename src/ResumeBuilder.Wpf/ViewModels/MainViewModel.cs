@@ -190,9 +190,9 @@ public class MainViewModel : ViewModelBase
     private void ExportExcel()
     {
         CopyListsToResume();
-        string? path = AskSavePath("Excel (*.xlsx)|*.xlsx", "experience.xlsx");
+        string? path = AskSavePath("Excel (*.xlsx)|*.xlsx", "resume.xlsx");
         if (path != null)
-            RunExport(() => ExcelExporter.ExportExperience(_resume, path), path);
+            RunExport(() => ExcelExporter.ExportResume(_resume, path), path);
     }
 
     /// <summary>Сводный отчёт: считаем один раз, сохраняем в Excel, Word и txt.</summary>

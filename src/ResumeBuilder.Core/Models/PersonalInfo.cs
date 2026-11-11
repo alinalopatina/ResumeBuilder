@@ -29,6 +29,17 @@ public class PersonalInfo
 
     public DateTime? BirthDate { get; set; }
 
+    /// <summary>Возраст в полных годах или null, если дата рождения не указана.</summary>
+    public int? GetAge(DateTime today)
+    {
+        if (BirthDate == null)
+            return null;
+        int age = today.Year - BirthDate.Value.Year;
+        if (BirthDate.Value.Date > today.AddYears(-age))
+            age--;
+        return age;
+    }
+
     /// <summary>Ссылка на GitHub или портфолио — её можно закодировать в QR-код.</summary>
     [Url(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Error_UrlFormat))]
     public string? Website { get; set; }

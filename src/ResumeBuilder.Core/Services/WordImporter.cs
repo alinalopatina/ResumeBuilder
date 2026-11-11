@@ -67,7 +67,8 @@ public static class WordImporter
                 Position = cells[1],
                 StartDate = start,
                 EndDate = end,
-                Description = cells.Count > 4 ? cells[4] : ""
+                // столбцы: Компания, Должность, Начало, Окончание, Месяцев, Обязанности
+                Description = cells.Count > 5 ? cells[5] : ""
             });
         }
 

@@ -44,11 +44,26 @@
   <data name="Column_Company" xml:space="preserve">
     <value>Company</value>
   </data>
+  <data name="Column_Current" xml:space="preserve">
+    <value>Current job</value>
+  </data>
   <data name="Column_Description" xml:space="preserve">
     <value>Responsibilities</value>
   </data>
   <data name="Column_End" xml:space="preserve">
     <value>End</value>
+  </data>
+  <data name="Column_EndYear" xml:space="preserve">
+    <value>End year</value>
+  </data>
+  <data name="Column_Field" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="Column_Institution" xml:space="preserve">
+    <value>Institution</value>
+  </data>
+  <data name="Column_Level" xml:space="preserve">
+    <value>Level</value>
   </data>
   <data name="Column_Months" xml:space="preserve">
     <value>Months</value>
@@ -56,8 +71,47 @@
   <data name="Column_Position" xml:space="preserve">
     <value>Position</value>
   </data>
+  <data name="Column_Scale" xml:space="preserve">
+    <value>Scale</value>
+  </data>
+  <data name="Column_Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="Column_Skill" xml:space="preserve">
+    <value>Skill</value>
+  </data>
+  <data name="Column_Specialty" xml:space="preserve">
+    <value>Specialty</value>
+  </data>
   <data name="Column_Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="Column_StartYear" xml:space="preserve">
+    <value>Start year</value>
+  </data>
+  <data name="Column_Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Column_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Column_Years" xml:space="preserve">
+    <value>Years</value>
+  </data>
+  <data name="Conclusion_Complete" xml:space="preserve">
+    <value>The resume is complete.</value>
+  </data>
+  <data name="Conclusion_Incomplete" xml:space="preserve">
+    <value>The resume is {0} % complete, fill in the empty fields.</value>
+  </data>
+  <data name="Conclusion_Junior" xml:space="preserve">
+    <value>Less than a year of experience: suitable for an internship or a junior position.</value>
+  </data>
+  <data name="Conclusion_Middle" xml:space="preserve">
+    <value>One to three years of experience: Junior+/Middle positions are realistic.</value>
+  </data>
+  <data name="Conclusion_Senior" xml:space="preserve">
+    <value>More than three years of experience: describe your achievements in more detail.</value>
   </data>
   <data name="Error_Age" xml:space="preserve">
     <value>Age must be between 14 and 100</value>
@@ -104,6 +158,12 @@
   <data name="Error_UrlFormat" xml:space="preserve">
     <value>Link must start with http:// or https://</value>
   </data>
+  <data name="Field_Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="Field_BirthDate" xml:space="preserve">
+    <value>Date of birth</value>
+  </data>
   <data name="Field_City" xml:space="preserve">
     <value>City</value>
   </data>
@@ -116,6 +176,9 @@
   <data name="Field_Website" xml:space="preserve">
     <value>Website</value>
   </data>
+  <data name="Format_YearsMonths" xml:space="preserve">
+    <value>{0} y. {1} mo.</value>
+  </data>
   <data name="Import_BadDate" xml:space="preserve">
     <value>Row {0}: invalid date "{1}"</value>
   </data>
@@ -125,11 +188,17 @@
   <data name="Import_TableNotFound" xml:space="preserve">
     <value>Work experience table not found in the document</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>no</value>
+  </data>
   <data name="Present" xml:space="preserve">
     <value>present</value>
   </data>
   <data name="QrCaption" xml:space="preserve">
     <value>Scan the QR code to save the contact</value>
+  </data>
+  <data name="Report_Average" xml:space="preserve">
+    <value>Average</value>
   </data>
   <data name="Report_AverageMonths" xml:space="preserve">
     <value>Average job duration, months</value>
@@ -140,8 +209,26 @@
   <data name="Report_BestSkill" xml:space="preserve">
     <value>Best skill</value>
   </data>
+  <data name="Report_Completeness" xml:space="preserve">
+    <value>Resume completeness</value>
+  </data>
+  <data name="Report_Conclusion" xml:space="preserve">
+    <value>Conclusion</value>
+  </data>
+  <data name="Report_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Report_EducationCount" xml:space="preserve">
+    <value>Education entries</value>
+  </data>
+  <data name="Report_General" xml:space="preserve">
+    <value>Key figures</value>
+  </data>
   <data name="Report_JobsCount" xml:space="preserve">
     <value>Number of jobs</value>
+  </data>
+  <data name="Report_LongestJob" xml:space="preserve">
+    <value>Longest job (months)</value>
   </data>
   <data name="Report_Sheet" xml:space="preserve">
     <value>Report</value>
@@ -152,11 +239,20 @@
   <data name="Report_Title" xml:space="preserve">
     <value>Resume summary report</value>
   </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Report_TotalExperience" xml:space="preserve">
+    <value>Total experience</value>
+  </data>
   <data name="Report_TotalMonths" xml:space="preserve">
     <value>Total experience, months</value>
   </data>
   <data name="Section_About" xml:space="preserve">
     <value>About me</value>
+  </data>
+  <data name="Section_Contacts" xml:space="preserve">
+    <value>Contacts</value>
   </data>
   <data name="Section_Education" xml:space="preserve">
     <value>Education</value>
@@ -164,7 +260,22 @@
   <data name="Section_Experience" xml:space="preserve">
     <value>Work experience</value>
   </data>
+  <data name="Section_Resume" xml:space="preserve">
+    <value>Resume</value>
+  </data>
   <data name="Section_Skills" xml:space="preserve">
     <value>Skills</value>
+  </data>
+  <data name="Sheet_Summary" xml:space="preserve">
+    <value>Resume</value>
+  </data>
+  <data name="Status_Finished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="Status_Studying" xml:space="preserve">
+    <value>Studying</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>yes</value>
   </data>
 </root>

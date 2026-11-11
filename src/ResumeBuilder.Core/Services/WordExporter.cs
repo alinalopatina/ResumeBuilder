@@ -26,29 +26,74 @@ public static class WordExporter
         Body body = main.Document.Body!;
         PersonalInfo p = resume.Personal;
 
-        body.Append(MakeParagraph(p.FullName, bold: true, size: 32));
-        body.Append(MakeParagraph(p.Position, size: 26));
-        body.Append(MakeParagraph($"{Messages.Field_Phone}: {TextHelper.NormalizePhone(p.Phone)}   {Messages.Field_Email}: {p.Email}"));
+        // Шапка
+        body.Append(MakeParagraph(p.FullName, bold: true, size: 36, color: TitleColor));
+        body.Append(MakeParagraph(p.Position, size: 28));
+
+        // Контакты — таблицей из двух столбцов
+        body.Append(MakeHeading(Messages.Section_Contacts));
+        var contacts = new List<string[]>
+        {
+            new[] { Messages.Field_Phone, TextHelper.NormalizePhone(p.Phone) },
+            new[] { Messages.Field_Email, p.Email },
+            new[] { Messages.Field_City, p.City }
+        };
+        if (p.BirthDate != null)
+            contacts.Add(new[] { Messages.Field_BirthDate, $"{p.BirthDate:dd.MM.yyyy} ({Messages.Field_Age}: {p.GetAge(DateTime.Today)})" });
+        if (!string.IsNullOrWhiteSpace(p.Website))
+            contacts.Add(new[] { Messages.Field_Website, p.Website });
+        body.Append(MakeTable(new[] { Messages.Column_Field, Messages.Column_Value }, contacts));
 
         // Абзац с описанием
-        body.Append(MakeParagraph(Messages.Section_About, bold: true, size: 26));
-        body.Append(MakeParagraph(resume.About));
+        if (!string.IsNullOrWhiteSpace(resume.About))
+        {
+            body.Append(MakeHeading(Messages.Section_About));
+            body.Append(MakeParagraph(resume.About));
+        }
 
-        // Таблица
-        body.Append(MakeParagraph(Messages.Section_Experience, bold: true, size: 26));
-        var rows = resume.Experience.Select(e => new[]
+        // Опыт работы. Первый столбец «Компания» — по нему WordImporter находит таблицу
+        body.Append(MakeHeading(Messages.Section_Experience));
+        body.Append(MakeParagraph($"{Messages.Report_TotalExperience}: {Resume.FormatMonths(resume.GetTotalMonths(DateTime.Today))}", italic: true));
+        var jobs = resume.Experience.Select(e => new[]
         {
             e.Company,
             e.Position,
             e.StartDate.ToString(DateFormat),
             e.EndDate?.ToString(DateFormat) ?? Messages.Present,
+            e.GetMonths(DateTime.Today).ToString(),
             e.Description
         }).ToList();
-        body.Append(MakeTable(new[] { Messages.Column_Company, Messages.Column_Position, Messages.Column_Start, Messages.Column_End, Messages.Column_Description }, rows));
+        body.Append(MakeTable(new[] { Messages.Column_Company, Messages.Column_Position, Messages.Column_Start, Messages.Column_End, Messages.Column_Months, Messages.Column_Description }, jobs));
+
+        // Образование
+        if (resume.Education.Count > 0)
+        {
+            body.Append(MakeHeading(Messages.Section_Education));
+            var education = resume.Education.Select(ed => new[]
+            {
+                ed.Institution,
+                ed.Specialty,
+                ed.StartYear.ToString(),
+                ed.EndYear?.ToString() ?? "",
+                ed.EndYear != null && ed.EndYear <= DateTime.Today.Year ? Messages.Status_Finished : Messages.Status_Studying
+            }).ToList();
+            body.Append(MakeTable(new[] { Messages.Column_Institution, Messages.Column_Specialty, Messages.Column_StartYear, Messages.Column_EndYear, Messages.Column_Status }, education));
+        }
+
+        // Навыки
+        if (resume.Skills.Count > 0)
+        {
+            body.Append(MakeHeading(Messages.Section_Skills));
+            var skills = resume.Skills.OrderByDescending(s => s.Level).Select(s => new[]
+            {
+                s.Name, s.Level + "/5", ResumeReport.SkillBar(s.Level)
+            }).ToList();
+            body.Append(MakeTable(new[] { Messages.Column_Skill, Messages.Column_Level, Messages.Column_Scale }, skills));
+        }
 
         // Изображение — QR-код
         byte[] qr = QrCodeService.CreatePng(QrCodeService.BuildVCard(p), 6);
-        body.Append(MakeParagraph(Messages.QrCaption, size: 18));
+        body.Append(MakeParagraph(Messages.QrCaption, italic: true, size: 18));
         body.Append(MakeImage(main, qr, 140, 140));
 
         main.Document.Save();
@@ -63,23 +108,50 @@ public static class WordExporter
         main.Document = new Document(new Body());
         Body body = main.Document.Body!;
 
-        body.Append(MakeParagraph(Messages.Report_Title, bold: true, size: 32));
-        body.Append(MakeParagraph(report.FullName, size: 26));
-        foreach (var (name, value) in report.GetSummary())
-            body.Append(MakeParagraph($"{name}: {value}"));
+        body.Append(MakeParagraph(Messages.Report_Title, bold: true, size: 32, color: TitleColor));
+        body.Append(MakeParagraph($"{report.FullName} — {report.Position}", size: 26));
+        body.Append(MakeParagraph($"{Messages.Report_Created}: {report.CreatedAt:g}", italic: true, size: 18));
 
-        var rows = report.Rows.Select(r => new[] { r.Company, r.Position, r.Months.ToString() }).ToList();
-        body.Append(MakeTable(new[] { Messages.Column_Company, Messages.Column_Position, Messages.Column_Months }, rows));
+        body.Append(MakeHeading(Messages.Report_General));
+        var summary = report.GetSummary().Select(x => new[] { x.Name, x.Value }).ToList();
+        body.Append(MakeTable(new[] { Messages.Column_Field, Messages.Column_Value }, summary));
+
+        body.Append(MakeHeading(Messages.Section_Experience));
+        var rows = report.Rows.Select(r => new[]
+        {
+            r.Company, r.Position, r.Start.ToString(DateFormat), r.End?.ToString(DateFormat) ?? Messages.Present,
+            r.Months.ToString(), r.SharePercent.ToString("0.0") + " %"
+        }).ToList();
+        rows.Add(new[] { Messages.Report_Total, "", "", "", report.TotalMonths.ToString(), report.Rows.Count > 0 ? "100 %" : "0 %" });
+        body.Append(MakeTable(new[] { Messages.Column_Company, Messages.Column_Position, Messages.Column_Start, Messages.Column_End, Messages.Column_Months, Messages.Column_Share }, rows));
+
+        body.Append(MakeHeading(Messages.Section_Skills));
+        var levels = new List<string[]>();
+        for (int level = 5; level >= 1; level--)
+            levels.Add(new[] { ResumeReport.SkillBar(level), report.SkillsByLevel[level - 1].ToString() });
+        body.Append(MakeTable(new[] { Messages.Column_Level, Messages.Report_SkillsCount }, levels));
+
+        body.Append(MakeHeading(Messages.Report_Conclusion));
+        body.Append(MakeParagraph(report.Conclusion));
+
         main.Document.Save();
+        Log.Information("Отчёт Word сохранён: {File}", Path.GetFileName(path));
     }
 
     // ---------- вспомогательные методы ----------
 
-    private static Paragraph MakeParagraph(string text, bool bold = false, int size = 22)
+    private const string TitleColor = "1F4E79";
+
+    private static Paragraph MakeHeading(string text) =>
+        MakeParagraph(text, bold: true, size: 26, color: TitleColor);
+
+    private static Paragraph MakeParagraph(string text, bool bold = false, int size = 22, string? color = null, bool italic = false)
     {
-        // size — в половинах пункта: 22 = 11 pt
+        // size — в половинах пункта: 22 = 11 pt. Порядок элементов в RunProperties важен для Word
         var runProps = new RunProperties(new RunFonts { Ascii = "Calibri", HighAnsi = "Calibri" });
         if (bold) runProps.Append(new Bold());
+        if (italic) runProps.Append(new Italic());
+        if (color != null) runProps.Append(new Color { Val = color });
         runProps.Append(new FontSize { Val = size.ToString() });
         return new Paragraph(new Run(runProps, new Text(text) { Space = DocumentFormat.OpenXml.SpaceProcessingModeValues.Preserve }));
     }
@@ -97,9 +169,12 @@ public static class WordExporter
                 new InsideHorizontalBorder { Val = BorderValues.Single, Size = 4 },
                 new InsideVerticalBorder { Val = BorderValues.Single, Size = 4 })));
 
+        // Шапка таблицы — жирная, с серо-голубой заливкой
         var headerRow = new TableRow();
         foreach (string h in headers)
-            headerRow.Append(new TableCell(MakeParagraph(h, bold: true)));
+            headerRow.Append(new TableCell(
+                new TableCellProperties(new Shading { Val = ShadingPatternValues.Clear, Color = "auto", Fill = "D9E2F3" }),
+                MakeParagraph(h, bold: true)));
         table.Append(headerRow);
 
         foreach (string[] values in rows)

@@ -318,7 +318,7 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Экспорт опыта в Excel.
+        ///   Ищет локализованную строку, похожую на Экспорт в Excel.
         /// </summary>
         public static string Menu_ExportExcel {
             get {

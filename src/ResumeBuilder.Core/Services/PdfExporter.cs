@@ -49,6 +49,8 @@ public static class PdfExporter
                             head.Item().Text($"{Messages.Field_Email}: {email}");
                             if (!string.IsNullOrWhiteSpace(p.City))
                                 head.Item().Text($"{Messages.Field_City}: {p.City}");
+                            if (p.BirthDate != null)
+                                head.Item().Text($"{Messages.Field_BirthDate}: {p.BirthDate.Value.ToString("d", culture)} ({Messages.Field_Age}: {p.GetAge(DateTime.Today)})");
                             if (!string.IsNullOrWhiteSpace(p.Website))
                                 head.Item().Text($"{Messages.Field_Website}: {p.Website}");
                         });
@@ -65,11 +67,12 @@ public static class PdfExporter
                     if (resume.Experience.Count > 0)
                     {
                         Section(col, Messages.Section_Experience);
+                        col.Item().Text($"{Messages.Report_TotalExperience}: {Resume.FormatMonths(resume.GetTotalMonths(DateTime.Today))}").Italic();
                         foreach (WorkExperience e in resume.Experience.OrderByDescending(x => x.StartDate))
                         {
                             string end = e.EndDate?.ToString("MMMM yyyy", culture) ?? Messages.Present;
                             col.Item().Text($"{e.Position} — {e.Company}").Bold();
-                            col.Item().Text($"{e.StartDate.ToString("MMMM yyyy", culture)} – {end}").FontColor("#757575");
+                            col.Item().Text($"{e.StartDate.ToString("MMMM yyyy", culture)} – {end} ({Resume.FormatMonths(e.GetMonths(DateTime.Today))})").FontColor("#757575");
                             if (!string.IsNullOrWhiteSpace(e.Description))
                                 col.Item().PaddingBottom(4).Text(e.Description);
                         }
@@ -87,8 +90,8 @@ public static class PdfExporter
                         Section(col, Messages.Section_Skills);
                         foreach (Skill s in resume.Skills.OrderByDescending(x => x.Level))
                         {
-                            int level = Math.Clamp(s.Level, 0, 5);
-                            col.Item().Text($"{s.Name}  {new string('●', level)}{new string('○', 5 - level)}");
+                            int level = s.Level;
+                            col.Item().Text($"{s.Name}  {ResumeReport.SkillBar(level)}");
                         }
                     }
                 });

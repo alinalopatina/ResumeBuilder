@@ -29,13 +29,9 @@ public static class ResumeValidator
         if (!string.IsNullOrWhiteSpace(p.Phone) && !TextHelper.IsValidPhone(p.Phone))
             errors.Add(Messages.Error_PhoneFormat);
 
-        if (p.BirthDate != null)
-        {
-            int age = DateTime.Today.Year - p.BirthDate.Value.Year;
-            if (p.BirthDate.Value.Date > DateTime.Today.AddYears(-age)) age--;
-            if (age < 14 || age > 100)
-                errors.Add(Messages.Error_Age);
-        }
+        int? age = p.GetAge(DateTime.Today);
+        if (age != null && (age < 14 || age > 100))
+            errors.Add(Messages.Error_Age);
 
         if (resume.Experience.Count == 0 && resume.Education.Count == 0)
             errors.Add(Messages.Error_NoExperience);

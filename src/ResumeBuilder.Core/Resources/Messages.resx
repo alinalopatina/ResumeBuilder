@@ -44,11 +44,26 @@
   <data name="Column_Company" xml:space="preserve">
     <value>Компания</value>
   </data>
+  <data name="Column_Current" xml:space="preserve">
+    <value>Работаю сейчас</value>
+  </data>
   <data name="Column_Description" xml:space="preserve">
     <value>Обязанности</value>
   </data>
   <data name="Column_End" xml:space="preserve">
     <value>Окончание</value>
+  </data>
+  <data name="Column_EndYear" xml:space="preserve">
+    <value>Год окончания</value>
+  </data>
+  <data name="Column_Field" xml:space="preserve">
+    <value>Показатель</value>
+  </data>
+  <data name="Column_Institution" xml:space="preserve">
+    <value>Учебное заведение</value>
+  </data>
+  <data name="Column_Level" xml:space="preserve">
+    <value>Уровень</value>
   </data>
   <data name="Column_Months" xml:space="preserve">
     <value>Месяцев</value>
@@ -56,8 +71,47 @@
   <data name="Column_Position" xml:space="preserve">
     <value>Должность</value>
   </data>
+  <data name="Column_Scale" xml:space="preserve">
+    <value>Шкала</value>
+  </data>
+  <data name="Column_Share" xml:space="preserve">
+    <value>Доля стажа</value>
+  </data>
+  <data name="Column_Skill" xml:space="preserve">
+    <value>Навык</value>
+  </data>
+  <data name="Column_Specialty" xml:space="preserve">
+    <value>Специальность</value>
+  </data>
   <data name="Column_Start" xml:space="preserve">
     <value>Начало</value>
+  </data>
+  <data name="Column_StartYear" xml:space="preserve">
+    <value>Год начала</value>
+  </data>
+  <data name="Column_Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Column_Value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Column_Years" xml:space="preserve">
+    <value>Лет</value>
+  </data>
+  <data name="Conclusion_Complete" xml:space="preserve">
+    <value>Резюме заполнено полностью.</value>
+  </data>
+  <data name="Conclusion_Incomplete" xml:space="preserve">
+    <value>Резюме заполнено на {0} %, стоит дополнить пустые поля.</value>
+  </data>
+  <data name="Conclusion_Junior" xml:space="preserve">
+    <value>Опыт меньше года — резюме подходит для стажировки или позиции Junior.</value>
+  </data>
+  <data name="Conclusion_Middle" xml:space="preserve">
+    <value>Опыт от одного до трёх лет — можно претендовать на позицию Junior+/Middle.</value>
+  </data>
+  <data name="Conclusion_Senior" xml:space="preserve">
+    <value>Опыт больше трёх лет — стоит подробнее описать достижения.</value>
   </data>
   <data name="Error_Age" xml:space="preserve">
     <value>Возраст должен быть от 14 до 100 лет</value>
@@ -104,6 +158,12 @@
   <data name="Error_UrlFormat" xml:space="preserve">
     <value>Ссылка должна начинаться с http:// или https://</value>
   </data>
+  <data name="Field_Age" xml:space="preserve">
+    <value>Возраст</value>
+  </data>
+  <data name="Field_BirthDate" xml:space="preserve">
+    <value>Дата рождения</value>
+  </data>
   <data name="Field_City" xml:space="preserve">
     <value>Город</value>
   </data>
@@ -116,6 +176,9 @@
   <data name="Field_Website" xml:space="preserve">
     <value>Сайт</value>
   </data>
+  <data name="Format_YearsMonths" xml:space="preserve">
+    <value>{0} г. {1} мес.</value>
+  </data>
   <data name="Import_BadDate" xml:space="preserve">
     <value>Строка {0}: неверная дата «{1}»</value>
   </data>
@@ -125,11 +188,17 @@
   <data name="Import_TableNotFound" xml:space="preserve">
     <value>В документе не найдена таблица опыта работы</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>нет</value>
+  </data>
   <data name="Present" xml:space="preserve">
     <value>н.в.</value>
   </data>
   <data name="QrCaption" xml:space="preserve">
     <value>Отсканируйте QR-код, чтобы сохранить контакт</value>
+  </data>
+  <data name="Report_Average" xml:space="preserve">
+    <value>Среднее</value>
   </data>
   <data name="Report_AverageMonths" xml:space="preserve">
     <value>Средняя длительность работы, мес.</value>
@@ -140,8 +209,26 @@
   <data name="Report_BestSkill" xml:space="preserve">
     <value>Лучший навык</value>
   </data>
+  <data name="Report_Completeness" xml:space="preserve">
+    <value>Заполненность резюме</value>
+  </data>
+  <data name="Report_Conclusion" xml:space="preserve">
+    <value>Вывод</value>
+  </data>
+  <data name="Report_Created" xml:space="preserve">
+    <value>Сформирован</value>
+  </data>
+  <data name="Report_EducationCount" xml:space="preserve">
+    <value>Учебных заведений</value>
+  </data>
+  <data name="Report_General" xml:space="preserve">
+    <value>Общие показатели</value>
+  </data>
   <data name="Report_JobsCount" xml:space="preserve">
     <value>Количество мест работы</value>
+  </data>
+  <data name="Report_LongestJob" xml:space="preserve">
+    <value>Самое долгое место работы (мес.)</value>
   </data>
   <data name="Report_Sheet" xml:space="preserve">
     <value>Отчёт</value>
@@ -152,11 +239,20 @@
   <data name="Report_Title" xml:space="preserve">
     <value>Сводный отчёт по резюме</value>
   </data>
+  <data name="Report_Total" xml:space="preserve">
+    <value>Итого</value>
+  </data>
+  <data name="Report_TotalExperience" xml:space="preserve">
+    <value>Общий стаж</value>
+  </data>
   <data name="Report_TotalMonths" xml:space="preserve">
     <value>Общий стаж, мес.</value>
   </data>
   <data name="Section_About" xml:space="preserve">
     <value>О себе</value>
+  </data>
+  <data name="Section_Contacts" xml:space="preserve">
+    <value>Контакты</value>
   </data>
   <data name="Section_Education" xml:space="preserve">
     <value>Образование</value>
@@ -164,7 +260,22 @@
   <data name="Section_Experience" xml:space="preserve">
     <value>Опыт работы</value>
   </data>
+  <data name="Section_Resume" xml:space="preserve">
+    <value>Резюме</value>
+  </data>
   <data name="Section_Skills" xml:space="preserve">
     <value>Навыки</value>
+  </data>
+  <data name="Sheet_Summary" xml:space="preserve">
+    <value>Резюме</value>
+  </data>
+  <data name="Status_Finished" xml:space="preserve">
+    <value>Окончено</value>
+  </data>
+  <data name="Status_Studying" xml:space="preserve">
+    <value>Учусь</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>да</value>
   </data>
 </root>
