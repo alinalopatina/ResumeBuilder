@@ -1,0 +1,26 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../../src/ResumeBuilder.Core",
+          "files": [ "ResumeBuilder.Core.csproj" ]
+        }
+      ],
+      "dest": "api"
+    }
+  ],
+  "build": {
+    "content": [
+      { "files": [ "api/**.yml" ] },
+      { "files": [ "index.md", "toc.yml" ] }
+    ],
+    "output": "_site",
+    "template": [ "default", "modern" ],
+    "globalMetadata": {
+      "_appTitle": "ResumeBuilder",
+      "_appFooter": "ResumeBuilder — курсовой проект, БНТУ ФИТР, 2026",
+      "_enableSearch": true
+    }
+  }
+}

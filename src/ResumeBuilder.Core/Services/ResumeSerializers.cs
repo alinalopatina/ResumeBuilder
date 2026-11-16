@@ -217,21 +217,24 @@ public static class DraftCache
     public static string FilePath => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ResumeBuilder", "draft.rbin");
 
-    public static void Save(Resume resume)
+    /// <param name="resume">Текущее резюме.</param>
+    /// <param name="path">Куда сохранить; по умолчанию <see cref="FilePath"/> (параметр нужен для тестов).</param>
+    public static void Save(Resume resume, string? path = null)
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(FilePath)!);
-        string? realPath = resume.FilePath;
-        new BinaryResumeSerializer().Save(resume, FilePath);
-        resume.FilePath = realPath;
+        path ??= FilePath;
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        new BinaryResumeSerializer().Save(resume, path);
     }
 
-    public static Resume? TryLoad()
+    /// <summary>Загружает черновик или возвращает null, если его нет или он повреждён.</summary>
+    public static Resume? TryLoad(string? path = null)
     {
-        if (!File.Exists(FilePath))
+        path ??= FilePath;
+        if (!File.Exists(path))
             return null;
         try
         {
-            Resume resume = new BinaryResumeSerializer().Load(FilePath);
+            Resume resume = new BinaryResumeSerializer().Load(path);
             resume.FilePath = null;   // черновик ещё не сохранён пользователем в свой файл
             return resume;
         }

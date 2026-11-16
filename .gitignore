@@ -24,3 +24,8 @@ artifacts/
 ## Файлы, которые создаёт приложение при запуске
 output/
 *.rbin
+
+## DocFX (сгенерированная документация)
+docs/docfx/_site/
+docs/docfx/api/
+docs/docfx/obj/

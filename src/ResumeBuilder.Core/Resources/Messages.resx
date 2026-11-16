@@ -119,6 +119,9 @@
   <data name="Error_CompanyRequired" xml:space="preserve">
     <value>Не указано название компании</value>
   </data>
+  <data name="Error_DuplicateSkill" xml:space="preserve">
+    <value>Навык «{0}» указан несколько раз</value>
+  </data>
   <data name="Error_EmailFormat" xml:space="preserve">
     <value>Неверный формат e-mail</value>
   </data>

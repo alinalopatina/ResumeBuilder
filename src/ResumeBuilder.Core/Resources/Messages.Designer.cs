@@ -291,6 +291,15 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Навык «{0}» указан несколько раз.
+        /// </summary>
+        public static string Error_DuplicateSkill {
+            get {
+                return ResourceManager.GetString("Error_DuplicateSkill", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Неверный формат e-mail.
         /// </summary>
         public static string Error_EmailFormat {

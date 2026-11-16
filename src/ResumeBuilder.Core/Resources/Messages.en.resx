@@ -119,6 +119,9 @@
   <data name="Error_CompanyRequired" xml:space="preserve">
     <value>Company name is empty</value>
   </data>
+  <data name="Error_DuplicateSkill" xml:space="preserve">
+    <value>Skill "{0}" is listed more than once</value>
+  </data>
   <data name="Error_EmailFormat" xml:space="preserve">
     <value>Invalid e-mail format</value>
   </data>

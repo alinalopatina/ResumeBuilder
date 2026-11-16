@@ -106,11 +106,33 @@ public class ResumeReport
     private static string Cut(string s, int max) => s.Length <= max ? s : s.Substring(0, max - 1) + "…";
 }
 
-/// <summary>Подсчёт статистики по резюме (агрегация: сумма, среднее, максимум, доли).</summary>
+/// <summary>
+/// Подсчёт статистики по резюме (агрегация: сумма, среднее, максимум, доли).
+/// Считает один раз — результат потом выводится в Excel, Word, txt и на печать.
+/// </summary>
 public static class ReportCalculator
 {
+    /// <summary>Считает все показатели сводного отчёта.</summary>
+    /// <param name="resume">Резюме, по которому строится отчёт.</param>
+    /// <param name="today">
+    /// Дата, на которую считается стаж для текущего места работы.
+    /// Передаётся параметром, чтобы результат в тестах не зависел от сегодняшней даты.
+    /// </param>
+    /// <returns>
+    /// Заполненный <see cref="ResumeReport"/>: количество мест работы, общий и средний стаж,
+    /// доля каждого места в процентах, средний уровень навыков, заполненность и вывод.
+    /// Для пустого резюме все числа равны 0 (деления на ноль нет).
+    /// </returns>
+    /// <exception cref="ArgumentNullException">Если <paramref name="resume"/> равен <c>null</c>.</exception>
+    /// <example>
+    /// <code>
+    /// ResumeReport report = ReportCalculator.Calculate(resume, DateTime.Today);
+    /// Console.WriteLine(report.ToText());
+    /// </code>
+    /// </example>
     public static ResumeReport Calculate(Resume resume, DateTime today)
     {
+        ArgumentNullException.ThrowIfNull(resume);
         var report = new ResumeReport
         {
             FullName = resume.Personal.FullName,
@@ -156,7 +178,9 @@ public static class ReportCalculator
         return report;
     }
 
-    /// <summary>Сколько процентов основных полей заполнено.</summary>
+    /// <summary>Сколько процентов основных полей резюме заполнено.</summary>
+    /// <param name="r">Резюме.</param>
+    /// <returns>Число от 0 до 100. Учитываются 11 полей: личные данные, «О себе» и наличие опыта, образования, навыков.</returns>
     public static int CalculateCompleteness(Resume r)
     {
         bool[] filled =

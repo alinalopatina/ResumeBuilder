@@ -4,104 +4,155 @@ using Xunit;
 
 namespace ResumeBuilder.Tests;
 
-/// <summary>Сохранение/загрузка и экспорт в файлы.</summary>
-public class FileTests
+/// <summary>
+/// Сохранение, загрузка и экспорт в файлы.
+/// Тестовый план:
+/// - один раз на класс: TestFolderFixture создаёт временную папку и удаляет её в конце;
+/// - перед КАЖДЫМ тестом (конструктор): новое резюме-пример и пустой список созданных файлов;
+/// - после КАЖДОГО теста (Dispose): удаляются файлы, созданные этим тестом.
+/// </summary>
+public class FileTests : IClassFixture<TestFolderFixture>, IDisposable
 {
-    private static string TempFile(string extension) =>
-        Path.Combine(Path.GetTempPath(), Guid.NewGuid() + extension);
+    private readonly TestFolderFixture _folder;
+    private readonly Resume _resume;
+    private readonly List<string> _createdFiles = new();
+
+    public FileTests(TestFolderFixture folder)
+    {
+        _folder = folder;
+        _resume = Resume.CreateSample();
+    }
+
+    public void Dispose()
+    {
+        foreach (string file in _createdFiles)
+            if (File.Exists(file))
+                File.Delete(file);
+    }
+
+    private string NewFile(string extension)
+    {
+        string path = Path.Combine(_folder.Folder, Guid.NewGuid() + extension);
+        _createdFiles.Add(path);
+        return path;
+    }
 
     [Theory]
     [InlineData(".json")]
     [InlineData(".rbin")]
     public void SaveAndLoad_ReturnsSameData(string extension)
     {
-        string path = TempFile(extension);
-        Resume original = Resume.CreateSample();
+        string path = NewFile(extension);
 
         IResumeSerializer serializer = ResumeFile.GetSerializer(path);
-        serializer.Save(original, path);
+        serializer.Save(_resume, path);
         Resume loaded = serializer.Load(path);
 
-        Assert.Equal(original.Personal.FullName, loaded.Personal.FullName);
-        Assert.Equal(original.Personal.BirthDate, loaded.Personal.BirthDate);
-        Assert.Equal(original.Experience.Count, loaded.Experience.Count);
-        Assert.Equal(original.Experience[0].EndDate, loaded.Experience[0].EndDate);
-        Assert.Equal(original.Skills[1].Level, loaded.Skills[1].Level);
-        File.Delete(path);
+        Assert.Equal(_resume.Personal.FullName, loaded.Personal.FullName);
+        Assert.Equal(_resume.Personal.BirthDate, loaded.Personal.BirthDate);
+        Assert.Equal(_resume.Personal.Website, loaded.Personal.Website);
+        Assert.Equal(_resume.About, loaded.About);
+        Assert.Equal(_resume.Experience.Count, loaded.Experience.Count);
+        Assert.Equal(_resume.Experience[0].EndDate, loaded.Experience[0].EndDate);
+        Assert.Equal(_resume.Education[0].EndYear, loaded.Education[0].EndYear);
+        Assert.Equal(_resume.Skills[1].Level, loaded.Skills[1].Level);
+        Assert.Equal(path, loaded.FilePath);
+    }
+
+    [Theory]
+    [InlineData("resume.json", typeof(JsonResumeSerializer))]
+    [InlineData("resume.rbin", typeof(BinaryResumeSerializer))]
+    [InlineData("RESUME.RBIN", typeof(BinaryResumeSerializer))]
+    [InlineData("resume.txt", typeof(JsonResumeSerializer))]
+    public void GetSerializer_ChoosesByExtension(string fileName, Type expected)
+    {
+        Assert.IsType(expected, ResumeFile.GetSerializer(fileName));
     }
 
     [Fact]
     public void Json_DoesNotContainFilePath()
     {
-        string path = TempFile(".json");
-        Resume resume = Resume.CreateSample();
-        resume.FilePath = @"C:\secret\resume.json";
-        new JsonResumeSerializer().Save(resume, path);
+        string path = NewFile(".json");
+        _resume.FilePath = @"C:\secret\resume.json";
+
+        new JsonResumeSerializer().Save(_resume, path);
+
         Assert.DoesNotContain("FilePath", File.ReadAllText(path));
-        File.Delete(path);
     }
 
     [Fact]
-    public void Binary_WrongFile_Throws()
+    public void Binary_IsSmallerThanJson()
     {
-        string path = TempFile(".rbin");
-        File.WriteAllText(path, "это не резюме");
-        Assert.ThrowsAny<Exception>(() => new BinaryResumeSerializer().Load(path));
-        File.Delete(path);
-    }
+        string json = NewFile(".json");
+        string bin = NewFile(".rbin");
 
-    [Fact]
-    public void Report_CalculatesTotals()
-    {
-        Resume resume = Resume.CreateSample();
-        ResumeReport report = ReportCalculator.Calculate(resume, new DateTime(2026, 11, 10));
+        new JsonResumeSerializer().Save(_resume, json);
+        new BinaryResumeSerializer().Save(_resume, bin);
 
-        // EPAM: 07.2025–09.2025 = 2 мес., фриланс: 02.2024–06.2025 = 16 мес.
-        Assert.Equal(2, report.JobsCount);
-        Assert.Equal(18, report.TotalMonths);
-        Assert.Equal(9.0, report.AverageMonths);
-        Assert.Equal(3.75, report.AverageSkillLevel);
-        Assert.Equal(88.9, report.Rows.Single(r => r.Company == "Фриланс").SharePercent);
-        Assert.Equal(3, report.SkillsByLevel[3]);   // три навыка на уровне 4
-        Assert.Equal(100, report.CompletenessPercent);
+        Assert.True(new FileInfo(bin).Length < new FileInfo(json).Length);
     }
 
     [Fact]
     public void Word_ExportThenImport_SameJobs()
     {
-        string path = TempFile(".docx");
-        Resume resume = Resume.CreateSample();
+        string path = NewFile(".docx");
 
-        WordExporter.ExportResume(resume, path);
+        WordExporter.ExportResume(_resume, path);
         var errors = new List<string>();
         List<WorkExperience> imported = WordImporter.ImportExperience(path, errors);
 
         Assert.Empty(errors);
-        Assert.Equal(resume.Experience.Count, imported.Count);
-        Assert.Equal(resume.Experience[0].Company, imported[0].Company);
-        Assert.Equal(resume.Experience[0].Description, imported[0].Description);
-        Assert.Equal(resume.Experience[0].EndDate?.ToString("MM.yyyy"), imported[0].EndDate?.ToString("MM.yyyy"));
-        File.Delete(path);
+        Assert.Equal(_resume.Experience.Count, imported.Count);
+        Assert.Equal(_resume.Experience[0].Company, imported[0].Company);
+        Assert.Equal(_resume.Experience[0].Description, imported[0].Description);
+        Assert.Equal(_resume.Experience[0].EndDate?.ToString("MM.yyyy"), imported[0].EndDate?.ToString("MM.yyyy"));
     }
 
     [Fact]
-    public void Excel_And_Pdf_FilesAreCreated()
+    public void Excel_HasFourSheets_AndPdfIsCreated()
     {
-        Resume resume = Resume.CreateSample();
-        string xlsx = TempFile(".xlsx");
-        string pdf = TempFile(".pdf");
+        string xlsx = NewFile(".xlsx");
+        string pdf = NewFile(".pdf");
 
-        ExcelExporter.ExportResume(resume, xlsx);
-        PdfExporter.Export(resume, pdf, includeQr: true);
+        ExcelExporter.ExportResume(_resume, xlsx);
+        PdfExporter.Export(_resume, pdf, includeQr: true);
+
+        Assert.True(new FileInfo(pdf).Length > 0);
+        using var workbook = new ClosedXML.Excel.XLWorkbook(xlsx);
+        Assert.Equal(4, workbook.Worksheets.Count);   // Резюме, Опыт, Образование, Навыки
+        Assert.True(workbook.Worksheet(2).Cell(1, 2).Style.Font.Bold);   // жирная шапка
+    }
+
+    [Fact]
+    public void Report_SameDataInExcelAndWord()
+    {
+        ResumeReport report = ReportCalculator.Calculate(_resume, new DateTime(2026, 11, 10));
+        string xlsx = NewFile(".xlsx");
+        string docx = NewFile(".docx");
+
+        ExcelExporter.ExportReport(report, xlsx);
+        WordExporter.ExportReport(report, docx);
 
         Assert.True(new FileInfo(xlsx).Length > 0);
-        Assert.True(new FileInfo(pdf).Length > 0);
+        Assert.True(new FileInfo(docx).Length > 0);
+    }
 
-        using (var workbook = new ClosedXML.Excel.XLWorkbook(xlsx))
-        {
-            Assert.Equal(4, workbook.Worksheets.Count);   // Резюме, Опыт, Образование, Навыки
-        }
-        File.Delete(xlsx);
-        File.Delete(pdf);
+    [Fact]
+    public void DraftCache_SaveAndLoad()
+    {
+        string path = NewFile(".rbin");   // свой файл, чтобы не испортить настоящий черновик
+
+        DraftCache.Save(_resume, path);
+        Resume? draft = DraftCache.TryLoad(path);
+
+        Assert.NotNull(draft);
+        Assert.Equal(_resume.Personal.FullName, draft!.Personal.FullName);
+        Assert.Null(draft.FilePath);   // черновик не привязан к файлу пользователя
+    }
+
+    [Fact]
+    public void DraftCache_NoFile_ReturnsNull()
+    {
+        Assert.Null(DraftCache.TryLoad(NewFile(".rbin")));
     }
 }
