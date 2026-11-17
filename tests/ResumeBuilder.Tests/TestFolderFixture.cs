@@ -1,3 +1,5 @@
+using Xunit;
+
 namespace ResumeBuilder.Tests;
 
 /// <summary>
@@ -19,6 +21,7 @@ public class TestFolderFixture : IDisposable
     {
         if (Directory.Exists(Folder))
             Directory.Delete(Folder, recursive: true);
+        GC.SuppressFinalize(this);
     }
 }
 

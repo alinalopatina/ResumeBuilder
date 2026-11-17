@@ -28,6 +28,7 @@ public class FileTests : IClassFixture<TestFolderFixture>, IDisposable
         foreach (string file in _createdFiles)
             if (File.Exists(file))
                 File.Delete(file);
+        GC.SuppressFinalize(this);
     }
 
     private string NewFile(string extension)
