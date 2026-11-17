@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:p="clr-namespace:ResumeBuilder.Wpf.Properties">
     <!-- DataContext = ListViewModel (задаётся в MainWindow.xaml) -->
-    <DockPanel Margin="10">
+    <DockPanel Margin="8">
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,8,0,0">
-            <Button Content="{x:Static p:Resources.Button_Add}" Command="{Binding AddCommand}" />
+            <Button Content="{x:Static p:Resources.Button_Add}" Command="{Binding AddCommand}" Style="{StaticResource AccentButton}" />
             <Button Content="{x:Static p:Resources.Button_Remove}" Command="{Binding RemoveCommand}" />
         </StackPanel>
         <DataGrid ItemsSource="{Binding Items}" SelectedItem="{Binding Selected}">
