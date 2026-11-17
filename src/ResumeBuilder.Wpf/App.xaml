@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
 
-        <!-- ===== Цвета (палитра приложения). Меняем здесь — меняется во всех окнах ===== -->
+        <!-- ===== Цвета (палитра приложения). Меняем здесь — меняется во всех окнах.
+             Основной цвет (Accent*) берётся из настроек App:AccentColor и подключается через
+             DynamicResource, поэтому меняется прямо во время работы программы ===== -->
         <SolidColorBrush x:Key="AccentBrush" Color="#4F46E5" />
         <SolidColorBrush x:Key="AccentHoverBrush" Color="#4338CA" />
         <SolidColorBrush x:Key="AccentLightBrush" Color="#EEF2FF" />
@@ -58,16 +60,16 @@
 
         <!-- Главная (цветная) кнопка: «Экспорт в PDF», «Добавить» -->
         <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
-            <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource AccentHoverBrush}" />
+                    <Setter Property="Background" Value="{DynamicResource AccentHoverBrush}" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="{StaticResource AccentHoverBrush}" />
+                    <Setter Property="Background" Value="{DynamicResource AccentHoverBrush}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -97,7 +99,7 @@
                                 <Setter TargetName="Bd" Property="BorderBrush" Value="#94A3B8" />
                             </Trigger>
                             <Trigger Property="IsKeyboardFocused" Value="True">
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="Bd" Property="Opacity" Value="0.5" />
@@ -165,8 +167,8 @@
                                 <Setter TargetName="Bd" Property="Background" Value="{StaticResource HoverBrush}" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource AccentBrush}" />
-                                <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+                                <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -224,7 +226,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{StaticResource AccentLightBrush}" />
+                    <Setter Property="Background" Value="{DynamicResource AccentLightBrush}" />
                     <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
                 </Trigger>
             </Style.Triggers>

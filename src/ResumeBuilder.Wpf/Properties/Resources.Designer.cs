@@ -462,6 +462,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Настройки….
+        /// </summary>
+        public static string Menu_Settings {
+            get {
+                return ResourceManager.GetString("Menu_Settings", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Найдено, но поле уже заполнено (не изменено):.
         /// </summary>
         public static string Msg_AlreadyFilled {
@@ -543,6 +552,33 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Настройки загружены из файла. Нажмите «Сохранить», чтобы применить..
+        /// </summary>
+        public static string Msg_SettingsImported {
+            get {
+                return ResourceManager.GetString("Msg_SettingsImported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Личные настройки удалены, действуют значения из appsettings.json..
+        /// </summary>
+        public static string Msg_SettingsReset {
+            get {
+                return ResourceManager.GetString("Msg_SettingsReset", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Настройки сохранены. Профиль и язык применятся после перезапуска программы..
+        /// </summary>
+        public static string Msg_SettingsSaved {
+            get {
+                return ResourceManager.GetString("Msg_SettingsSaved", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибки.
         /// </summary>
         public static string Panel_Errors {
@@ -566,6 +602,150 @@ namespace ResumeBuilder.Wpf.Properties {
         public static string Report_WindowTitle {
             get {
                 return ResourceManager.GetString("Report_WindowTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Основной цвет (#RRGGBB).
+        /// </summary>
+        public static string Settings_Accent {
+            get {
+                return ResourceManager.GetString("Settings_Accent", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Автосохранение черновика, мин (0 — выкл.).
+        /// </summary>
+        public static string Settings_Autosave {
+            get {
+                return ResourceManager.GetString("Settings_Autosave", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Обзор….
+        /// </summary>
+        public static string Settings_Browse {
+            get {
+                return ResourceManager.GetString("Settings_Browse", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Отмена.
+        /// </summary>
+        public static string Settings_Cancel {
+            get {
+                return ResourceManager.GetString("Settings_Cancel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Экспорт….
+        /// </summary>
+        public static string Settings_Export {
+            get {
+                return ResourceManager.GetString("Settings_Export", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Папка для экспорта.
+        /// </summary>
+        public static string Settings_ExportFolder {
+            get {
+                return ResourceManager.GetString("Settings_ExportFolder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Импорт….
+        /// </summary>
+        public static string Settings_Import {
+            get {
+                return ResourceManager.GetString("Settings_Import", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Добавлять QR-код в PDF по умолчанию.
+        /// </summary>
+        public static string Settings_IncludeQr {
+            get {
+                return ResourceManager.GetString("Settings_IncludeQr", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Язык по умолчанию.
+        /// </summary>
+        public static string Settings_Language {
+            get {
+                return ResourceManager.GetString("Settings_Language", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Профиль (среда).
+        /// </summary>
+        public static string Settings_Profile {
+            get {
+                return ResourceManager.GetString("Settings_Profile", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Размер точки QR-кода, пикс..
+        /// </summary>
+        public static string Settings_QrSize {
+            get {
+                return ResourceManager.GetString("Settings_QrSize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сбросить.
+        /// </summary>
+        public static string Settings_Reset {
+            get {
+                return ResourceManager.GetString("Settings_Reset", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сохранить.
+        /// </summary>
+        public static string Settings_Save {
+            get {
+                return ResourceManager.GetString("Settings_Save", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Откуда берутся настройки (по возрастанию приоритета).
+        /// </summary>
+        public static string Settings_Sources {
+            get {
+                return ResourceManager.GetString("Settings_Sources", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Настройки программы.
+        /// </summary>
+        public static string Settings_Title {
+            get {
+                return ResourceManager.GetString("Settings_Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Черновик сохранён автоматически.
+        /// </summary>
+        public static string Status_Autosaved {
+            get {
+                return ResourceManager.GetString("Status_Autosaved", resourceCulture);
             }
         }
 

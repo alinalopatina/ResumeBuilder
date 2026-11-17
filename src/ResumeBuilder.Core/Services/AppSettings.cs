@@ -3,15 +3,14 @@ using System.Text.Json;
 namespace ResumeBuilder.Core.Services;
 
 /// <summary>
-/// Настройки программы, которые запоминаются между запусками:
-/// размер окна, язык, последний открытый файл.
-/// Хранятся в %AppData%\ResumeBuilder\settings.json
+/// Состояние программы, которое запоминается между запусками: размер окна и последний открытый файл.
+/// Хранится в %AppData%\ResumeBuilder\settings.json.
+/// Настройки поведения программы (язык, цвет, папка экспорта…) — отдельно, в <see cref="Configuration.AppConfig"/>.
 /// </summary>
 public class AppSettings
 {
     public double WindowWidth { get; set; } = 1100;
     public double WindowHeight { get; set; } = 720;
-    public string Language { get; set; } = "ru-RU";
     public string? LastFile { get; set; }
 
     private static string FolderPath =>

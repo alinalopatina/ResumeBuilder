@@ -273,6 +273,69 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Интервал автосохранения — от 0 до 60 минут.
+        /// </summary>
+        public static string Config_Error_Autosave {
+            get {
+                return ResourceManager.GetString("Config_Error_Autosave", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Цвет должен быть в формате #RRGGBB, например #4F46E5.
+        /// </summary>
+        public static string Config_Error_Color {
+            get {
+                return ResourceManager.GetString("Config_Error_Color", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Профиль (Environment) должен быть Development или Production.
+        /// </summary>
+        public static string Config_Error_Environment {
+            get {
+                return ResourceManager.GetString("Config_Error_Environment", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Папка для экспорта не существует: {0}.
+        /// </summary>
+        public static string Config_Error_Folder {
+            get {
+                return ResourceManager.GetString("Config_Error_Folder", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Язык должен быть ru-RU или en-US.
+        /// </summary>
+        public static string Config_Error_Language {
+            get {
+                return ResourceManager.GetString("Config_Error_Language", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Размер точки QR-кода — от 2 до 20 пикселей.
+        /// </summary>
+        public static string Config_Error_QrSize {
+            get {
+                return ResourceManager.GetString("Config_Error_QrSize", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Порог медленной операции — от 1 до 60000 мс.
+        /// </summary>
+        public static string Config_Error_SlowMs {
+            get {
+                return ResourceManager.GetString("Config_Error_SlowMs", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Возраст должен быть от 14 до 100 лет.
         /// </summary>
         public static string Error_Age {

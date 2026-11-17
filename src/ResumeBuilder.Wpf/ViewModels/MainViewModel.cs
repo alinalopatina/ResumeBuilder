@@ -4,7 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Microsoft.Win32;
+using ResumeBuilder.Core.Configuration;
 using ResumeBuilder.Core.Models;
 using ResumeBuilder.Core.Services;
 using ResumeBuilder.Core.Validation;
@@ -23,15 +25,19 @@ public class MainViewModel : ViewModelBase
     private static ILogger Logger => Log.ForContext(typeof(MainViewModel));
 
     private readonly AppSettings _settings;
+    private AppConfig _config;
+    private readonly DispatcherTimer _autosaveTimer = new();
     private Resume _resume = new();
     private string _status = "";
     private BitmapImage? _qrImage;
     private bool _includeQr = true;
     private bool _hideContacts;
 
-    public MainViewModel(AppSettings settings)
+    public MainViewModel(AppSettings settings, AppConfig config)
     {
         _settings = settings;
+        _config = config;
+        _includeQr = config.IncludeQrByDefault;
 
         NewCommand = new RelayCommand(NewResume);
         OpenCommand = new RelayCommand(Open);
@@ -51,6 +57,11 @@ public class MainViewModel : ViewModelBase
         UpdateQrCommand = new RelayCommand(UpdateQr);
         RussianCommand = new RelayCommand(() => ChangeLanguage("ru-RU"));
         EnglishCommand = new RelayCommand(() => ChangeLanguage("en-US"));
+        SettingsCommand = new RelayCommand(OpenSettings);
+
+        // Автосохранение черновика: интервал из настроек (App:AutosaveMinutes)
+        _autosaveTimer.Tick += (_, _) => Autosave();
+        StartAutosaveTimer();
 
         // При запуске: последний файл → черновик из кэша → пример
         Resume? draft = DraftCache.TryLoad();
@@ -105,7 +116,8 @@ public class MainViewModel : ViewModelBase
         set { _hideContacts = value; OnPropertyChanged(); }
     }
 
-    public string Title => Res.App_Title + " — " + (_resume.FilePath == null ? Res.App_NewFile : Path.GetFileName(_resume.FilePath));
+    public string Title => Res.App_Title + " — " + (_resume.FilePath == null ? Res.App_NewFile : Path.GetFileName(_resume.FilePath))
+                           + (_config.Environment == "Production" ? "" : $"  [{_config.Environment}]");
 
     // ---------- команды ----------
 
@@ -127,6 +139,7 @@ public class MainViewModel : ViewModelBase
     public RelayCommand UpdateQrCommand { get; }
     public RelayCommand RussianCommand { get; }
     public RelayCommand EnglishCommand { get; }
+    public RelayCommand SettingsCommand { get; }
 
     // ---------- работа с файлами ----------
 
@@ -219,7 +232,7 @@ public class MainViewModel : ViewModelBase
     private void ExportReport()
     {
         CopyListsToResume();
-        var dialog = new OpenFolderDialog();
+        var dialog = new OpenFolderDialog { InitialDirectory = _config.GetExportFolder() };
         if (dialog.ShowDialog() != true)
             return;
 
@@ -377,17 +390,72 @@ public class MainViewModel : ViewModelBase
         }
     }
 
+    /// <summary>Язык из меню записывается в личные настройки пользователя (usersettings.json).</summary>
     private void ChangeLanguage(string language)
     {
-        _settings.Language = language;
-        _settings.Save();
-        MessageBox.Show(Res.Msg_RestartForLanguage, Res.App_Title);
+        try
+        {
+            AppConfig config = ConfigManager.Bind(ConfigManager.Root);
+            config.DefaultLanguage = language;
+            ConfigManager.SaveUserSettings(config);
+            MessageBox.Show(Res.Msg_RestartForLanguage, Res.App_Title);
+        }
+        catch (Exception ex)
+        {
+            ShowError(ex);
+        }
+    }
+
+    // ---------- настройки (лаба 9) ----------
+
+    private void OpenSettings()
+    {
+        var viewModel = new SettingsViewModel();
+        var window = new Views.SettingsWindow { DataContext = viewModel };
+        viewModel.CloseWindow = window.Close;
+        window.Owner = Application.Current.MainWindow;
+        window.ShowDialog();
+    }
+
+    /// <summary>Применить новые настройки без перезапуска (вызывается, когда файл настроек изменился).</summary>
+    public void ApplyConfig(AppConfig config)
+    {
+        _config = config;
+        StartAutosaveTimer();
+        UpdateQr();
+        OnPropertyChanged(nameof(Title));
+    }
+
+    private void StartAutosaveTimer()
+    {
+        _autosaveTimer.Stop();
+        if (_config.AutosaveMinutes > 0)
+        {
+            _autosaveTimer.Interval = TimeSpan.FromMinutes(_config.AutosaveMinutes);
+            _autosaveTimer.Start();
+        }
+    }
+
+    private void Autosave()
+    {
+        try
+        {
+            CopyListsToResume();
+            DraftCache.Save(_resume);
+            Status = Res.Status_Autosaved + " " + DateTime.Now.ToString("HH:mm");
+            Logger.Debug("Черновик сохранён автоматически");
+        }
+        catch (Exception ex)
+        {
+            Logger.Warning(ex, "Не удалось сохранить черновик");
+        }
     }
 
     /// <summary>Вызывается при закрытии окна.</summary>
     public void OnClosing(double width, double height)
     {
         // Кэш черновика: при следующем запуске резюме восстановится, даже если его не сохранили
+        _autosaveTimer.Stop();
         CopyListsToResume();
         DraftCache.Save(_resume);
 
@@ -419,9 +487,10 @@ public class MainViewModel : ViewModelBase
         _resume.Skills = Skills.Items.ToList();
     }
 
-    private static string? AskSavePath(string filter, string fileName)
+    private string? AskSavePath(string filter, string fileName)
     {
-        var dialog = new SaveFileDialog { Filter = filter, FileName = fileName };
+        // Диалог открывается в папке экспорта из настроек (App:ExportFolder)
+        var dialog = new SaveFileDialog { Filter = filter, FileName = fileName, InitialDirectory = _config.GetExportFolder() };
         return dialog.ShowDialog() == true ? dialog.FileName : null;
     }
 

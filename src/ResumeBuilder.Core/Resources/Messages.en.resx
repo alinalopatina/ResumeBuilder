@@ -113,6 +113,27 @@
   <data name="Conclusion_Senior" xml:space="preserve">
     <value>More than three years of experience: describe your achievements in more detail.</value>
   </data>
+  <data name="Config_Error_Autosave" xml:space="preserve">
+    <value>Autosave interval must be from 0 to 60 minutes</value>
+  </data>
+  <data name="Config_Error_Color" xml:space="preserve">
+    <value>Color must be in #RRGGBB format, e.g. #4F46E5</value>
+  </data>
+  <data name="Config_Error_Environment" xml:space="preserve">
+    <value>Environment must be Development or Production</value>
+  </data>
+  <data name="Config_Error_Folder" xml:space="preserve">
+    <value>Export folder does not exist: {0}</value>
+  </data>
+  <data name="Config_Error_Language" xml:space="preserve">
+    <value>Language must be ru-RU or en-US</value>
+  </data>
+  <data name="Config_Error_QrSize" xml:space="preserve">
+    <value>QR module size must be from 2 to 20 pixels</value>
+  </data>
+  <data name="Config_Error_SlowMs" xml:space="preserve">
+    <value>Slow operation threshold must be from 1 to 60000 ms</value>
+  </data>
   <data name="Error_Age" xml:space="preserve">
     <value>Age must be between 14 and 100</value>
   </data>

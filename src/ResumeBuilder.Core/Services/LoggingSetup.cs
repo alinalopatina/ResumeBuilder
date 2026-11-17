@@ -1,27 +1,27 @@
 using Microsoft.Extensions.Configuration;
+using ResumeBuilder.Core.Configuration;
 using Serilog;
 using Serilog.Filters;
 
 namespace ResumeBuilder.Core.Services;
 
 /// <summary>
-/// Настройка журнала Serilog. Уровни, приёмники и ротация файлов лежат в appsettings.json,
+/// Настройка журнала Serilog. Уровни, приёмники и ротация файлов лежат в appsettings.json
+/// (и в профилях appsettings.Development.json / appsettings.Production.json),
 /// поэтому их можно менять без перекомпиляции.
 /// </summary>
 public static class LoggingSetup
 {
-    /// <summary>Порог «медленной» операции в мс (задаётся в appsettings.json).</summary>
-    public static int SlowOperationMs { get; private set; } = 1000;
+    /// <summary>Порог «медленной» операции в мс (App:SlowOperationMs в настройках).</summary>
+    public static int SlowOperationMs => ConfigManager.Current.SlowOperationMs;
 
-    public static void Init()
+    /// <summary>Создаёт журнал по уже загруженной конфигурации (см. <see cref="ConfigManager"/>).</summary>
+    /// <param name="config">
+    /// Объединённая конфигурация. Если в ней поменять MinimumLevel в файле во время работы,
+    /// Serilog подхватит новый уровень без перезапуска.
+    /// </param>
+    public static void Init(IConfiguration config)
     {
-        IConfiguration config = new ConfigurationBuilder()
-            .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("appsettings.json", optional: true)
-            .Build();
-
-        SlowOperationMs = config.GetValue("Logging:SlowOperationMs", 1000);
-
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(config)                       // основные настройки — из файла
             .Enrich.WithProperty("UserId", Environment.UserName)  // кто работал с программой
@@ -35,6 +35,6 @@ public static class LoggingSetup
                     outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} {Message:lj}{NewLine}"))
             .CreateLogger();
 
-        Log.Information("Программа запущена");
+        Log.Information("Программа запущена, профиль {Environment}", ConfigManager.Current.Environment);
     }
 }

@@ -1,0 +1,4 @@
+{
+  "Logging": { "MaxFileSizeMb": 10 },
+  "Ui": { "Theme": "Light", "Language": "ru-RU" }
+}

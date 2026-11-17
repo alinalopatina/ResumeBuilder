@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- В XML можно писать комментарии -->
+<Settings>
+  <Logging MaxFileSizeMb="10" />
+  <Ui>
+    <Theme>Light</Theme>
+    <Language>ru-RU</Language>
+  </Ui>
+</Settings>

@@ -44,6 +44,13 @@ dotnet run --project src/ResumeBuilder.Wpf
 
 На Windows ARM программа собирается как x64 (у библиотеки QuestPDF нет версии для ARM64) — это настроено в `.csproj`.
 
+## Настройки
+
+Основные настройки — в секции `App` файла `appsettings.json` рядом с программой; личные — в окне
+«Настройки…» (сохраняются в `%AppData%\ResumeBuilder\usersettings.json`). Их можно переопределить
+переменными окружения (`RESUMEBUILDER_App__QrPixelsPerModule=12`) и аргументами
+(`ResumeBuilder.exe --env Development --lang en-US`). Подробно — [docs/configuration.md](docs/configuration.md).
+
 ## Тесты
 
 ```bash
@@ -81,6 +88,7 @@ docs/                     — документация (лабораторные
 | [GLOSSARY.md](GLOSSARY.md) | словарь терминов предметной области |
 | [docs/labs.md](docs/labs.md) | где в коде каждая лабораторная работа |
 | [docs/testing.md](docs/testing.md) | тестовый план, TDD |
+| [docs/configuration.md](docs/configuration.md) | настройки программы, профили, переменные окружения |
 | [docs/audiences.md](docs/audiences.md) | целевые аудитории документации |
 | [docs/docs-audit.md](docs/docs-audit.md) | аудит устаревшей документации |
 

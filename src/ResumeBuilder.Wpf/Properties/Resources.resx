@@ -176,6 +176,9 @@
   <data name="Menu_Save" xml:space="preserve">
     <value>Сохранить как...</value>
   </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>Настройки…</value>
+  </data>
   <data name="Msg_AlreadyFilled" xml:space="preserve">
     <value>Найдено, но поле уже заполнено (не изменено):</value>
   </data>
@@ -203,6 +206,15 @@
   <data name="Msg_Saved" xml:space="preserve">
     <value>Файл сохранён</value>
   </data>
+  <data name="Msg_SettingsImported" xml:space="preserve">
+    <value>Настройки загружены из файла. Нажмите «Сохранить», чтобы применить.</value>
+  </data>
+  <data name="Msg_SettingsReset" xml:space="preserve">
+    <value>Личные настройки удалены, действуют значения из appsettings.json.</value>
+  </data>
+  <data name="Msg_SettingsSaved" xml:space="preserve">
+    <value>Настройки сохранены. Профиль и язык применятся после перезапуска программы.</value>
+  </data>
   <data name="Panel_Errors" xml:space="preserve">
     <value>Ошибки</value>
   </data>
@@ -211,6 +223,54 @@
   </data>
   <data name="Report_WindowTitle" xml:space="preserve">
     <value>Сводный отчёт</value>
+  </data>
+  <data name="Settings_Accent" xml:space="preserve">
+    <value>Основной цвет (#RRGGBB)</value>
+  </data>
+  <data name="Settings_Autosave" xml:space="preserve">
+    <value>Автосохранение черновика, мин (0 — выкл.)</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Обзор…</value>
+  </data>
+  <data name="Settings_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Settings_Export" xml:space="preserve">
+    <value>Экспорт…</value>
+  </data>
+  <data name="Settings_ExportFolder" xml:space="preserve">
+    <value>Папка для экспорта</value>
+  </data>
+  <data name="Settings_Import" xml:space="preserve">
+    <value>Импорт…</value>
+  </data>
+  <data name="Settings_IncludeQr" xml:space="preserve">
+    <value>Добавлять QR-код в PDF по умолчанию</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Язык по умолчанию</value>
+  </data>
+  <data name="Settings_Profile" xml:space="preserve">
+    <value>Профиль (среда)</value>
+  </data>
+  <data name="Settings_QrSize" xml:space="preserve">
+    <value>Размер точки QR-кода, пикс.</value>
+  </data>
+  <data name="Settings_Reset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="Settings_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Settings_Sources" xml:space="preserve">
+    <value>Откуда берутся настройки (по возрастанию приоритета)</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Настройки программы</value>
+  </data>
+  <data name="Status_Autosaved" xml:space="preserve">
+    <value>Черновик сохранён автоматически</value>
   </data>
   <data name="Status_DraftRestored" xml:space="preserve">
     <value>Восстановлен черновик с прошлого запуска</value>

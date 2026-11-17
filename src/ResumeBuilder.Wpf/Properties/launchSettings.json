@@ -1,0 +1,18 @@
+{
+  "profiles": {
+    "ResumeBuilder (Production)": {
+      "commandName": "Project"
+    },
+    "ResumeBuilder (Development)": {
+      "commandName": "Project",
+      "commandLineArgs": "--env Development"
+    },
+    "ResumeBuilder (English, env var)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "RESUMEBUILDER_App__DefaultLanguage": "en-US",
+        "RESUMEBUILDER_App__QrPixelsPerModule": "12"
+      }
+    }
+  }
+}

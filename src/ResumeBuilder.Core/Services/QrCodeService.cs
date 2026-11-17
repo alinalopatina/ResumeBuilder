@@ -1,4 +1,5 @@
 using QRCoder;
+using ResumeBuilder.Core.Configuration;
 using ResumeBuilder.Core.Models;
 
 namespace ResumeBuilder.Core.Services;
@@ -7,12 +8,14 @@ namespace ResumeBuilder.Core.Services;
 public static class QrCodeService
 {
     /// <summary>Возвращает картинку PNG с QR-кодом.</summary>
-    public static byte[] CreatePng(string text, int pixelsPerModule = 8)
+    /// <param name="text">Что закодировать.</param>
+    /// <param name="pixelsPerModule">Размер точки; если не указан — из настроек (App:QrPixelsPerModule).</param>
+    public static byte[] CreatePng(string text, int? pixelsPerModule = null)
     {
         using var generator = new QRCodeGenerator();
         using QRCodeData data = generator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q, forceUtf8: true);
         var png = new PngByteQRCode(data);
-        return png.GetGraphic(pixelsPerModule);
+        return png.GetGraphic(pixelsPerModule ?? ConfigManager.Current.QrPixelsPerModule);
     }
 
     /// <summary>

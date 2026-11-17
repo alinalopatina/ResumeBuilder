@@ -113,6 +113,27 @@
   <data name="Conclusion_Senior" xml:space="preserve">
     <value>Опыт больше трёх лет — стоит подробнее описать достижения.</value>
   </data>
+  <data name="Config_Error_Autosave" xml:space="preserve">
+    <value>Интервал автосохранения — от 0 до 60 минут</value>
+  </data>
+  <data name="Config_Error_Color" xml:space="preserve">
+    <value>Цвет должен быть в формате #RRGGBB, например #4F46E5</value>
+  </data>
+  <data name="Config_Error_Environment" xml:space="preserve">
+    <value>Профиль (Environment) должен быть Development или Production</value>
+  </data>
+  <data name="Config_Error_Folder" xml:space="preserve">
+    <value>Папка для экспорта не существует: {0}</value>
+  </data>
+  <data name="Config_Error_Language" xml:space="preserve">
+    <value>Язык должен быть ru-RU или en-US</value>
+  </data>
+  <data name="Config_Error_QrSize" xml:space="preserve">
+    <value>Размер точки QR-кода — от 2 до 20 пикселей</value>
+  </data>
+  <data name="Config_Error_SlowMs" xml:space="preserve">
+    <value>Порог медленной операции — от 1 до 60000 мс</value>
+  </data>
   <data name="Error_Age" xml:space="preserve">
     <value>Возраст должен быть от 14 до 100 лет</value>
   </data>

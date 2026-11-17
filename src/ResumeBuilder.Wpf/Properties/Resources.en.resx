@@ -176,6 +176,9 @@
   <data name="Menu_Save" xml:space="preserve">
     <value>Save as...</value>
   </data>
+  <data name="Menu_Settings" xml:space="preserve">
+    <value>Settings…</value>
+  </data>
   <data name="Msg_AlreadyFilled" xml:space="preserve">
     <value>Found, but the field is already filled (not changed):</value>
   </data>
@@ -203,6 +206,15 @@
   <data name="Msg_Saved" xml:space="preserve">
     <value>File saved</value>
   </data>
+  <data name="Msg_SettingsImported" xml:space="preserve">
+    <value>Settings loaded from file. Press Save to apply.</value>
+  </data>
+  <data name="Msg_SettingsReset" xml:space="preserve">
+    <value>Personal settings removed, values from appsettings.json are used.</value>
+  </data>
+  <data name="Msg_SettingsSaved" xml:space="preserve">
+    <value>Settings saved. Profile and language will apply after restart.</value>
+  </data>
   <data name="Panel_Errors" xml:space="preserve">
     <value>Errors</value>
   </data>
@@ -211,6 +223,54 @@
   </data>
   <data name="Report_WindowTitle" xml:space="preserve">
     <value>Summary report</value>
+  </data>
+  <data name="Settings_Accent" xml:space="preserve">
+    <value>Accent color (#RRGGBB)</value>
+  </data>
+  <data name="Settings_Autosave" xml:space="preserve">
+    <value>Draft autosave, min (0 — off)</value>
+  </data>
+  <data name="Settings_Browse" xml:space="preserve">
+    <value>Browse…</value>
+  </data>
+  <data name="Settings_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Settings_Export" xml:space="preserve">
+    <value>Export…</value>
+  </data>
+  <data name="Settings_ExportFolder" xml:space="preserve">
+    <value>Export folder</value>
+  </data>
+  <data name="Settings_Import" xml:space="preserve">
+    <value>Import…</value>
+  </data>
+  <data name="Settings_IncludeQr" xml:space="preserve">
+    <value>Add QR code to PDF by default</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Default language</value>
+  </data>
+  <data name="Settings_Profile" xml:space="preserve">
+    <value>Profile (environment)</value>
+  </data>
+  <data name="Settings_QrSize" xml:space="preserve">
+    <value>QR module size, px</value>
+  </data>
+  <data name="Settings_Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Settings_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Settings_Sources" xml:space="preserve">
+    <value>Configuration sources (from lowest to highest priority)</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Program settings</value>
+  </data>
+  <data name="Status_Autosaved" xml:space="preserve">
+    <value>Draft saved automatically</value>
   </data>
   <data name="Status_DraftRestored" xml:space="preserve">
     <value>Draft from the last session restored</value>

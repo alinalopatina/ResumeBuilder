@@ -37,6 +37,7 @@
                 <MenuItem Header="Русский" Command="{Binding RussianCommand}" />
                 <MenuItem Header="English" Command="{Binding EnglishCommand}" />
             </MenuItem>
+            <MenuItem Header="{x:Static p:Resources.Menu_Settings}" Command="{Binding SettingsCommand}" />
         </Menu>
 
         <!-- Строка состояния -->

@@ -1,0 +1,6 @@
+# В YAML можно писать комментарии, вложенность задаётся отступами
+Logging:
+  MaxFileSizeMb: 10
+Ui:
+  Theme: Light
+  Language: ru-RU
