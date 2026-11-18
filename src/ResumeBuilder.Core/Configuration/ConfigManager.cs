@@ -199,7 +199,7 @@ public static class ConfigManager
             string text = provider switch
             {
                 Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider json =>
-                    DescribeFile(FullPath(json)),
+                    FullPath(json) + (File.Exists(FullPath(json)) ? "" : "  (файла нет)"),
                 Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider =>
                     "Переменные окружения " + EnvironmentPrefix + "*",
                 Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider =>
@@ -211,15 +211,6 @@ public static class ConfigManager
         lines.Add("");
         lines.Add($"Профиль: {Current.Environment}");
         return string.Join(System.Environment.NewLine, lines);
-    }
-
-    // Только имя файла и где он лежит, без полного пути
-    private static string DescribeFile(string path)
-    {
-        string where = path.StartsWith(Path.GetDirectoryName(UserFilePath)!, StringComparison.OrdinalIgnoreCase)
-            ? "папка пользователя"
-            : "папка программы";
-        return $"{Path.GetFileName(path)} ({where})" + (File.Exists(path) ? "" : " — файла нет");
     }
 
     private static string FullPath(Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider json) =>
