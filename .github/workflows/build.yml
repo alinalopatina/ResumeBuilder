@@ -25,3 +25,26 @@ jobs:
 
       - name: Тесты
         run: dotnet test tests/ResumeBuilder.Tests -c Release --no-build --logger GitHubActions
+
+  # Пробная сборка дистрибутива при каждом push: zip + установщик (скачать — во вкладке Actions → Artifacts)
+  package:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Установка Inno Setup
+        run: choco install innosetup -y --no-progress
+
+      - name: Сборка дистрибутива
+        shell: pwsh
+        run: ./build/publish.ps1
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ResumeBuilder-dist
+          path: dist/*
