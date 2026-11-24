@@ -1,0 +1,69 @@
+# Стек ResumeBuilder (лаба 10.3): веб-служба + PostgreSQL + Redis.
+#   docker compose up -d --build     — собрать и запустить всё одной командой
+#   docker compose ps                — состояние сервисов
+#   docker compose logs -f api       — журнал службы
+#   docker compose down              — остановить и удалить контейнеры (данные в томе сохраняются)
+#   docker compose down -v           — то же + удалить тома с данными
+# Swagger: http://localhost:8080/swagger
+name: resumebuilder
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/ResumeBuilder.Api/Dockerfile
+      args:
+        VERSION: ${VERSION:-1.2.0}
+    image: resumebuilder-api:${VERSION:-1.2.0}
+    ports:
+      - "${API_PORT:-8080}:8080"
+    environment:
+      ConnectionStrings__Postgres: "Host=db;Database=resumes;Username=resume;Password=${POSTGRES_PASSWORD:-resume_dev}"
+      ConnectionStrings__Redis: "cache:6379"
+      App__DefaultLanguage: ${APP_LANGUAGE:-ru-RU}
+    depends_on:
+      db:
+        condition: service_healthy
+      cache:
+        condition: service_healthy
+    networks:
+      - backend
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: resumes
+      POSTGRES_USER: resume
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-resume_dev}
+    volumes:
+      - pgdata:/var/lib/postgresql/data      # данные базы переживают перезапуск и удаление контейнера
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U resume -d resumes"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - backend
+    restart: unless-stopped
+
+  cache:
+    image: redis:7-alpine
+    command: ["redis-server", "--maxmemory", "64mb", "--maxmemory-policy", "allkeys-lru"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - backend
+    restart: unless-stopped
+
+# Своя сеть: сервисы видят друг друга по именам (db, cache), снаружи открыт только порт api
+networks:
+  backend:
+    name: resumebuilder-net
+
+volumes:
+  pgdata:
+    name: resumebuilder-pgdata

@@ -327,6 +327,15 @@ namespace ResumeBuilder.Core.Resources {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Репозиторий обновлений указывается как владелец/имя.
+        /// </summary>
+        public static string Config_Error_Repository {
+            get {
+                return ResourceManager.GetString("Config_Error_Repository", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Порог медленной операции — от 1 до 60000 мс.
         /// </summary>
         public static string Config_Error_SlowMs {

@@ -1,0 +1,65 @@
+# Развёртывание в кластере Docker Swarm (лаба 10.3, модуль 3).
+#   docker swarm init
+#   docker build -f src/ResumeBuilder.Api/Dockerfile -t resumebuilder-api:1.2.0 .
+#   docker stack deploy -c deploy/swarm/stack.yml resumebuilder
+#   docker service ls
+#   docker service scale resumebuilder_api=5                                  — масштабирование
+#   docker service update --image resumebuilder-api:1.2.1 resumebuilder_api   — rolling update
+#   docker stack rm resumebuilder
+# На кластере из нескольких машин образ берётся из реестра (ghcr.io/alinalopatina/resumebuilder-api:1.2.0).
+version: "3.8"
+
+services:
+  api:
+    image: ${API_IMAGE:-resumebuilder-api:1.2.0}
+    ports:
+      - "8080:8080"
+    environment:
+      ConnectionStrings__Postgres: "Host=db;Database=resumes;Username=resume;Password=resume_dev"
+      ConnectionStrings__Redis: "cache:6379"
+    networks:
+      - backend
+    deploy:
+      replicas: 3                     # три копии службы, Swarm распределяет запросы между ними
+      update_config:
+        parallelism: 1                # обновлять по одной реплике
+        delay: 10s
+        order: start-first            # сначала поднять новую, потом остановить старую — без простоя
+        failure_action: rollback      # новая версия не стартует — вернуть старую
+      rollback_config:
+        parallelism: 1
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+      resources:
+        limits:
+          memory: 512M
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: resumes
+      POSTGRES_USER: resume
+      POSTGRES_PASSWORD: resume_dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - backend
+    deploy:
+      replicas: 1                     # база с состоянием — одна копия на manager-узле
+      placement:
+        constraints: [ "node.role == manager" ]
+
+  cache:
+    image: redis:7-alpine
+    networks:
+      - backend
+    deploy:
+      replicas: 1
+
+networks:
+  backend:
+    driver: overlay                   # сеть между узлами кластера
+
+volumes:
+  pgdata:

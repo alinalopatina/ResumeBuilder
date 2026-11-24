@@ -29,3 +29,9 @@ output/
 docs/docfx/_site/
 docs/docfx/api/
 docs/docfx/obj/
+
+## Docker / дистрибутив
+.env
+publish/
+dist/
+*.pfx

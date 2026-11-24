@@ -1,0 +1,14 @@
+<Project>
+  <!-- Единый источник версии и сведений о программе для всех проектов решения (лаба 10.1, задание 3.3).
+       При сборке из этих свойств автоматически создаётся AssemblyInfo: версия попадает в свойства exe,
+       в окно «О программе», в имя установщика и в тег Docker-образа.
+       Новая версия = поменять только <Version> здесь. -->
+  <PropertyGroup>
+    <Version>1.2.0</Version>
+    <Product>ResumeBuilder</Product>
+    <Company>Лопатина А. Н.</Company>
+    <Authors>Лопатина Алина Николаевна</Authors>
+    <Copyright>© 2026 Лопатина А. Н.</Copyright>
+    <Description>Конструктор резюме с экспортом в PDF и QR-кодом</Description>
+  </PropertyGroup>
+</Project>

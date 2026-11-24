@@ -125,6 +125,12 @@
   <data name="Field_Website" xml:space="preserve">
     <value>Website / GitHub</value>
   </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Menu_CheckUpdates" xml:space="preserve">
+    <value>Check for updates…</value>
+  </data>
   <data name="Menu_CompareFormats" xml:space="preserve">
     <value>Compare JSON and binary format</value>
   </data>
@@ -149,6 +155,9 @@
   <data name="Menu_File" xml:space="preserve">
     <value>_File</value>
   </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>_Help</value>
+  </data>
   <data name="Menu_ImportText" xml:space="preserve">
     <value>Fill contacts from text (.txt)...</value>
   </data>
@@ -163,6 +172,9 @@
   </data>
   <data name="Menu_Open" xml:space="preserve">
     <value>Open...</value>
+  </data>
+  <data name="Menu_OpenLogs" xml:space="preserve">
+    <value>Open log folder</value>
   </data>
   <data name="Menu_Print" xml:space="preserve">
     <value>Print...</value>
@@ -179,6 +191,14 @@
   <data name="Menu_Settings" xml:space="preserve">
     <value>Settings…</value>
   </data>
+  <data name="Msg_About" xml:space="preserve">
+    <value>{0}
+Version {1}
+
+Resume builder with PDF export and QR code.
+Course project, BNTU.
+{2}</value>
+  </data>
   <data name="Msg_AlreadyFilled" xml:space="preserve">
     <value>Found, but the field is already filled (not changed):</value>
   </data>
@@ -193,6 +213,12 @@
   </data>
   <data name="Msg_Imported" xml:space="preserve">
     <value>Jobs added: {0}. Skipped as already present: {1}</value>
+  </data>
+  <data name="Msg_NoReleases" xml:space="preserve">
+    <value>There are no releases on GitHub yet.</value>
+  </data>
+  <data name="Msg_NoUpdates" xml:space="preserve">
+    <value>You have the latest version ({0}).</value>
   </data>
   <data name="Msg_NothingFound" xml:space="preserve">
     <value>No new contacts found in the text</value>
@@ -214,6 +240,14 @@
   </data>
   <data name="Msg_SettingsSaved" xml:space="preserve">
     <value>Settings saved. Profile and language will apply after restart.</value>
+  </data>
+  <data name="Msg_UpdateAvailable" xml:space="preserve">
+    <value>New version {0} is available (you have {1}).
+
+Download and install?</value>
+  </data>
+  <data name="Msg_UpdateError" xml:space="preserve">
+    <value>Could not check for updates:</value>
   </data>
   <data name="Panel_Errors" xml:space="preserve">
     <value>Errors</value>

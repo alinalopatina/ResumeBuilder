@@ -33,7 +33,7 @@ public class MainViewModel : ViewModelBase
     private bool _includeQr = true;
     private bool _hideContacts;
 
-    public MainViewModel(AppSettings settings, AppConfig config)
+    public MainViewModel(AppSettings settings, AppConfig config, string? fileToOpen = null)
     {
         _settings = settings;
         _config = config;
@@ -58,14 +58,20 @@ public class MainViewModel : ViewModelBase
         RussianCommand = new RelayCommand(() => ChangeLanguage("ru-RU"));
         EnglishCommand = new RelayCommand(() => ChangeLanguage("en-US"));
         SettingsCommand = new RelayCommand(OpenSettings);
+        CheckUpdatesCommand = new RelayCommand(CheckUpdates);
+        OpenLogsCommand = new RelayCommand(OpenLogs);
+        AboutCommand = new RelayCommand(ShowAbout);
 
         // Автосохранение черновика: интервал из настроек (App:AutosaveMinutes)
         _autosaveTimer.Tick += (_, _) => Autosave();
         StartAutosaveTimer();
 
-        // При запуске: последний файл → черновик из кэша → пример
+        // При запуске: файл, по которому дважды щёлкнули в проводнике (ассоциация .rbin) →
+        // последний файл → черновик из кэша → пример
         Resume? draft = DraftCache.TryLoad();
-        if (settings.LastFile != null && File.Exists(settings.LastFile))
+        if (fileToOpen != null)
+            OpenFile(fileToOpen);
+        else if (settings.LastFile != null && File.Exists(settings.LastFile))
             OpenFile(settings.LastFile);
         else if (draft != null)
         {
@@ -140,6 +146,9 @@ public class MainViewModel : ViewModelBase
     public RelayCommand RussianCommand { get; }
     public RelayCommand EnglishCommand { get; }
     public RelayCommand SettingsCommand { get; }
+    public RelayCommand CheckUpdatesCommand { get; }
+    public RelayCommand OpenLogsCommand { get; }
+    public RelayCommand AboutCommand { get; }
 
     // ---------- работа с файлами ----------
 
@@ -404,6 +413,64 @@ public class MainViewModel : ViewModelBase
         {
             ShowError(ex);
         }
+    }
+
+    // ---------- справка: обновления, журналы, о программе (лаба 10.1) ----------
+
+    private async void CheckUpdates()
+    {
+        try
+        {
+            UpdateInfo? release = await UpdateService.GetLatestAsync(_config.UpdateRepository);
+            if (release == null)
+            {
+                MessageBox.Show(Res.Msg_NoReleases, Res.App_Title);
+                return;
+            }
+            if (!UpdateService.IsNewer(release, AppInfo.Version))
+            {
+                MessageBox.Show(string.Format(Res.Msg_NoUpdates, AppInfo.Version), Res.App_Title);
+                return;
+            }
+
+            string question = string.Format(Res.Msg_UpdateAvailable, release.Version, AppInfo.Version);
+            if (MessageBox.Show(question, Res.App_Title, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                return;
+
+            if (release.InstallerUrl == null)
+            {
+                // В выпуске нет установщика — открываем страницу выпуска в браузере
+                Process.Start(new ProcessStartInfo(release.PageUrl) { UseShellExecute = true });
+                return;
+            }
+
+            Status = release.InstallerUrl;
+            string installer = await UpdateService.DownloadAsync(release.InstallerUrl);
+            AuditLog.Write("Обновление", release.Tag, true);
+
+            // Сохраняем черновик, запускаем установщик и закрываем программу,
+            // чтобы установщик мог заменить файлы
+            Application.Current.MainWindow?.Close();
+            Process.Start(new ProcessStartInfo(installer) { UseShellExecute = true });
+            Application.Current.Shutdown();
+        }
+        catch (Exception ex)
+        {
+            Logger.Warning(ex, "Ошибка проверки обновлений");
+            MessageBox.Show(Res.Msg_UpdateError + "\n" + ex.Message, Res.App_Title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    private static void OpenLogs()
+    {
+        Directory.CreateDirectory(LoggingSetup.LogFolder);
+        Process.Start(new ProcessStartInfo(LoggingSetup.LogFolder) { UseShellExecute = true });
+    }
+
+    private static void ShowAbout()
+    {
+        MessageBox.Show(string.Format(Res.Msg_About, AppInfo.Product, AppInfo.Version, AppInfo.Copyright),
+            Res.Menu_About.Replace("_", ""), MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     // ---------- настройки (лаба 9) ----------

@@ -125,6 +125,12 @@
   <data name="Field_Website" xml:space="preserve">
     <value>Сайт / GitHub</value>
   </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="Menu_CheckUpdates" xml:space="preserve">
+    <value>Проверить обновления…</value>
+  </data>
   <data name="Menu_CompareFormats" xml:space="preserve">
     <value>Сравнить JSON и двоичный формат</value>
   </data>
@@ -149,6 +155,9 @@
   <data name="Menu_File" xml:space="preserve">
     <value>_Файл</value>
   </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>_Справка</value>
+  </data>
   <data name="Menu_ImportText" xml:space="preserve">
     <value>Заполнить контакты из текста (.txt)...</value>
   </data>
@@ -163,6 +172,9 @@
   </data>
   <data name="Menu_Open" xml:space="preserve">
     <value>Открыть...</value>
+  </data>
+  <data name="Menu_OpenLogs" xml:space="preserve">
+    <value>Открыть папку журналов</value>
   </data>
   <data name="Menu_Print" xml:space="preserve">
     <value>Печать...</value>
@@ -179,6 +191,14 @@
   <data name="Menu_Settings" xml:space="preserve">
     <value>Настройки…</value>
   </data>
+  <data name="Msg_About" xml:space="preserve">
+    <value>{0}
+Версия {1}
+
+Конструктор резюме с экспортом в PDF и QR-кодом.
+Курсовой проект, БНТУ ФИТР, гр. 10701224.
+{2}</value>
+  </data>
   <data name="Msg_AlreadyFilled" xml:space="preserve">
     <value>Найдено, но поле уже заполнено (не изменено):</value>
   </data>
@@ -193,6 +213,12 @@
   </data>
   <data name="Msg_Imported" xml:space="preserve">
     <value>Добавлено мест работы: {0}. Пропущено, потому что уже есть: {1}</value>
+  </data>
+  <data name="Msg_NoReleases" xml:space="preserve">
+    <value>Выпусков на GitHub пока нет.</value>
+  </data>
+  <data name="Msg_NoUpdates" xml:space="preserve">
+    <value>У вас последняя версия ({0}).</value>
   </data>
   <data name="Msg_NothingFound" xml:space="preserve">
     <value>В тексте не найдено новых контактов</value>
@@ -214,6 +240,14 @@
   </data>
   <data name="Msg_SettingsSaved" xml:space="preserve">
     <value>Настройки сохранены. Профиль и язык применятся после перезапуска программы.</value>
+  </data>
+  <data name="Msg_UpdateAvailable" xml:space="preserve">
+    <value>Доступна новая версия {0} (у вас {1}).
+
+Скачать и установить?</value>
+  </data>
+  <data name="Msg_UpdateError" xml:space="preserve">
+    <value>Не удалось проверить обновления:</value>
   </data>
   <data name="Panel_Errors" xml:space="preserve">
     <value>Ошибки</value>

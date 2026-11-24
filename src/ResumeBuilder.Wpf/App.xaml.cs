@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -60,7 +61,11 @@ public partial class App : Application
         ApplyAccentColor(config.AccentColor);
 
         AppSettings settings = AppSettings.Load();
-        var viewModel = new MainViewModel(settings, config);
+        // Файл резюме, переданный в аргументах (двойной щелчок по .rbin после установки)
+        string? fileToOpen = e.Args.FirstOrDefault(a =>
+            (a.EndsWith(".rbin", StringComparison.OrdinalIgnoreCase) || a.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+            && File.Exists(a));
+        var viewModel = new MainViewModel(settings, config, fileToOpen);
         var window = new MainWindow { DataContext = viewModel };
         window.Width = settings.WindowWidth;
         window.Height = settings.WindowHeight;

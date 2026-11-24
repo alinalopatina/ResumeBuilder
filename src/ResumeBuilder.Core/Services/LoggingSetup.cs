@@ -15,6 +15,13 @@ public static class LoggingSetup
     /// <summary>Порог «медленной» операции в мс (App:SlowOperationMs в настройках).</summary>
     public static int SlowOperationMs => ConfigManager.Current.SlowOperationMs;
 
+    /// <summary>
+    /// Папка журналов: %LOCALAPPDATA%\ResumeBuilder\logs. Не рядом с exe — после установки
+    /// в Program Files туда нельзя писать без прав администратора.
+    /// </summary>
+    public static string LogFolder => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ResumeBuilder", "logs");
+
     /// <summary>Создаёт журнал по уже загруженной конфигурации (см. <see cref="ConfigManager"/>).</summary>
     /// <param name="config">
     /// Объединённая конфигурация. Если в ней поменять MinimumLevel в файле во время работы,
@@ -29,7 +36,7 @@ public static class LoggingSetup
             // хранится 12 месяцев (основной журнал — 7 дней)
             .WriteTo.Logger(audit => audit
                 .Filter.ByIncludingOnly(Matching.FromSource(AuditLog.Name))
-                .WriteTo.File("logs/audit-.log",
+                .WriteTo.File(Path.Combine(LogFolder, "audit-.log"),
                     rollingInterval: RollingInterval.Month,
                     retainedFileCountLimit: 12,
                     outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} {Message:lj}{NewLine}"))

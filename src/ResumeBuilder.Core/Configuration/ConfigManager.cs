@@ -57,6 +57,14 @@ public static class ConfigManager
     {
         Arguments = args;
         Directory.CreateDirectory(Path.GetDirectoryName(UserFilePath)!);
+
+        // Первый запуск (лаба 10.1, задание 1.3): создаём файл личных настроек в папке пользователя.
+        // Папка программы (Program Files) только для чтения, поэтому всё изменяемое — в %AppData%
+        if (!File.Exists(UserFilePath))
+        {
+            File.WriteAllText(UserFilePath, "{\n  \"App\": {}\n}\n");
+            Logger.Information("Первый запуск: создан файл настроек {Path}", UserFilePath);
+        }
         Root = Build(AppContext.BaseDirectory, UserFilePath, args);
         Current = Bind(Root);
 
@@ -64,6 +72,13 @@ public static class ConfigManager
         // а мы получаем сигнал и обновляем Current
         ChangeToken.OnChange(Root.GetReloadToken, OnReloaded);
         return Current;
+    }
+
+    /// <summary>Задать настройки напрямую — для веб-службы, у которой своя конфигурация ASP.NET Core.</summary>
+    public static void Apply(AppConfig config)
+    {
+        ArgumentNullException.ThrowIfNull(config);
+        Current = config;
     }
 
     /// <summary>Собирает конфигурацию из всех источников. Отдельный метод — чтобы проверить порядок в тестах.</summary>

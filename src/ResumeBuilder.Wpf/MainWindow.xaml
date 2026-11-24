@@ -38,6 +38,12 @@
                 <MenuItem Header="English" Command="{Binding EnglishCommand}" />
             </MenuItem>
             <MenuItem Header="{x:Static p:Resources.Menu_Settings}" Command="{Binding SettingsCommand}" />
+            <MenuItem Header="{x:Static p:Resources.Menu_Help}">
+                <MenuItem Header="{x:Static p:Resources.Menu_CheckUpdates}" Command="{Binding CheckUpdatesCommand}" />
+                <MenuItem Header="{x:Static p:Resources.Menu_OpenLogs}" Command="{Binding OpenLogsCommand}" />
+                <Separator />
+                <MenuItem Header="{x:Static p:Resources.Menu_About}" Command="{Binding AboutCommand}" />
+            </MenuItem>
         </Menu>
 
         <!-- Строка состояния -->

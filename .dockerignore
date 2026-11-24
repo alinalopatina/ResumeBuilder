@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+**/.vs/
+publish/
+dist/
+.git/
+docs/
+tests/
+installer/
+*.md

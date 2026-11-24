@@ -131,6 +131,9 @@
   <data name="Config_Error_QrSize" xml:space="preserve">
     <value>QR module size must be from 2 to 20 pixels</value>
   </data>
+  <data name="Config_Error_Repository" xml:space="preserve">
+    <value>Update repository must be owner/name</value>
+  </data>
   <data name="Config_Error_SlowMs" xml:space="preserve">
     <value>Slow operation threshold must be from 1 to 60000 ms</value>
   </data>

@@ -309,6 +309,24 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на О программе.
+        /// </summary>
+        public static string Menu_About {
+            get {
+                return ResourceManager.GetString("Menu_About", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Проверить обновления….
+        /// </summary>
+        public static string Menu_CheckUpdates {
+            get {
+                return ResourceManager.GetString("Menu_CheckUpdates", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Сравнить JSON и двоичный формат.
         /// </summary>
         public static string Menu_CompareFormats {
@@ -381,6 +399,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на _Справка.
+        /// </summary>
+        public static string Menu_Help {
+            get {
+                return ResourceManager.GetString("Menu_Help", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Заполнить контакты из текста (.txt)....
         /// </summary>
         public static string Menu_ImportText {
@@ -422,6 +449,15 @@ namespace ResumeBuilder.Wpf.Properties {
         public static string Menu_Open {
             get {
                 return ResourceManager.GetString("Menu_Open", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Открыть папку журналов.
+        /// </summary>
+        public static string Menu_OpenLogs {
+            get {
+                return ResourceManager.GetString("Menu_OpenLogs", resourceCulture);
             }
         }
 
@@ -471,6 +507,15 @@ namespace ResumeBuilder.Wpf.Properties {
         }
 
         /// <summary>
+        ///   Ищет локализованную строку, похожую на {0} Версия {1}  Конструктор резюме с экспортом в PDF и QR-кодом. Курсовой проект, БНТУ ФИТР, гр. 10701224. {2}.
+        /// </summary>
+        public static string Msg_About {
+            get {
+                return ResourceManager.GetString("Msg_About", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Найдено, но поле уже заполнено (не изменено):.
         /// </summary>
         public static string Msg_AlreadyFilled {
@@ -512,6 +557,24 @@ namespace ResumeBuilder.Wpf.Properties {
         public static string Msg_Imported {
             get {
                 return ResourceManager.GetString("Msg_Imported", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выпусков на GitHub пока нет..
+        /// </summary>
+        public static string Msg_NoReleases {
+            get {
+                return ResourceManager.GetString("Msg_NoReleases", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на У вас последняя версия ({0})..
+        /// </summary>
+        public static string Msg_NoUpdates {
+            get {
+                return ResourceManager.GetString("Msg_NoUpdates", resourceCulture);
             }
         }
 
@@ -575,6 +638,24 @@ namespace ResumeBuilder.Wpf.Properties {
         public static string Msg_SettingsSaved {
             get {
                 return ResourceManager.GetString("Msg_SettingsSaved", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Доступна новая версия {0} (у вас {1}).  Скачать и установить?.
+        /// </summary>
+        public static string Msg_UpdateAvailable {
+            get {
+                return ResourceManager.GetString("Msg_UpdateAvailable", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось проверить обновления:.
+        /// </summary>
+        public static string Msg_UpdateError {
+            get {
+                return ResourceManager.GetString("Msg_UpdateError", resourceCulture);
             }
         }
 

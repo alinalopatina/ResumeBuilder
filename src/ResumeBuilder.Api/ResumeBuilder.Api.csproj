@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- Веб-служба для Docker (лаба 10.2–10.3): та же библиотека ResumeBuilder.Core,
+       но вместо окон — HTTP API. Запускается в Linux-контейнере -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResumeBuilder.Core\ResumeBuilder.Core.csproj" />
+    <!-- PostgreSQL — хранение резюме, Redis — кэш готовых PDF, Swagger — страница для проверки API -->
+    <PackageReference Include="Npgsql" Version="8.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.11" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,69 @@
+# Docker (лабы 10.2–10.3): сборка образа, запуск стека docker compose и проверка;
+# при теге v* — публикация образа в GitHub Container Registry (ghcr.io)
+name: docker
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  compose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Сборка и запуск стека (api + PostgreSQL + Redis)
+        run: docker compose up -d --build
+
+      - name: Проверка работы
+        run: |
+          docker compose ps
+          bash ./deploy/smoke-test.sh
+
+      - name: Журналы при ошибке
+        if: failure()
+        run: |
+          docker compose ps -a
+          msg=$(docker compose logs --no-color api | tail -60 | sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g')
+          echo "::error title=api logs::$msg"
+
+      - name: Остановка стека
+        if: always()
+        run: docker compose down -v
+
+  publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: compose
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Версия из тега
+        id: v
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Сборка и публикация образа (amd64 + arm64)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: src/ResumeBuilder.Api/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          build-args: VERSION=${{ steps.v.outputs.version }}
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/resumebuilder-api:${{ steps.v.outputs.version }}
+            ghcr.io/${{ github.repository_owner }}/resumebuilder-api:latest

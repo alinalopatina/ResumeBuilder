@@ -43,6 +43,11 @@ public class AppConfig
     [Range(1, 60000, ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Config_Error_SlowMs))]
     public int SlowOperationMs { get; set; } = 1000;
 
+    /// <summary>Репозиторий GitHub, где проверяются обновления (владелец/имя).</summary>
+    [RegularExpression(@"^[\w.-]+/[\w.-]+$",
+        ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = nameof(Messages.Config_Error_Repository))]
+    public string UpdateRepository { get; set; } = "alinalopatina/ResumeBuilder";
+
     /// <summary>
     /// Проверка настроек: атрибуты (DataAnnotations) + ручная проверка папки.
     /// Пустой список — настройки правильные.

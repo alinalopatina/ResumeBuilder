@@ -131,6 +131,9 @@
   <data name="Config_Error_QrSize" xml:space="preserve">
     <value>Размер точки QR-кода — от 2 до 20 пикселей</value>
   </data>
+  <data name="Config_Error_Repository" xml:space="preserve">
+    <value>Репозиторий обновлений указывается как владелец/имя</value>
+  </data>
   <data name="Config_Error_SlowMs" xml:space="preserve">
     <value>Порог медленной операции — от 1 до 60000 мс</value>
   </data>
