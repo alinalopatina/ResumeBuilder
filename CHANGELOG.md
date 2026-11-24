@@ -7,18 +7,23 @@
 
 ## [Не выпущено]
 
+## [1.2.0] — 2026-11-24
+
 ### Добавлено
 - Конфигурирование: настройки из кода, `appsettings.json`, профилей Development/Production,
   личного файла пользователя, переменных окружения `RESUMEBUILDER_*` и аргументов командной строки.
 - Окно «Настройки…»: папка экспорта, размер QR-кода, автосохранение, основной цвет, импорт/экспорт, сброс.
 - Проверка настроек при запуске и применение изменённого файла настроек без перезапуска.
 - Автосохранение черновика по таймеру.
+- Дистрибутив: один self-contained exe, портативный zip, установщик с ярлыками и ассоциацией `.rbin`.
+- Меню «Справка»: проверка обновлений на GitHub, папка журналов, «О программе».
+- Выпуск версии по тегу в GitHub Actions, подпись кода тестовым сертификатом.
+- Веб-служба `ResumeBuilder.Api` в Docker; `docker-compose` с PostgreSQL и Redis; файлы для Swarm и Kubernetes.
 
 ### Изменено
-- Язык, выбранный в меню, хранится в личных настройках (`usersettings.json`), а не в `settings.json`.
-
-### Запланировано
-- Сборка установщика и Docker-образа (лабораторные 10.1–10.3).
+- Язык, выбранный в меню, хранится в личных настройках (`usersettings.json`).
+- Журналы пишутся в `%LOCALAPPDATA%\ResumeBuilder\logs`, а не рядом с exe.
+- Версия всех проектов задаётся в одном файле `Directory.Build.props`.
 
 ## [1.1.0] — 2026-11-16
 
@@ -49,6 +54,7 @@
 - Русский и английский интерфейс.
 - Документы README, LICENSE (MIT), XML-комментарии в коде.
 
-[Не выпущено]: https://github.com/alinalopatina/ResumeBuilder/compare/v1.1.0...HEAD
+[Не выпущено]: https://github.com/alinalopatina/ResumeBuilder/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/alinalopatina/ResumeBuilder/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/alinalopatina/ResumeBuilder/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/alinalopatina/ResumeBuilder/releases/tag/v1.0.0

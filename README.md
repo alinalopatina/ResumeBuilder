@@ -1,5 +1,8 @@
 # ResumeBuilder — конструктор резюме с экспортом в PDF и QR-кодом
 
+[![build](https://github.com/alinalopatina/ResumeBuilder/actions/workflows/build.yml/badge.svg)](https://github.com/alinalopatina/ResumeBuilder/actions/workflows/build.yml)
+[![docker](https://github.com/alinalopatina/ResumeBuilder/actions/workflows/docker.yml/badge.svg)](https://github.com/alinalopatina/ResumeBuilder/actions/workflows/docker.yml)
+
 Курсовой проект по дисциплине «Конструирование программного обеспечения».
 Автор: Лопатина Алина Николаевна, БНТУ, ФИТР, гр. 10701224.
 
@@ -75,9 +78,26 @@ docfx docs/docfx/docfx.json --serve
 ```
 src/ResumeBuilder.Core    — библиотека классов: модели и логика (сохранение, экспорт, проверка)
 src/ResumeBuilder.Wpf     — интерфейс на WPF по шаблону MVVM (Views, ViewModels)
+src/ResumeBuilder.Api     — веб-служба на той же библиотеке (для Docker)
 tests/ResumeBuilder.Tests — модульные тесты xUnit
+installer/                — установщик Inno Setup
+build/                    — скрипты сборки дистрибутива и подписи
+deploy/                   — Docker Swarm, Kubernetes, проверка стека
 docs/                     — документация (лабораторные, тесты, глоссарий, DocFX)
 ```
+
+## Установка
+
+Готовые файлы — на странице [Releases](https://github.com/alinalopatina/ResumeBuilder/releases):
+`ResumeBuilder-Setup-<версия>.exe` (установщик) или `ResumeBuilder-<версия>-portable-win-x64.zip`
+(распаковать и запустить). .NET устанавливать не нужно. Собрать самостоятельно — [docs/deployment.md](docs/deployment.md).
+
+## Docker
+
+```bash
+docker compose up -d --build     # веб-служба + PostgreSQL + Redis
+```
+Затем открыть http://localhost:8080/swagger. Подробно — [docs/docker.md](docs/docker.md).
 
 ## Документы проекта
 
@@ -89,6 +109,9 @@ docs/                     — документация (лабораторные
 | [docs/labs.md](docs/labs.md) | где в коде каждая лабораторная работа |
 | [docs/testing.md](docs/testing.md) | тестовый план, TDD |
 | [docs/configuration.md](docs/configuration.md) | настройки программы, профили, переменные окружения |
+| [docs/deployment.md](docs/deployment.md) | дистрибутив, установщик, подпись, обновления, выпуск версии |
+| [docs/docker.md](docs/docker.md) | Docker, docker compose, Swarm, Kubernetes |
+| [docs/reengineering.md](docs/reengineering.md) | реинжиниринг: анализ старой системы и план перехода |
 | [docs/audiences.md](docs/audiences.md) | целевые аудитории документации |
 | [docs/docs-audit.md](docs/docs-audit.md) | аудит устаревшей документации |
 

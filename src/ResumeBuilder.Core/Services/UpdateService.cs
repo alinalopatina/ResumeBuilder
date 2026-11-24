@@ -61,6 +61,7 @@ public static class UpdateService
 
     /// <summary>Узнаёт последний выпуск на GitHub.</summary>
     /// <param name="repository">Репозиторий в виде "владелец/имя".</param>
+    /// <param name="client">HTTP-клиент; если не передан — создаётся новый.</param>
     /// <returns>Сведения о выпуске или null, если выпусков ещё нет.</returns>
     /// <exception cref="HttpRequestException">Нет интернета или GitHub недоступен.</exception>
     public static async Task<UpdateInfo?> GetLatestAsync(string repository, HttpClient? client = null)
